@@ -8,6 +8,7 @@ class Auth extends CI_Controller{
 	}
 
 	public function index(){
+		redirect_login();
 		$data = [
 			'title' => 'Login'
 		];
@@ -43,5 +44,10 @@ class Auth extends CI_Controller{
 		}
 
 		echo json_encode($data);
+	}
+
+	public function logout(){
+		$this->session->unset_userdata('user');
+		redirect('admin/auth');
 	}
 }

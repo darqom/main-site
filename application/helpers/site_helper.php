@@ -13,3 +13,9 @@ function greet(){
 		return "Selamat Pagi";
 	}
 }
+
+function redirect_login(){
+	$ci = &get_instance();
+	$user = $ci->session->userdata('user');
+	if(!is_null($user)) redirect('admin/dashboard');
+}

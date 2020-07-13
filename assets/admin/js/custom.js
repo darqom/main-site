@@ -53,7 +53,7 @@
  					icon: 'check-circle',
  					text: data.msg
  				});
- 				document.location.href = baseUrl + 'admin/home';
+ 				document.location.href = baseUrl + 'admin/dashboard';
  				break;
  			}
  		}
