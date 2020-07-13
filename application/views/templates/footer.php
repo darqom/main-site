@@ -1,5 +1,5 @@
-<footer class="pt-55">
-	<div class="container-fluid text-white copyright-content">
+<footer class="pt-55 container-fluid">
+	<div class="text-white copyright-content">
 		<div class="row pl-50 pr-50">
 			<div class="col-md-4 brand">
 				<img src="assets/img/logo-full.png" alt="Logo Capt" width="175">

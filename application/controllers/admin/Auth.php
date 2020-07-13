@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Auth extends CI_Controller{
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('Admin/Auth_m', 'auth');
 	}
 
 	public function index(){
@@ -11,9 +12,7 @@ class Auth extends CI_Controller{
 			'title' => 'Login'
 		];
 
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/login');
-		$this->load->view('admin/templates/footer');
+		$this->template->load('admin/template', 'admin/auth/login', $data);
 	}
 
 	public function check_login(){
@@ -21,8 +20,8 @@ class Auth extends CI_Controller{
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		if($this->form_validation->run() == false){
-			echo json_encode([
-				'status' => 'error',
+			$data = [
+				'status' => 'validate',
 				'errors' => [
 					[
 						'name' => 'username',
@@ -33,7 +32,16 @@ class Auth extends CI_Controller{
 						'msg' => form_error('password')
 					]
 				]
-			]);
+			];
+		}else{
+			$res = $this->auth->do_login();
+			
+			$data = [
+				'status' => ($res['status'] == false) ? 'error' : 'success',
+				'msg' => $res['msg']
+			];
 		}
+
+		echo json_encode($data);
 	}
 }
