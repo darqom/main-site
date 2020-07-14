@@ -39,7 +39,7 @@
           </form>
 
           <div class="text-center mt-5 text-small">
-            Copyright &copy; <?= date('Y'); ?> SMK Darul Muqomah.
+            Copyright &copy; <?= date('Y'); ?> SMK Darul Muqomah. <br>Developed by <a href="https://github.com/irsyadulibad" target="_blank">Ahmad Irsyadul Ibad</a>
           </div>
         </div>
       </div>

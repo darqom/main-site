@@ -13,7 +13,7 @@ class Auth extends CI_Controller{
 			'title' => 'Login'
 		];
 
-		$this->template->load('admin/template', 'admin/auth/login', $data);
+		$this->template->load('panel/template', 'panel/auth/login', $data);
 	}
 
 	public function check_login(){
