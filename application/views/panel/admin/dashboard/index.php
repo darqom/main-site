@@ -1,30 +1,30 @@
 <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
-      <div class="card-icon bg-primary">
-        <i class="far fa-user"></i>
-      </div>
+      <a class="card-icon bg-primary" href="#">
+        <i class="fas fa-user-shield"></i>
+      </a>
       <div class="card-wrap">
         <div class="card-header">
           <h4>Total Admin</h4>
         </div>
         <div class="card-body">
-          10
+          <?= $statistics['admin']; ?>
         </div>
       </div>
     </div>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
-      <div class="card-icon bg-danger">
-        <i class="far fa-newspaper"></i>
-      </div>
+      <a class="card-icon bg-danger" href="#">
+        <i class="fas fa-user"></i>
+      </a>
       <div class="card-wrap">
         <div class="card-header">
-          <h4>News</h4>
+          <h4>Pengguna</h4>
         </div>
         <div class="card-body">
-          42
+          <?= $statistics['users']; ?>
         </div>
       </div>
     </div>
