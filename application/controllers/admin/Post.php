@@ -15,7 +15,40 @@ class Post extends MY_Controller{
 		$middleware = $this->middlewares['admin'];
 
 		$data['title'] = 'Tambah Pos';
+		$data['categories'] = $this->post->get_categories();
 		$middleware->generate_view('post/add', $data);
+	}
+
+	public function add_category(){
+		if(!is_null($this->input->post('category'))){
+			$this->form_validation->set_rules('category', 'Kategori', 'required');
+
+			if($this->form_validation->run() == false){
+				echo json_encode([
+					'status' => 'validate',
+					'errors' => [
+						[
+							'name' => 'category',
+							'msg' => form_error('category')
+						]
+					]
+				]);
+			}else{
+				$res = $this->post->add_category();
+
+				if(!$res['status']){
+					echo json_encode([
+						'status' => 'error',
+						'msg' => $res['msg']
+					]);
+				}else{
+					echo json_encode([
+						'status' => 'success',
+						'data' => $res['data']
+					]);
+				}
+			}
+		}
 	}
 
 	public function upload_image(){
@@ -35,7 +68,7 @@ class Post extends MY_Controller{
 		}
 	}
 
-	function delete_image(){
+	public function delete_image(){
 		$src = $this->input->post('src', true);
 		$file_name = str_replace(base_url(), '', $src);
 		if(unlink($file_name)){

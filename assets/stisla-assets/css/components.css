@@ -1719,3 +1719,22 @@ tr:first-child > td > .fc-day-grid-event {
     display: block; }
     .wizard-steps .wizard-step {
       margin-bottom: 50px; } }
+
+/* My Arrow CSS */
+.has-arrow{
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.has-arrow::before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f078";
+  float: right;
+  transition: all 0.5s;
+}
+.has-arrow.active::before {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  transform: rotate(180deg);
+} 

@@ -614,3 +614,8 @@ $(function() {
     });
   }
 });
+
+// Has Arrow Toggle Class
+$('.has-arrow').click(function(){
+  $(this).toggleClass('active');
+});

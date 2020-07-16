@@ -2,6 +2,30 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Post_m extends CI_Model{
+	public function get_categories(){
+		return $this->db->get('categories')->result_array();
+	}
+
+	public function add_category(){
+		$category = htmlspecialchars($this->input->post('category', true));
+		$slug = url_title($category, 'dash', true);
+
+		$data = [
+			'category_name' => $category,
+			'category_slug' => $slug
+		];
+		$this->db->insert('categories', $data);
+
+		if($this->db->affected_rows() > 0){
+			return ['status' => true, 'data' => [
+				'id' => $this->db->insert_id(),
+				'name' => $category
+			]];
+		}else{
+			return ['status' => true, 'msg' => 'Kategori berhasil ditambahkan'];
+		}
+	}
+
 	public function upload_image(){
 		$config['upload_path'] = './assets/img/post';
 		$config['allowed_types'] = 'jpg|jpeg|png|gif';
