@@ -58,6 +58,21 @@ function showFixLoader(){
 	});
 }
 
+function swalConfirm(callback, params = null){
+	Swal.fire({
+		icon: 'warning',
+		title: 'Apakah anda yakin?',
+		showCancelButton: true,
+		confirmButtonText: 'Ya',
+		cancelButtonText: 'Batal',
+		reverseButtons: true
+	}).then( result => {
+		if(result.value){
+			callback(params);
+		}
+	});
+}
+
 function previewImg(el, prevEl){
 	$(el).on('change', function(){
 		if(this.files && this.files[0]){
@@ -98,6 +113,22 @@ const delValidate = els => {
 	els.forEach(el => {
 		$(`input#${el}`).removeClass('is-invalid');
 		$(`.${el}-error`).html('');
+	});
+}
+
+function initDatatable(table){
+	$(table.el).DataTable({
+		processing: true,
+		serverSide: true,
+		ordering: true,
+		order: [[0, 'asc']],
+		ajax: {
+			url: baseUrl + table.url,
+			type: 'post'
+		},
+		deferRender: true,
+		aLengthMenu: [[5, 10, 50], [5, 10, 50]],
+		columns: table.columns
 	});
 }
 

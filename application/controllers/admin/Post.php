@@ -5,6 +5,7 @@ class Post extends MY_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Admin/Post_m', 'post');
+		$this->load->library('Datatables', 'datatables');
 	}
 
 	protected function middleware(){
@@ -17,6 +18,18 @@ class Post extends MY_Controller{
 		$data['title'] = 'Tambah Pos';
 		$data['categories'] = $this->post->get_categories();
 		$middleware->generate_view('post/add', $data);
+	}
+
+	public function categories(){
+		$middleware = $this->middlewares['admin'];
+
+		$data['title'] = 'Kategori Pos';
+		$middleware->generate_view('post/categories', $data);
+	}
+
+	public function categories_json(){
+		$this->datatables->table('categories')->select('id, category_name as name')->where(['id !=' => '1', 'is_deleted' => '0']);
+		echo $this->datatables->draw();
 	}
 
 	public function save(){
@@ -75,6 +88,18 @@ class Post extends MY_Controller{
 					]);
 				}
 			}
+		}
+	}
+
+	public function del_category(){
+		if(isset($_POST)){
+			$id = htmlspecialchars($this->input->post('id', true));
+			$res = $this->post->del_category($id);
+
+			echo json_encode([
+				'status' => (!$res['status']) ? 'error' : 'success',
+				'msg' => $res['msg']
+			]);
 		}
 	}
 

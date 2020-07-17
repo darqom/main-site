@@ -26,6 +26,20 @@ class Post_m extends CI_Model{
 		}
 	}
 
+	public function del_category($id){
+		if(is_null($id) || $id == '1'){
+			return ['status' => false, 'msg' => 'Gagal menghapus kategori'];
+		}
+
+		$data = ['is_deleted' => 1];
+		$this->db->update('categories', $data, ['id' => $id]);
+		if($this->db->affected_rows() > 0){
+			return ['status' => true, 'msg' => 'Berhasil menghapus kategori'];
+		}else{
+			return ['status' => false, 'msg' => 'Gagal menghapus kategori'];
+		}
+	}
+
 	public function save(){
 		$title = htmlspecialchars($this->input->post('title', true));
 		$slug = url_title($title, 'dash', true);

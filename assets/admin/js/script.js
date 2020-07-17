@@ -43,6 +43,7 @@ function updateCatUI(data){
 		`);
 	$('#add-category-form').trigger('reset');
 	$('#addCategoryModal').modal('toggle');
+	$('#tbl-categories').DataTable().ajax.reload();
 }
 
 $('#add-category-form').submit(function(e){
@@ -93,4 +94,40 @@ $('#save-post-form').submit(function(e){
 			}
 		}
 	});
+});
+
+initDatatable({
+	el: '#tbl-categories',
+	url: 'admin/post/categories_json',
+	columns: [
+	{data: 'name'},
+	{render: function(data, type, row){
+		return `
+		<button class="btn btn-sm btn-danger btn-del-category" data-id="${row.id}"><i class="fas fa-trash-alt"></i> Hapus</button>
+		`;
+	}}
+	]
+});
+
+const deleteCategory = id =>{
+	$.ajax({
+		url: baseUrl + 'admin/post/del_category',
+		method: 'post',
+		data: {id : id},
+		dataType: 'json',
+		success: function(data){
+			if(data.status = 'success'){
+				toastSuccess(data.msg);
+			}else{
+				toastDanger(data.msg);
+			}
+
+			$('#tbl-categories').DataTable().ajax.reload();
+		}
+	});
+}
+
+$('#tbl-categories').on('click', '.btn-del-category', function(e){
+	const id = $(this).data('id');
+	swalConfirm(deleteCategory, id);
 });
