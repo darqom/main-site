@@ -19,6 +19,33 @@ class Post extends MY_Controller{
 		$middleware->generate_view('post/add', $data);
 	}
 
+	public function save(){
+		$this->form_validation->set_rules('title', 'Judul', 'required|is_unique[posts.post_title]');
+		$this->form_validation->set_rules('content', 'Konten', 'required|min_length[12]');
+		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('access', 'Akses', 'required');
+		$this->form_validation->set_rules('comment', 'Komentar', 'required');
+
+		if($this->form_validation->run() == false){
+			echo json_encode([
+				'status' => 'validate',
+				'errors' => [
+					['name' => 'title', 'msg' => form_error('title')],
+					['name' => 'content', 'msg' => form_error('content')],
+					['name' => 'status', 'msg' => form_error('status')],
+					['name' => 'access', 'msg' => form_error('access')],
+					['name' => 'comment', 'msg' => form_error('comment')]
+				]
+			]);
+		}else{
+			$res = $this->post->save();
+			echo json_encode([
+				'status' => (!$res['status']) ? 'error' : 'success',
+				'msg' => $res['msg']
+			]);
+		}
+	}
+
 	public function add_category(){
 		if(!is_null($this->input->post('category'))){
 			$this->form_validation->set_rules('category', 'Kategori', 'required');
@@ -53,7 +80,7 @@ class Post extends MY_Controller{
 
 	public function upload_image(){
 		if(isset($_FILES['image']['name'])){
-			$res = $this->post->upload_image();
+			$res = $this->post->upload_image('image');
 			if(!$res['status']){
 				echo json_encode([
 					'status' => 'error',

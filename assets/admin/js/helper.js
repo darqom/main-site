@@ -48,6 +48,16 @@ function toastWarning(text, duration){
 	}).showToast();
 }
 
+function showFixLoader(){
+	Swal.fire({
+		html: `
+		<i style="font-size: 5em;" class="fas fa-spinner fa-pulse"></i>
+		`,
+		showConfirmButton: false,
+		allowOutsideClick: false
+	});
+}
+
 function previewImg(el, prevEl){
 	$(el).on('change', function(){
 		if(this.files && this.files[0]){
@@ -60,6 +70,10 @@ function previewImg(el, prevEl){
 			reader.readAsDataURL(this.files[0]);
 		}
 	});
+}
+
+function resetPreviewImg(prevEl){
+	$(prevEl).html('');
 }
 
 const showAlert = data => {
