@@ -129,6 +129,6 @@
   <!-- Template JS File -->
   <script src="<?= base_url('assets/stisla-assets/js/scripts.js'); ?>"></script>
   <script src="<?= base_url('assets/admin/js/helper.js'); ?>"></script>
-  <script src="<?= base_url('assets/admin/js/script.js'); ?>"></script>
+  <script src="<?= base_url('assets/admin/js/'.$aURL.'.js'); ?>"></script>
 </body>
 </html>
