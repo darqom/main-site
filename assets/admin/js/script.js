@@ -97,6 +97,49 @@ $('#save-post-form').submit(function(e){
 });
 
 initDatatable({
+	el: '#tbl-posts',
+	url: 'admin/post/posts_json',
+	columns: [
+	{render: function(data, type, row, meta){
+		return meta.row + meta.settings._iDisplayStart + 1;
+	}},
+	{data: 'post_title'},
+	{data: 'post_author'},
+	{data: 'post_status'},
+	{data: 'created_at'},
+	{render: function(data, type, row){
+		return `
+		<a class="btn btn-sm btn-success" href="${baseUrl}admin/post/edit/${row.id}"><i class="fas fa-pencil-alt"></i></a>
+		<button class="btn btn-sm btn-danger btn-del-post" data-id="${row.id}"><i class="fas fa-trash-alt"></i></button>
+		`;
+	}}
+	]
+});
+
+const deletePost = id => {
+	$.ajax({
+		url: baseUrl + 'admin/post/del_post',
+		method: 'post',
+		data: {id : id},
+		dataType: 'json',
+		success: function(data){
+			if(data.status = 'success'){
+				toastSuccess(data.msg);
+			}else{
+				toastDanger(data.msg);
+			}
+
+			$('#tbl-posts').DataTable().ajax.reload();
+		}
+	});
+}
+
+$('#tbl-posts').on('click', '.btn-del-post', function(){
+	const id = $(this).data('id');
+	swalConfirm(deletePost, id);
+});
+
+initDatatable({
 	el: '#tbl-categories',
 	url: 'admin/post/categories_json',
 	columns: [

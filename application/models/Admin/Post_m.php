@@ -88,6 +88,20 @@ class Post_m extends CI_Model{
 		}
 	}
 
+	public function del_post($id, $user){
+		$post = $this->db->get_where('posts', ['id' => $id])->row_array();
+		if(!is_null($post) || $post['post_author'] == $user['username'] || $user['role'] == '1'){
+			$this->db->delete('posts', ['id' => $id]);
+			if($this->db->affected_rows() > 0){
+				return ['status' => true, 'msg' => 'Post berhasil dihapus'];
+			}else{
+				return ['status' => false, 'msg' => 'Post gagal dihapus'];
+			}
+		}else{
+			return ['status' => false, 'msg' => 'Post gagal dihapus'];
+		}
+	}
+
 	public function upload_image($name, $quality = 60){
 		$config['upload_path'] = './assets/img/post';
 		$config['allowed_types'] = 'jpg|jpeg|png|gif';

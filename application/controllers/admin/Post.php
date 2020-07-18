@@ -12,6 +12,13 @@ class Post extends MY_Controller{
 		return ['admin'];
 	}
 
+	public function index(){
+		$middleware = $this->middlewares['admin'];
+
+		$data['title'] = 'Semua Pos';
+		$middleware->generate_view('post/index', $data);
+	}
+
 	public function add(){
 		$middleware = $this->middlewares['admin'];
 
@@ -25,6 +32,30 @@ class Post extends MY_Controller{
 
 		$data['title'] = 'Kategori Pos';
 		$middleware->generate_view('post/categories', $data);
+	}
+
+	public function posts_json(){
+		$this->datatables->table('posts');
+		$this->datatables->select('id, post_title, post_author, post_status, created_at');
+
+		header('Content-Type: application/json');
+		echo $this->datatables->draw();
+	}
+
+	public function del_post(){
+		$middleware = $this->middlewares['admin'];
+
+		if(isset($_POST)){
+			$id = htmlspecialchars($this->input->post('id', true));
+			$user = $middleware->get_user();
+
+			$res = $this->post->del_post($id, $user);
+
+			echo json_encode([
+				'status' => (!$res['status']) ? 'error' : 'success',
+				'msg' => $res['msg']
+			]);
+		}
 	}
 
 	public function categories_json(){
