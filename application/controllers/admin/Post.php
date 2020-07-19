@@ -27,6 +27,22 @@ class Post extends MY_Controller{
 		$middleware->generate_view('post/add', $data);
 	}
 
+	public function edit($id = null){
+		if(is_null($id)) redirect('admin/post');
+		$middleware = $this->middlewares['admin'];
+
+		$post = $this->post->get_post($id);
+		if(!is_null($post)){
+			$data['title'] = 'Edit Post';
+			$data['post'] = $post;
+			$data['categories'] = $this->post->get_categories();
+
+			$middleware->generate_view('post/edit', $data);
+		}else{
+			redirect('admin/post');
+		}
+	}
+
 	public function categories(){
 		$middleware = $this->middlewares['admin'];
 
@@ -36,10 +52,39 @@ class Post extends MY_Controller{
 
 	public function posts_json(){
 		$this->datatables->table('posts');
-		$this->datatables->select('id, post_title, post_author, post_status, created_at');
+		$this->datatables->select('id, post_title, post_author, post_status, created_at, updated_at');
 
 		header('Content-Type: application/json');
 		echo $this->datatables->draw();
+	}
+
+	public function edit_post(){
+		$user = $this->middlewares['admin']->get_user();
+
+		$this->form_validation->set_rules('title', 'Judul', 'required');
+		$this->form_validation->set_rules('content', 'Konten', 'required|min_length[12]');
+		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('access', 'Akses', 'required');
+		$this->form_validation->set_rules('comment', 'Komentar', 'required');
+
+		if($this->form_validation->run() == false){
+			echo json_encode([
+				'status' => 'validate',
+				'errors' => [
+					['name' => 'title', 'msg' => form_error('title')],
+					['name' => 'content', 'msg' => form_error('content')],
+					['name' => 'status', 'msg' => form_error('status')],
+					['name' => 'access', 'msg' => form_error('access')],
+					['name' => 'comment', 'msg' => form_error('comment')]
+				]
+			]);
+		}else{
+			$res = $this->post->edit($user['username']);
+			echo json_encode([
+				'status' => (!$res['status']) ? 'error' : 'success',
+				'msg' => $res['msg']
+			]);
+		}
 	}
 
 	public function del_post(){

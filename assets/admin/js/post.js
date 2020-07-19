@@ -77,6 +77,41 @@ $('#save-post-form').submit(function(e){
 	});
 });
 
+$('#edit-post-form').submit(function(e){
+	e.preventDefault();
+	delValidate(['title', 'content']);
+	showFixLoader();
+	const formData = new FormData(this);
+	$.ajax({
+		url: baseUrl + 'admin/post/edit_post',
+		method: 'post',
+		data: formData,
+		contentType: false,
+		processData: false,
+		dataType: 'json',
+		success: function(data){
+			if(data.status == 'validate'){
+				Swal.close();
+				validate(data);
+			}else if(data.status == 'success'){
+				Swal.fire({
+					icon: 'success',
+					title: data.msg,
+					showConfirmButton: false,
+					timer: 2000
+				});
+			}else{
+				Swal.fire({
+					icon: 'error',
+					html: data.msg,
+					showConfirmButton: false,
+					timer: 2000
+				});
+			}
+		}
+	});
+});
+
 initDatatable({
 	el: '#tbl-posts',
 	url: 'admin/post/posts_json',
@@ -88,6 +123,7 @@ initDatatable({
 	{data: 'post_author'},
 	{data: 'post_status'},
 	{data: 'created_at'},
+	{data: 'updated_at'},
 	{render: function(data, type, row){
 		return `
 		<a class="btn btn-sm btn-success" href="${baseUrl}admin/post/edit/${row.id}"><i class="fas fa-pencil-alt"></i></a>

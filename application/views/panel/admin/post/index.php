@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-10">
+	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">
 				<h6>Daftar Pos</h6>
@@ -14,6 +14,7 @@
 								<th>Penulis</th>
 								<th>Status</th>
 								<th>Dibuat Pada</th>
+								<th>Modifikasi Terakhir</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>

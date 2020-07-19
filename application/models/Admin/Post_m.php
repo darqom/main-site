@@ -2,6 +2,10 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Post_m extends CI_Model{
+	public function get_post($id){
+		return $this->db->get_where('posts', ['id' => $id])->row_array();
+	}
+
 	public function get_categories(){
 		return $this->db->get_where('categories', ['is_deleted' => '0'])->result_array();
 	}
@@ -85,6 +89,60 @@ class Post_m extends CI_Model{
 			return ['status' => true, 'msg' => 'Post berhasil disimpan'];
 		}else{
 			return ['status' => false, 'msg' => 'Post gagal disimpan'];
+		}
+	}
+
+	public function edit($username){
+		$id = htmlspecialchars($this->input->post('id', true));
+		$post = $this->db->get_where('posts', ['id' => $id])->row_array();
+
+		if(is_null($post) || $post['post_author'] != $username){
+			return ['status' => false, 'msg' => 'Gagal mengedit pos'];
+		}
+
+		$title = htmlspecialchars($this->input->post('title', true));
+		$slug = url_title($title, 'dash', true);
+		$content = $this->input->post('content', true);
+		$status = htmlspecialchars($this->input->post('status', true));
+		$access = htmlspecialchars($this->input->post('access', true));
+		$comment = htmlspecialchars($this->input->post('comment', true));
+		$categories = $this->input->post('categories');
+
+		if($_FILES['cover']['name'] != ''){
+			$upload = $this->upload_image('cover', 90);
+			if($upload['status'] == true){
+				@unlink('./assets/img/post/'.$post['post_cover']);
+				$cover = $upload['name'];
+			}else{
+				return ['status' => false, 'msg' => $upload['msg']];
+			}
+		}else{
+			$cover = $post['post_cover'];
+		}
+
+		if(is_null($categories)){
+			$categories = '1';
+		}else{
+			$categories = implode('+', $categories);
+		}
+
+		$data = [
+			'post_title' => $title,
+			'post_slug' => $slug,
+			'post_cover' => $cover,
+			'post_content' => $content,
+			'post_status' => $status,
+			'post_visibility' => $access,
+			'post_categories' => $categories,
+			'comment_status' => $comment,
+			'updated_at' => date('Y-m-d H:i:s')
+		];
+
+		$this->db->update('posts', $data, ['id' => $id]);
+		if($this->db->affected_rows() > 0){
+			return ['status' => true, 'msg' => 'Perubahan berhasil disimpan'];
+		}else{
+			return ['status' => false, 'msg' => 'Perubahan gagal disimpan'];
 		}
 	}
 
