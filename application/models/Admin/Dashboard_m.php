@@ -6,6 +6,7 @@ class Dashboard_m extends CI_Model{
 		return [
 			'admin' => $this->db->get_where('users', ['role' => '1'])->num_rows(),
 			'users' => $this->db->get_where('users', ['role' => '2'])->num_rows(),
+			'posts' => $this->db->get_where('posts')->num_rows()
 		];
 	}
 }

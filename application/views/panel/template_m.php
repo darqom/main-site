@@ -78,6 +78,14 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item dropdown <?= ($aURL == 'users') ? 'active' : ''; ?>">
+              <a href="" class="nav-link has-dropdown"><i class="fas fa-users"></i> <span>Pengguna</span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="<?= base_url('admin/users'); ?>" class="nav-link">Pengelola</a>
+                </li>
+              </ul>
+            </li>
             <li class="menu-header">Pages</li>
             <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
           </ul>
