@@ -78,6 +78,17 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item dropdown <?= ($aURL == 'event') ? 'active' : ''; ?>">
+              <a href="" class="nav-link has-dropdown"><i class="fas fa-bullhorn"></i> <span>Event</span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="<?= base_url('admin/event'); ?>" class="nav-link">Kegiatan</a>
+                </li>
+                <li>
+                  <a href="<?= base_url('admin/event/announces'); ?>" class="nav-link">Pengumuman</a>
+                </li>
+              </ul>
+            </li>
             <li class="nav-item dropdown <?= ($aURL == 'users') ? 'active' : ''; ?>">
               <a href="" class="nav-link has-dropdown"><i class="fas fa-users"></i> <span>Pengguna</span></a>
               <ul class="dropdown-menu">
