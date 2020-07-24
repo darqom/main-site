@@ -114,4 +114,99 @@ class Event extends MY_Controller{
 			]);
 		}
 	}
+
+	public function announces(){
+		$middleware = $this->middlewares['admin'];
+
+		$data['title'] = 'Pengumuman';
+		$middleware->generate_view('event/announces', $data);
+	}
+
+	public function get_announce(){
+		if(isset($_POST['id'])){
+			$id = htmlspecialchars($this->input->post('id', true));
+			$res = $this->event->get_announce($id);
+			
+			if(!$res['status']){
+				echo json_encode([
+					'status' => 'error',
+					'msg' => $res['msg']
+				]);
+			}else{
+				echo json_encode([
+					'status' => 'success',
+					'data' => $res['data']
+				]);
+			}
+		}
+	}
+
+	public function announces_json(){
+		if(count($_POST) > 0){
+			echo $this->datatables->table('announces')->draw();
+		}
+	}
+
+	public function add_announce(){
+		if(isset($_POST['title'])){
+			$this->form_validation->set_rules('title', 'Judul', 'required');
+			$this->form_validation->set_rules('content', 'Keterangan', 'required');
+			$this->form_validation->set_rules('date', 'Tanggal', 'required');
+
+			if($this->form_validation->run() == false){
+				echo json_encode([
+					'status' => 'validate',
+					'errors' => [
+						['name' => 'title', 'msg' => form_error('title')],
+						['name' => 'content', 'msg' => form_error('content')],
+						['name' => 'date', 'msg' => form_error('date')]
+					]
+				]);
+			}else{
+				$res = $this->event->add_announce();
+				echo json_encode([
+					'status' => (!$res['status']) ? 'error' : 'success',
+					'msg' => $res['msg']
+				]);
+			}
+		}
+	}
+
+	public function edit_announce(){
+		if(isset($_POST['title'])){
+			$this->form_validation->set_rules('id', 'ID', 'required|numeric');
+			$this->form_validation->set_rules('title', 'Judul', 'required');
+			$this->form_validation->set_rules('content', 'Keterangan', 'required');
+			$this->form_validation->set_rules('date', 'Tanggal', 'required');
+
+			if($this->form_validation->run() == false){
+				echo json_encode([
+					'status' => 'validate',
+					'errors' => [
+						['name' => 'edit-title', 'msg' => form_error('title')],
+						['name' => 'edit-content', 'msg' => form_error('content')],
+						['name' => 'edit-date', 'msg' => form_error('date')]
+					]
+				]);
+			}else{
+				$res = $this->event->edit_announce();
+				echo json_encode([
+					'status' => (!$res['status']) ? 'error' : 'success',
+					'msg' => $res['msg']
+				]);
+			}
+		}
+	}
+
+	public function del_announce(){
+		if(isset($_POST['id'])){
+			$id = htmlspecialchars($this->input->post('id', true));
+
+			$res = $this->event->del_announce($id);
+			echo json_encode([
+				'status' => (!$res['status']) ? 'error' : 'success',
+				'msg' => $res['msg']
+			]);
+		}
+	}
 }
