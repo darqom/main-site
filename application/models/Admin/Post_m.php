@@ -6,6 +6,14 @@ class Post_m extends CI_Model{
 		return $this->db->get_where('posts', ['id' => $id])->row_array();
 	}
 
+	public function get_posts($limit = null){
+		$this->db->from('posts');
+		if(!is_null($limit)) $this->db->limit($limit);
+		$this->db->order_by('id', 'DESC');
+		$this->db->where(['post_status' => 'publish', 'post_visibility' => 'public']);
+		return $this->db->get()->result_array();
+	}
+
 	public function get_categories(){
 		return $this->db->get_where('categories', ['is_deleted' => '0'])->result_array();
 	}
@@ -61,7 +69,7 @@ class Post_m extends CI_Model{
 				return ['status' => false, 'msg' => $upload['msg']];
 			}
 		}else{
-			$cover = null;
+			$cover = 'noimage.png';
 		}
 
 		if(is_null($categories)){
@@ -111,7 +119,7 @@ class Post_m extends CI_Model{
 		if($_FILES['cover']['name'] != ''){
 			$upload = $this->upload_image('cover', 90);
 			if($upload['status'] == true){
-				@unlink('./assets/img/post/'.$post['post_cover']);
+				if($post['post_cover'] != 'noimage.png') @unlink('./assets/img/post/'.$post['post_cover']);
 				$cover = $upload['name'];
 			}else{
 				return ['status' => false, 'msg' => $upload['msg']];
@@ -149,6 +157,7 @@ class Post_m extends CI_Model{
 	public function del_post($id, $user){
 		$post = $this->db->get_where('posts', ['id' => $id])->row_array();
 		if(!is_null($post) || $post['post_author'] == $user['username'] || $user['role'] == '1'){
+			if($post['post_cover'] != 'noimage.png') @unlink('./assets/img/post/'.$post['post_cover']);
 			$this->db->delete('posts', ['id' => $id]);
 			if($this->db->affected_rows() > 0){
 				return ['status' => true, 'msg' => 'Post berhasil dihapus'];

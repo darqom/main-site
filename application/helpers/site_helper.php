@@ -19,3 +19,26 @@ function redirect_login(){
 	$user = $ci->session->userdata('user');
 	if(!is_null($user)) redirect('admin/dashboard');
 }
+
+function indo_date($date, $sub = false){
+	$date = explode(' ', $date)[0];
+	$months = [
+		1 => 'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+	];
+
+	$exploded = explode('-', $date);
+	$month = $months[(int)$exploded[1]];
+	if($sub) $month = substr($month, 0, $sub);
+	return $exploded[2].' '.$month.' '.$exploded[0];
+}
