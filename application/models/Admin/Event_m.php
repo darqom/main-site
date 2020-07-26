@@ -20,6 +20,13 @@ class Event_m extends CI_Model{
 		}
 	}
 
+	public function get_events($limit = null){
+		$this->db->from('events');
+		if(!is_null($limit)) $this->db->limit($limit);
+		$this->db->order_by('id', 'DESC');
+		return $this->db->get()->result_array();
+	}
+
 	public function add_event(){
 		$title = htmlspecialchars($this->input->post('title', true));
 		$description = htmlspecialchars($this->input->post('description', true));
@@ -72,6 +79,13 @@ class Event_m extends CI_Model{
 		}else{
 			return ['status' => false, 'msg' => 'Kegiatan gagal dihapus'];
 		}
+	}
+
+	public function get_announces($limit = null){
+		$this->db->from('announces');
+		if(!is_null($limit)) $this->db->limit($limit);
+		$this->db->order_by('id', 'DESC');
+		return $this->db->get()->result_array();
 	}
 
 	public function get_announce($id){

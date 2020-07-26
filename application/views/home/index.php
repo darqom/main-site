@@ -195,18 +195,25 @@
 			<div class="card shadow">
 				<div class="card-body">
 					<h6 class="head-with-border font-weight-bold">Kegiatan</h6>
-					<div class="row no-gutters mt-4	border-bottom	pb-3">
-						<div class="col-md-4">
-							<button class="btn outline-green-primary event-calendar pb-0">
-								<h5>17</h5>
-								<p>Aug, 2020</p>
-							</button>
+					<?php foreach($events as $event): ?>
+						<?php
+						$day = explode('-', $event['event_date'])[2];
+						$date = substr(indo_date($event['event_date'], 3), 2);
+						$time = explode('-', $event['event_time']);
+						?>
+						<div class="row no-gutters mt-4	border-bottom	pb-3">
+							<div class="col-md-4">
+								<button class="btn outline-green-primary event-calendar pb-0" style="min-width: 70px;">
+									<h5><?= $day; ?></h5>
+									<p><?= $date; ?></p>
+								</button>
+							</div>
+							<div class="col-md-8 pt-2">
+								<h6 class="event-title"><?= $event['event_title']; ?></h6>
+								<p class="event-time"><i class="far fa-clock green-primary-text"></i> <?= $time[0]; ?> WIB - <?= $time[1]; ?> WIB</p>
+							</div>
 						</div>
-						<div class="col-md-8 pt-2">
-							<h6 class="event-title">Kemerdekaan Indonesia</h6>
-							<p class="event-time"><i class="far fa-clock green-primary-text"></i> 8.00 WIB - 12.00 WIB</p>
-						</div>
-					</div>
+					<?php endforeach; ?>
 				</div>
 			</div>
 		</div>
@@ -214,12 +221,14 @@
 			<div class="card shadow">
 				<div class="card-body">
 					<h6 class="head-with-border font-weight-bold">Pengumuman</h6>
-					<div class="row no-gutters mt-4 border-bottom pb-4">
-						<div class="col-12">
-							<p class="event-time announce-date"><i class="far fa-clock green-primary-text"></i> 22 July, 2020</p>
-							<h6 class="announce-text">Pengumpulan raport dan pengumuman kelas XI dan XII di SMK Darul Muqomah</h6>
+					<?php foreach($announces as $announce): ?>
+						<div class="row no-gutters mt-4 border-bottom pb-4">
+							<div class="col-12">
+								<p class="event-time announce-date"><i class="far fa-clock green-primary-text"></i> <?= indo_date($announce['announce_date']); ?></p>
+								<h6 class="announce-text"><?= $announce['announce_title']; ?></h6>
+							</div>
 						</div>
-					</div>
+					<?php endforeach; ?>
 				</div>
 			</div>
 		</div>

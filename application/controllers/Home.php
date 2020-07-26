@@ -6,13 +6,16 @@ class Home extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Visitors_m', 'visitors');
 		$this->load->model('Admin/Post_m', 'post');
+		$this->load->model('Admin/Event_m', 'event');
 	}
 
 	public function index(){
 		$data['title'] = 'Selamat Datang';
 		$data['statistics'] = $this->visitors->get_statistics();
 		$data['posts'] = $this->post->get_posts(3);
-
+		$data['announces'] = $this->event->get_announces(3);
+		$data['events'] = $this->event->get_events(3);
+		
 		$this->template->load('templates/template', 'home/index', $data);
 	}
 }
