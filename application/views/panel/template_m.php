@@ -97,8 +97,15 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-header">Pages</li>
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
+            <li class="menu-header">Kelembagaan</li>
+            <li class="nav-item dropdown <?= ($aURL == 'institute') ? 'active' : ''; ?>">
+              <a href="" class="nav-link has-dropdown"><i class="fas fa-school"></i> <span>Tentang Sekolah</span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="<?= base_url('admin/institute'); ?>" class="nav-link">Info Sekolah</a>
+                </li>
+              </ul>
+            </li>
           </ul>
 
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

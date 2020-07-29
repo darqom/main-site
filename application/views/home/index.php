@@ -180,11 +180,11 @@
 <div class="container-fluid bg-white">
 	<div class="row justify-content-center">
 		<div class="col-md-6">
-			<iframe src="https://www.youtube.com/embed/mGRqz2hO2NI" width="100%" frameborder="0" allowfullscreen></iframe>
+			<iframe src="https://www.youtube.com/embed/<?= get_option('school_youtube_embed'); ?>" width="100%" frameborder="0" allowfullscreen></iframe>
 		</div>
 		<div class="col-md-6 description">
 			<h4 class="head-with-border font-weight-bold">Tentang SMK Darul Muqomah</h4>
-			<p align="justify">Pengelolaan Yayasan Pendidikan Islam pesantren Darul Muqomah Jember. SMK Darul Muqomah berlokasi di jalan Sultan Agung No. 2-4 Purwoasri Gumukmas Jember. SMK Darul Muqomah menggunakan kurikulum Pendidikan nasional dan kurikulum pesantren.</p>
+			<p align="justify"><?= get_option('school_description'); ?></p>
 		</div>
 	</div>
 </div>

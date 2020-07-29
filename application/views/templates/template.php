@@ -42,7 +42,7 @@
 	</nav>
 
 	<?= $contents; ?>
-
+	<?php $socmeds = json_decode(get_option('school_socmeds'), true); ?>
 	<footer class="pt-55 container-fluid">
 		<div class="text-white copyright-content">
 			<div class="row pl-50 pr-50">
@@ -50,13 +50,13 @@
 					<img src="assets/img/logo-full.png" alt="Logo Capt" width="175">
 					<ul class="list-unstyled mt-3">
 						<li>
-							<p><i class="fas fa-phone green-primary-text"></i> (0336) 324654</p>
+							<p><i class="fas fa-phone green-primary-text"></i> <?= get_option('school_phone'); ?></p>
 						</li>
 						<li>
-							<p><i class="fas fa-envelope green-primary-text"></i> smkdarulmuqomah@gmail.com</p>
+							<p><i class="fas fa-envelope green-primary-text"></i> <?= get_option('school_mail'); ?></p>
 						</li>
 						<li>
-							<p><i class="fas fa-map-marker-alt green-primary-text"></i> JL. Sultan Agung No. 2 - 4 Purwoasri - Gumukmas - Jember</p>
+							<p><i class="fas fa-map-marker-alt green-primary-text"></i> <?= get_option('school_address'); ?></p>
 						</li>
 					</ul>
 				</div>
@@ -81,13 +81,13 @@
 							<p class="head">Contact Us</p>
 							<ul class="list-unstyled">
 								<li>
-									<a href=""><i class="fab fa-facebook-f mr-3"></i> ICT SMK Darul Muqomah</a>
+									<a href="https://facebook.com/<?= $socmeds['facebook']['id']; ?>"><i class="fab fa-facebook-f mr-3"></i> <?= $socmeds['facebook']['name']; ?></a>
 								</li>
 								<li>
-									<a href=""><i class="fab fa-instagram mr-2"></i> @smkdarulmuqomah</a>
+									<a href="https://instagram.com/<?= $socmeds['instagram']['id']; ?>"><i class="fab fa-instagram mr-2"></i> <?= $socmeds['instagram']['name']; ?></a>
 								</li>
 								<li>
-									<a href=""><i class="fab fa-youtube mr-2"></i> SMK Darul Muqomah</a>
+									<a href="https://youtube.com/<?= $socmeds['youtube']['id']; ?>"><i class="fab fa-youtube mr-2"></i> <?= $socmeds['youtube']['name']; ?></a>
 								</li>
 							</ul>
 						</div>

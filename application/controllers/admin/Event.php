@@ -26,7 +26,7 @@ class Event extends MY_Controller{
 	}
 
 	public function get_event(){
-		if(isset($_POST['id'])){
+		if($this->input->is_ajax_request()){
 			$id = htmlspecialchars($this->input->post('id', true));
 			$res = $this->event->get_event($id);
 			
@@ -45,7 +45,7 @@ class Event extends MY_Controller{
 	}
 
 	public function add_event(){
-		if(isset($_POST['title'])){
+		if($this->input->is_ajax_request()){
 			$this->form_validation->set_rules('title', 'Judul', 'required');
 			$this->form_validation->set_rules('description', 'Deskripsi', 'required');
 			$this->form_validation->set_rules('date', 'Tanggal', 'required');
@@ -74,7 +74,7 @@ class Event extends MY_Controller{
 	}
 
 	public function edit_event(){
-		if(isset($_POST['title'])){
+		if($this->input->is_ajax_request()){
 			$this->form_validation->set_rules('id', 'ID', 'required|numeric');
 			$this->form_validation->set_rules('title', 'Judul', 'required');
 			$this->form_validation->set_rules('description', 'Deskripsi', 'required');
@@ -104,7 +104,7 @@ class Event extends MY_Controller{
 	}
 
 	public function del_event(){
-		if(isset($_POST['id'])){
+		if($this->input->is_ajax_request()){
 			$id = htmlspecialchars($this->input->post('id', true));
 
 			$res = $this->event->del_event($id);
@@ -123,7 +123,7 @@ class Event extends MY_Controller{
 	}
 
 	public function get_announce(){
-		if(isset($_POST['id'])){
+		if($this->input->is_ajax_request()){
 			$id = htmlspecialchars($this->input->post('id', true));
 			$res = $this->event->get_announce($id);
 			
@@ -148,7 +148,7 @@ class Event extends MY_Controller{
 	}
 
 	public function add_announce(){
-		if(isset($_POST['title'])){
+		if($this->input->is_ajax_request()){
 			$this->form_validation->set_rules('title', 'Judul', 'required');
 			$this->form_validation->set_rules('content', 'Keterangan', 'required');
 			$this->form_validation->set_rules('date', 'Tanggal', 'required');
@@ -173,7 +173,7 @@ class Event extends MY_Controller{
 	}
 
 	public function edit_announce(){
-		if(isset($_POST['title'])){
+		if($this->input->is_ajax_request()){
 			$this->form_validation->set_rules('id', 'ID', 'required|numeric');
 			$this->form_validation->set_rules('title', 'Judul', 'required');
 			$this->form_validation->set_rules('content', 'Keterangan', 'required');
@@ -199,7 +199,7 @@ class Event extends MY_Controller{
 	}
 
 	public function del_announce(){
-		if(isset($_POST['id'])){
+		if($this->input->is_ajax_request()){
 			$id = htmlspecialchars($this->input->post('id', true));
 
 			$res = $this->event->del_announce($id);

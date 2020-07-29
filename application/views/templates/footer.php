@@ -1,3 +1,6 @@
+<?php
+$socmeds = json_decode(get_option('school_socmeds'), true);
+?>
 <footer class="pt-55 container-fluid">
 	<div class="text-white copyright-content">
 		<div class="row pl-50 pr-50">
@@ -36,13 +39,13 @@
 						<p class="head">Contact Us</p>
 						<ul class="list-unstyled">
 							<li>
-								<a href=""><i class="fab fa-facebook-f mr-3"></i> ICT SMK Darul Muqomah</a>
+								<a href="https://facebook.com/<?= $socmeds['facebook']['id']; ?>"><i class="fab fa-facebook-f mr-3"></i> <?= $socmeds['facebook']['name']; ?></a>
 							</li>
 							<li>
-								<a href=""><i class="fab fa-instagram mr-2"></i> @smkdarulmuqomah</a>
+								<a href="https://instagram.com/<?= $socmeds['instagram']['id']; ?>"><i class="fab fa-instagram mr-2"></i> <?= $socmeds['instagram']['name']; ?></a>
 							</li>
 							<li>
-								<a href=""><i class="fab fa-youtube mr-2"></i> SMK Darul Muqomah</a>
+								<a href="https://youtube.com/<?= $socmeds['youtube']['id']; ?>"><i class="fab fa-youtube mr-2"></i> <?= $socmeds['youtube']['name']; ?></a>
 							</li>
 						</ul>
 					</div>

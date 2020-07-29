@@ -42,3 +42,11 @@ function indo_date($date, $sub = false){
 	if($sub) $month = substr($month, 0, $sub);
 	return $exploded[2].' '.$month.' '.$exploded[0];
 }
+
+function get_option($name){
+	$ci = &get_instance();
+	$ci->db->from('options');
+	$ci->db->select('value');
+	$ci->db->where('name', $name);
+	return $ci->db->get()->row_array()['value'];
+}
