@@ -99,78 +99,24 @@
 	<div class="row justify-content-center mt-2">
 		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<div class="row p-1">
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-body descript-item">
-									<img src="assets/img/class.jpg" alt="class" width="100%">
-									<h6 class="font-weight-bold mt-2 text-center">Paduan Suara</h6>
+				<?php $c = 0; ?>
+				<?php foreach($extrasGroup as $extras): ?>
+					<div class="carousel-item <?= ($c==0) ? 'active' : ''; ?>">
+						<div class="row justify-content-center p-1">
+							<?php foreach($extras as $extra): ?>
+								<div class="col-md-3">
+									<div class="card">
+										<div class="card-body descript-item">
+											<img src="<?= base_url('assets/img/extra/'.$extra['extra_image']); ?>" alt="class" width="100%">
+											<h6 class="font-weight-bold mt-2 text-center"><?= $extra['extra_name']; ?></h6>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-body descript-item">
-									<img src="assets/img/class.jpg" alt="class" width="100%">
-									<h6 class="font-weight-bold mt-2 text-center">Sepak Bola</h6>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-body descript-item">
-									<img src="assets/img/class.jpg" alt="class" width="100%">
-									<h6 class="font-weight-bold mt-2 text-center">Bola Volly</h6>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-body descript-item">
-									<img src="assets/img/class.jpg" alt="class" width="100%">
-									<h6 class="font-weight-bold mt-2 text-center">PRAMUKA</h6>
-								</div>
-							</div>
+							<?php endforeach; ?>
 						</div>
 					</div>
-				</div>
-				<div class="carousel-item">
-					<div class="row p-1">
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-body descript-item">
-									<img src="assets/img/class.jpg" alt="class" width="100%">
-									<h6 class="font-weight-bold mt-2 text-center">PASKIBRAKA</h6>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-body descript-item">
-									<img src="assets/img/class.jpg" alt="class" width="100%">
-									<h6 class="font-weight-bold mt-2 text-center">Al - Banjari</h6>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-body descript-item">
-									<img src="assets/img/class.jpg" alt="class" width="100%">
-									<h6 class="font-weight-bold mt-2 text-center">Pencak Silat</h6>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-body descript-item">
-									<img src="assets/img/class.jpg" alt="class" width="100%">
-									<h6 class="font-weight-bold mt-2 text-center">Paduan Suara</h6>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+					<?php $c++; ?>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>
