@@ -104,6 +104,9 @@
                 <li>
                   <a href="<?= base_url('admin/institute'); ?>" class="nav-link">Info Sekolah</a>
                 </li>
+                <li>
+                  <a href="<?= base_url('admin/institute/extra'); ?>" class="nav-link">Ekstrakulikuler</a>
+                </li>
               </ul>
             </li>
           </ul>

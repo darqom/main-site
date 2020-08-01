@@ -21,7 +21,57 @@ class Institute extends MY_Controller{
 		$middleware->generate_view('institute/index', $data);
 	}
 
+	public function extra(){
+		$middleware = $this->middlewares['admin'];
+		$middleware->allowed_role('1');
+
+		$data['title'] = 'Ekstrakulikuler';
+		$middleware->generate_view('institute/extra', $data);
+	}
+
+	public function extra_json(){
+		if($this->input->is_ajax_request()){
+			$this->load->library('Datatables', 'datatables');
+			echo $this->datatables->table('extras')->draw();
+		}
+	}
+
+	public function add_extra(){
+		if($this->input->is_ajax_request()){
+			$this->form_validation->set_rules('name', 'Nama', 'required');
+
+			if($this->form_validation->run() == false){
+				echo json_encode([
+					'status' => 'validate',
+					'errors' => [
+						['name' => 'name', 'msg' => form_error('name')]
+					]
+				]);
+			}else{
+				$res = $this->institute->add_extra();
+				echo json_encode([
+					'status' => (!$res['status']) ? 'error' : 'success',
+					'msg' => $res['msg']
+				]);
+			}
+		}
+	}
+
+	public function del_extra(){
+		if($this->input->is_ajax_request()){
+			$id = htmlspecialchars($this->input->post('id', true));
+			$res = $this->institute->del_extra($id);
+
+			echo json_encode([
+				'status' => (!$res['status']) ? 'error' : 'success',
+				'msg' => $res['msg']
+			]);
+		}
+	}
+
 	public function save(){
+		$this->middlewares['admin']->allowed_role('1');
+
 		if($this->input->is_ajax_request()){
 			if($this->form_validation->run('save_insitute') == false){
 				echo json_encode([
