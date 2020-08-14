@@ -107,6 +107,9 @@
                 <li>
                   <a href="<?= base_url('admin/institute/extra'); ?>" class="nav-link">Ekstrakulikuler</a>
                 </li>
+                <li>
+                  <a href="<?= base_url('admin/institute/facility'); ?>" class="nav-link">Fasilitas</a>
+                </li>
               </ul>
             </li>
           </ul>

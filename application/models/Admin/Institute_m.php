@@ -63,7 +63,7 @@ class Institute_m extends CI_Model{
 		$name = htmlspecialchars($this->input->post('name', true));
 
 		if($_FILES['image']['name'] != ''){
-			$upload = $this->upload_image('image', 90);
+			$upload = $this->upload_image('image', 90, 'extra');
 			if($upload['status'] == true){
 				$image = $upload['name'];
 			}else{
@@ -97,8 +97,45 @@ class Institute_m extends CI_Model{
 		}
 	}
 
-	public function upload_image($name, $quality = 60){
-		$config['upload_path'] = './assets/img/extra';
+	public function get_facilities($id = null){
+		if(!is_null($id)){
+			$this->db->where('id', $id);
+			return $this->db->get('facilities')->row_array();
+		}else{
+			$res = $this->db->get('facilities')->result_array();
+			return array_chunk($res, 3);
+		}
+	}
+
+	public function save_facility($id, $type){
+		$name = htmlspecialchars($this->input->post('name', true));
+		$facility = $this->get_facilities($id);
+		$data['facility_name'] = $name;
+
+		if($type == 'icon'){
+			$icon = htmlspecialchars($this->input->post('icon', true));
+			$data['facility_icon'] = $icon;
+		}else{
+			if($_FILES['image']['name'] != ''){
+				$up = $this->upload_image('image', 80, 'facility');
+				if($up['status'] == false) return ['status' => false, 'msg' => $up['msg']];
+				if($facility['facility_image'] != 'noimage.png') @unlink('./assets/img/facility/'.$facility['facility_image']);
+				$data['facility_image'] = $up['name'];
+			}else{
+				$data['facility_image'] = $facility['facility_image'];
+			}
+		}
+
+		$this->db->update('facilities', $data, ['id' => $id]);
+		if($this->db->affected_rows() > 0){
+			return ['status' => true, 'msg' => 'Data berhasil diubah'];
+		}else{
+			return ['status' => false, 'msg' => 'Data gagal diubah'];
+		}
+	}
+
+	public function upload_image($name, $quality = 60, $path = ''){
+		$config['upload_path'] = "./assets/img/$path";
 		$config['allowed_types'] = 'jpg|jpeg|png|gif';
 		$config['encrypt_name'] = true;
 
@@ -112,18 +149,18 @@ class Institute_m extends CI_Model{
 			$data = $this->upload->data();
 		        //Compress Image
 			$config['image_library']='gd2';
-			$config['source_image']='./assets/img/extra/'.$data['file_name'];
+			$config['source_image']= "./assets/img/$path/".$data['file_name'];
 			$config['create_thumb']= FALSE;
 			$config['maintain_ratio']= TRUE;
 			$config['quality']= "$quality%";
 			$config['width']= 800;
 			$config['height']= 800;
-			$config['new_image']= './assets/img/extra/'.$data['file_name'];
+			$config['new_image']= "./assets/img/$path/".$data['file_name'];
 			$this->load->library('image_lib', $config);
 			$this->image_lib->resize();
 			return [
 				'status' => true,
-				'url' => base_url().'assets/img/extra/'.$data['file_name'],
+				'url' => base_url()."assets/img/$path/".$data['file_name'],
 				'name' => $data['file_name']
 			];
 		}

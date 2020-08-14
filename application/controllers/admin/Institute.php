@@ -69,6 +69,56 @@ class Institute extends MY_Controller{
 		}
 	}
 
+	public function facility(){
+		$middleware = $this->middlewares['admin'];
+		$data['title'] = 'Fasilitasi Sekolah';
+		$data['facilities'] = $this->institute->get_facilities();
+
+		$middleware->generate_view('institute/facility', $data);
+	}
+
+	public function get_facility(){
+		if($this->input->is_ajax_request()){
+			$id = intval($this->input->post('id', true));
+			$res = $this->institute->get_facilities($id);
+
+			if(!is_null($res)){
+				echo json_encode(['status' => 'success', 'facility' => $res]);
+			}else{
+				echo json_encode(['status' => 'error', 'msg' => 'Data tidak ditemukan']);
+			}
+		}
+	}
+
+	public function save_facility(){
+		if($this->input->is_ajax_request()){
+			$icons = [1, 2, 3];
+			$id = intval($this->input->post('id', true));
+
+			$this->form_validation->set_rules('name', 'Nama Fasilitas', 'required');
+			if(in_array($id, $icons)) $this->form_validation->set_rules('icon', 'Ikon', 'required');
+
+			if($this->form_validation->run() == false){
+				echo json_encode([
+					'status' => 'validate',
+					'errors' => [
+						['name' => 'name', 'msg' => form_error('name')],
+						['name' => 'icon', 'msg' => form_error('icon')]
+					]
+				]);
+			}else{
+				$type = (in_array($id, $icons)) ? 'icon' : 'image';
+				$res = $this->institute->save_facility($id, $type);
+				$index = (in_array($id, $icons)) ? 0 : 1;
+				echo json_encode([
+					'status' => (!$res['status']) ? 'error' : 'success',
+					'facilities' => $this->institute->get_facilities()[$index],
+					'msg' => $res['msg']
+				]);
+			}
+		}
+	}
+
 	public function save(){
 		$this->middlewares['admin']->allowed_role('1');
 
