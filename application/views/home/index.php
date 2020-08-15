@@ -14,57 +14,29 @@
 		<div class="col-md-3">
 			<div class="fasility green-primary rounded shadow">
 				<ul class="list-unstyled">
-					<li class="fasility-item">
-						<a href="" class="text-white text-center">
-							<h2 class="icon"><i class="fas fa-desktop"></i></h2>
-							<p class="fasility-text">Lab Computer</p>
-						</a>
-					</li>
-					<li class="fasility-item">
-						<a href="" class="text-white text-center">
-							<h2 class="icon"><i class="fas fa-music"></i></h2>
-							<p class="fasility-text">Studio Music</p>
-						</a>
-					</li>
-					<li class="fasility-item">
-						<a href="" class="text-white text-center">
-							<h2 class="icon"><i class="fas fa-home"></i></h2>
-							<p class="fasility-text">Ruang BKK</p>
-						</a>
-					</li>
+					<?php foreach($facilities[0] as $facility): ?>
+						<li class="fasility-item">
+							<a href="<?= base_url('facility/'.$facility['id']); ?>" class="text-white text-center">
+								<h2 class="icon"><i class="fas <?= $facility['facility_icon'] ?>"></i></h2>
+								<p class="fasility-text"><?= $facility['facility_name'] ?></p>
+							</a>
+						</li>
+					<?php endforeach; ?>
 				</ul>
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="card">
-				<div class="card-body descript-item">
-					<h4 class="mb-4 font-weight-bold head-with-border">KELAS</h4>
-					<img src="assets/img/class.jpg" alt="class" width="100%">
-					<p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio doloribus totam, neque necessitatibus explicabo</p>
-					<a href="#" class="btn btn-sm btn-success green-primary">Selengkapnya</a>
+		<?php foreach($facilities[1] as $facility): ?>
+			<div class="col-md-3">
+				<div class="card">
+					<div class="card-body descript-item">
+						<h4 class="mb-4 font-weight-bold head-with-border"><?= $facility['facility_name']; ?></h4>
+						<img src="<?= base_url('assets/img/facility/'.$facility['facility_image']); ?>" alt="class" width="100%">
+						<p class="mt-2"><?= substr($facility['facility_article'], 0, 116); ?></p>
+						<a href="<?= base_url('facility/'.$facility['id']); ?>" class="btn btn-sm btn-success green-primary">Selengkapnya</a>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="card">
-				<div class="card-body descript-item">
-					<h4 class="mb-4 font-weight-bold head-with-border">PERPUS</h4>
-					<img src="assets/img/class.jpg" alt="library" width="100%">
-					<p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio doloribus totam, neque necessitatibus explicabo</p>
-					<a href="#" class="btn btn-sm btn-success green-primary">Selengkapnya</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="card">
-				<div class="card-body descript-item">
-					<h4 class="mb-4 font-weight-bold head-with-border">KANTIN</h4>
-					<img src="assets/img/class.jpg" alt="canteen" width="100%">
-					<p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio doloribus totam, neque necessitatibus explicabo</p>
-					<a href="#" class="btn btn-sm btn-success green-primary">Selengkapnya</a>
-				</div>
-			</div>
-		</div>
+		<?php endforeach; ?>
 	</div>
 	<hr class="ml-4 mr-4 mt-85">
 </div>
