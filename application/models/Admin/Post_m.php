@@ -55,7 +55,7 @@ class Post_m extends CI_Model{
 	public function save(){
 		$title = htmlspecialchars($this->input->post('title', true));
 		$slug = url_title($title, 'dash', true);
-		$content = $this->input->post('content', true);
+		$content = $this->input->post('content');
 		$status = htmlspecialchars($this->input->post('status', true));
 		$access = htmlspecialchars($this->input->post('access', true));
 		$comment = htmlspecialchars($this->input->post('comment', true));
@@ -69,7 +69,7 @@ class Post_m extends CI_Model{
 				return ['status' => false, 'msg' => $upload['msg']];
 			}
 		}else{
-			$cover = 'noimage.png';
+			$cover = null;
 		}
 
 		if(is_null($categories)){
@@ -110,7 +110,7 @@ class Post_m extends CI_Model{
 
 		$title = htmlspecialchars($this->input->post('title', true));
 		$slug = url_title($title, 'dash', true);
-		$content = $this->input->post('content', true);
+		$content = $this->input->post('content');
 		$status = htmlspecialchars($this->input->post('status', true));
 		$access = htmlspecialchars($this->input->post('access', true));
 		$comment = htmlspecialchars($this->input->post('comment', true));

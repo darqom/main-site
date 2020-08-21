@@ -160,9 +160,8 @@
 								<img src="<?= base_url('assets/img/post/'.$post['post_cover']); ?>" alt="" width="100%">
 							</div>
 							<div class="col-md-8 pt-2 pl-1">
-								<h6 class="event-title"><?= $post['post_title']; ?></h6>
+								<h6 class="event-title"><a href="<?= base_url('post/'.$post['post_slug']); ?>" class="link"><?= $post['post_title']; ?></a></h6>
 								<p class="event-time"><i class="far fa-clock green-primary-text"></i> <?= indo_date($post['created_at']); ?></p>
-								<a href="<?= base_url('post/'.$post['post_slug']); ?>" class="btn btn-sm btn-success green-primary float-right">Selengkapnya</a>
 							</div>
 						</div>
 					<?php endforeach; ?>

@@ -1,4 +1,4 @@
-html body{
+html body.has-background{
 	background: url(../img/background.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -22,6 +22,15 @@ html body{
 .outline-green-primary{
 	color: #1abc9c;
 	border-color: #1abc9c;
+}
+
+a.link{
+	color: #1abc9c;
+}
+
+a.link:hover{
+	color: #12947a;
+	text-decoration: none;
 }
 
 .container-fluid{
@@ -174,6 +183,57 @@ footer .information .head{
 footer .copyright{
 	background: #030303;
 	font-size: .8em;
+}
+
+/* Article Style */
+#article-title{
+	font-family: 'EB Garamond', serif;
+	font-size: 2.5rem;
+}
+
+#main-article .post-date{
+	font-size: 1rem;
+	margin-left: 5px;
+	font-family: 'Lato';
+}
+
+#main-article .share-button{
+	color: black;
+	font-size: 1.3rem;
+	margin-right: 10px;
+}
+
+#main-article .share-button:hover{
+	color: #707070;
+}
+
+#article-text p{
+	font-family: 'Lato', serif;
+	font-size: 1.1rem;
+}
+
+#article-text a{
+	color: #1abc9c;
+}
+
+#article-text a:hover{
+	color: #12947a;
+	text-decoration: none;
+}
+
+#img-cover{
+	width: 100%;
+}
+
+#cat-list{
+	border-bottom: 1px solid #e6e6e6;
+}
+
+.cat-item{
+	font-size: .9rem;
+	font-weight: 200;
+	font-family: 'Lato', serif;
+	color: #474747;
 }
 
 @media (max-width: 575.98px) {

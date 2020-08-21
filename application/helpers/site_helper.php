@@ -50,3 +50,29 @@ function get_option($name){
 	$ci->db->where('name', $name);
 	return $ci->db->get()->row_array()['value'];
 }
+
+function get_statistics($key = null){
+	$ci = &get_instance();
+	$time = time();
+	$date = date('Y-m-d');
+	$visitors = $ci->db->get('visitors')->num_rows();
+	$vToday = $ci->db->get_where('visitors', ['visitor_date' => $date])->num_rows();
+	$hits = $ci->db->select('SUM(visitors.visitor_hits) as totals')->from('visitors')->get()->row_array();
+	$hToday = $ci->db->select('SUM(visitors.visitor_hits) as totals')->where('visitor_date', $date)->from('visitors')->get()->row_array();
+	$vOnline = $ci->db->get_where('visitors', ['visitor_online >' => $time - 300 , 'visitor_date' => $date])->num_rows();
+
+	$data = [
+		'total_visitors' => $visitors,
+		'today_visitors' => $vToday,
+		'total_hits' => $hits['totals'],
+		'today_hits' => $hToday['totals'],
+		'online_visitors' => $vOnline
+	];
+
+	return (is_null($key)) ? $data : $data[$key];
+}
+
+function get_category($id){
+	$ci = &get_instance();
+	return $ci->db->get_where('categories', ['id' => $id])->row_array();
+}
