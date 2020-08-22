@@ -59,6 +59,10 @@ $config = [
 		]
 	],
 	'facility_article' => [
-		
+		[
+			'field' => 'article',
+			'label' => 'Artikel',
+			'rules' => 'required'
+		]
 	]
 ];

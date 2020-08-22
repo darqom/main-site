@@ -112,6 +112,7 @@ class Institute_m extends CI_Model{
 		$name = htmlspecialchars($this->input->post('name', true));
 		$facility = $this->get_facilities($id);
 		$data['facility_name'] = $name;
+		$data['facility_slug'] = url_title($name, 'dash', true);
 
 		if($type == 'icon'){
 			$icon = htmlspecialchars($this->input->post('icon', true));
@@ -133,5 +134,12 @@ class Institute_m extends CI_Model{
 		}else{
 			return ['status' => false, 'msg' => 'Data gagal diubah'];
 		}
+	}
+
+	public function save_facility_article($id){
+		$article = $this->input->post('article');
+
+		$this->db->update('facilities', ['facility_article' => $article], ['id' => $id]);
+		return $this->db->affected_rows();
 	}
 }

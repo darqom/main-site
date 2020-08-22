@@ -16,7 +16,7 @@
 				<ul class="list-unstyled">
 					<?php foreach($facilities[0] as $facility): ?>
 						<li class="fasility-item">
-							<a href="<?= base_url('facility/'.$facility['id']); ?>" class="text-white text-center">
+							<a href="<?= base_url('facility/'.$facility['facility_slug']); ?>" class="text-white text-center">
 								<h2 class="icon"><i class="fas <?= $facility['facility_icon'] ?>"></i></h2>
 								<p class="fasility-text"><?= $facility['facility_name'] ?></p>
 							</a>
@@ -32,7 +32,7 @@
 						<h4 class="mb-4 font-weight-bold head-with-border"><?= $facility['facility_name']; ?></h4>
 						<img src="<?= base_url('assets/img/facility/'.$facility['facility_image']); ?>" alt="class" width="100%">
 						<p class="mt-2"><?= substr($facility['facility_article'], 0, 116); ?></p>
-						<a href="<?= base_url('facility/'.$facility['id']); ?>" class="btn btn-sm btn-success green-primary">Selengkapnya</a>
+						<a href="<?= base_url('facility/'.$facility['facility_slug']); ?>" class="btn btn-sm btn-success green-primary">Selengkapnya</a>
 					</div>
 				</div>
 			</div>

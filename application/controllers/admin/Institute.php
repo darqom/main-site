@@ -128,7 +128,11 @@ class Institute extends MY_Controller{
 
 		if($this->form_validation->run('facility_article') == false){
 			$data['title'] = 'Artikel Fasilitas';
+			$data['facility'] = $facility;
 			$middleware->generate_view('institute/facility_art', $data);
+		}else{
+			$this->institute->save_facility_article($id);
+			redirect('admin/institute/facility_article/'.$id);
 		}
 	}
 

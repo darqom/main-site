@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 
 /* My Routes */
 $route['post/(:any)'] = 'post/read/$1';
+$route['facility/(:any)'] = 'facility/read/$1';
