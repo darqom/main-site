@@ -5,6 +5,7 @@ class Institute_m extends CI_Model{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Options_m', 'options');
+		$this->load->model('Admin/Image_m', 'image');
 	}
 
 	public function save(){
@@ -63,7 +64,7 @@ class Institute_m extends CI_Model{
 		$name = htmlspecialchars($this->input->post('name', true));
 
 		if($_FILES['image']['name'] != ''){
-			$upload = $this->upload_image('image', 90, 'extra');
+			$upload = $this->image->upload('image', 'extra', 90);
 			if($upload['status'] == true){
 				$image = $upload['name'];
 			}else{
@@ -117,7 +118,7 @@ class Institute_m extends CI_Model{
 			$data['facility_icon'] = $icon;
 		}else{
 			if($_FILES['image']['name'] != ''){
-				$up = $this->upload_image('image', 80, 'facility');
+				$up = $this->image->upload('image', 'facility', 80);
 				if($up['status'] == false) return ['status' => false, 'msg' => $up['msg']];
 				if($facility['facility_image'] != 'noimage.png') @unlink('./assets/img/facility/'.$facility['facility_image']);
 				$data['facility_image'] = $up['name'];
@@ -131,38 +132,6 @@ class Institute_m extends CI_Model{
 			return ['status' => true, 'msg' => 'Data berhasil diubah'];
 		}else{
 			return ['status' => false, 'msg' => 'Data gagal diubah'];
-		}
-	}
-
-	public function upload_image($name, $quality = 60, $path = ''){
-		$config['upload_path'] = "./assets/img/$path";
-		$config['allowed_types'] = 'jpg|jpeg|png|gif';
-		$config['encrypt_name'] = true;
-
-		$this->load->library('upload', $config);
-		if(!$this->upload->do_upload($name)){
-			return [
-				'status' => false,
-				'msg' => $this->upload->display_errors()
-			];
-		}else{
-			$data = $this->upload->data();
-		        //Compress Image
-			$config['image_library']='gd2';
-			$config['source_image']= "./assets/img/$path/".$data['file_name'];
-			$config['create_thumb']= FALSE;
-			$config['maintain_ratio']= TRUE;
-			$config['quality']= "$quality%";
-			$config['width']= 800;
-			$config['height']= 800;
-			$config['new_image']= "./assets/img/$path/".$data['file_name'];
-			$this->load->library('image_lib', $config);
-			$this->image_lib->resize();
-			return [
-				'status' => true,
-				'url' => base_url()."assets/img/$path/".$data['file_name'],
-				'name' => $data['file_name']
-			];
 		}
 	}
 }

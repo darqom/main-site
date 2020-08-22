@@ -2,7 +2,7 @@ $('#post-content').summernote({
 	height: '40vh',
 	callbacks: {
 		onImageUpload: image => {
-			uploadImageSummer(image[0]);
+			uploadImageSummer('#post-content', image[0], 'post');
 		},
 		onMediaDelete: target => {
 			deleteImageSummer(target[0].src);

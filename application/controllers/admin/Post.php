@@ -178,29 +178,4 @@ class Post extends MY_Controller{
 			]);
 		}
 	}
-
-	public function upload_image(){
-		if(isset($_FILES['image']['name'])){
-			$res = $this->post->upload_image('image');
-			if(!$res['status']){
-				echo json_encode([
-					'status' => 'error',
-					'msg' => $res['msg']
-				]);
-			}else{
-				echo json_encode([
-					'status' => 'success',
-					'url' => $res['url']
-				]);
-			}
-		}
-	}
-
-	public function delete_image(){
-		$src = $this->input->post('src', true);
-		$file_name = str_replace(base_url(), '', $src);
-		if(unlink($file_name)){
-			echo 'File Delete Successfully';
-		}
-	}
 }

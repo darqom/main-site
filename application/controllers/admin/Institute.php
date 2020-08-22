@@ -119,6 +119,19 @@ class Institute extends MY_Controller{
 		}
 	}
 
+	public function facility_article($id = null){
+		$middleware = $this->middlewares['admin'];
+		$middleware->allowed_role('1');
+
+		$facility = $this->institute->get_facilities($id);
+		if(is_null($id) || is_null($facility)) redirect('admin/institute/facility');
+
+		if($this->form_validation->run('facility_article') == false){
+			$data['title'] = 'Artikel Fasilitas';
+			$middleware->generate_view('institute/facility_art', $data);
+		}
+	}
+
 	public function save(){
 		$this->middlewares['admin']->allowed_role('1');
 

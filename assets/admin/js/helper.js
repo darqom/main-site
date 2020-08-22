@@ -166,12 +166,13 @@ const checkLogin = form => {
 	});
 }
 
-const uploadImageSummer = image => {
+const uploadImageSummer = (el, image, path) => {
 	let data = new FormData();
 	data.append('image', image);
+	data.append('path', path);
 
 	$.ajax({
-		url: baseUrl + 'admin/post/upload_image',
+		url: baseUrl + 'admin/image/upload',
 		cache: false,
 		processData: false,
 		contentType: false,
@@ -180,17 +181,20 @@ const uploadImageSummer = image => {
 		dataType: 'json',
 		success: function(data){
 			if(data.status == 'success'){
-				$('#post-content').summernote('insertImage', data.url);
+				$(el).summernote('insertImage', data.url);
 			}else{
 				console.warn(data.msg);
 			}
+		},
+		error: function(data){
+			console.warn(data.responseText);
 		}
 	});
 }
 
 const deleteImageSummer = src => {
 	$.ajax({
-		url: baseUrl + 'admin/post/delete_image',
+		url: baseUrl + 'admin/image/delete',
 		data: {src: src},
 		method: 'post'
 	});

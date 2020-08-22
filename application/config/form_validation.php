@@ -57,5 +57,8 @@ $config = [
 			'label' => 'Nama Akun Instagram',
 			'rules' => 'required'
 		]
+	],
+	'facility_article' => [
+		
 	]
 ];

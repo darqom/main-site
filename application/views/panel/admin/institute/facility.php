@@ -34,7 +34,7 @@ function generate_color($i){
 									</div>
 								</div>
 								<a href="#" style="font-size: 1em;" class="btn-edit-facility mr-2" data-id="<?= $facilities[0][$i]['id']; ?>">Edit</a>
-								<a href="" style="font-size: 1em;">Artikel</a>
+								<a href="<?= base_url('admin/institute/facility_article/'.$facilities[0][$i]['id']); ?>" style="font-size: 1em;">Artikel</a>
 							</div>
 						</div>
 					<?php endfor; ?>
@@ -55,7 +55,7 @@ function generate_color($i){
 								<div class="card-body">
 									<h6 style="display: inline-block;"><?= $facilities[1][$i]['facility_name']; ?></h6>
 									<button class="btn btn-sm btn-outline-dark float-right mb-2 btn-edit-facility" data-id="<?= $facilities[1][$i]['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
-									<a class="btn btn-sm btn-outline-dark float-right mb-2 mr-2"><i class="fas fa-paste"></i></a>
+									<a href="<?= base_url('admin/institute/facility_article/'.$facilities[1][$i]['id']); ?>" class="btn btn-sm btn-outline-dark float-right mb-2 mr-2"><i class="fas fa-paste"></i></a>
 									<img src="<?= base_url('assets/img/facility/'.$facilities[1][$i]['facility_image']); ?>" alt="Image" width="100%" class="rounded">
 								</div>
 							</div>

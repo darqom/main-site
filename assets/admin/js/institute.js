@@ -259,3 +259,15 @@ $('#edit-facility2-form').on('submit', function(e){
 		}
 	});
 });
+
+$('#facility-article').summernote({
+	height: '40vh',
+	callbacks: {
+		onImageUpload: image => {
+			uploadImageSummer('#facility-article', image[0], 'facility');
+		},
+		onMediaDelete: target => {
+			deleteImageSummer(target[0].src);
+		}
+	}
+});
