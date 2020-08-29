@@ -112,6 +112,15 @@
                 </li>
               </ul>
             </li>
+            <li class="menu-header">Website</li>
+            <li class="nav-item dropdown <?= ($aURL == 'view') ? 'active' : ''; ?>">
+              <a href="" class="nav-link has-dropdown"><i class="fas fa-paint-brush"></i> <span>Tampilan</span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="<?= base_url('admin/view/menu'); ?>" class="nav-link">Menu Navigasi</a>
+                </li>
+              </ul>
+            </li>
           </ul>
 
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

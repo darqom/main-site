@@ -64,5 +64,17 @@ $config = [
 			'label' => 'Artikel',
 			'rules' => 'required'
 		]
+	],
+	'add_menu' => [
+		[
+			'field' => 'label',
+			'label' => 'Label',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'link',
+			'label' => 'Link',
+			'rules' => 'required'
+		]
 	]
 ];
