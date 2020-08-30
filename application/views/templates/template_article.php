@@ -22,21 +22,22 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav ml-auto color-white">
-					<a class="nav-item nav-link" href="<?= base_url(); ?>">BERANDA</a>
-					<a class="nav-item nav-link" href="#">KELEMBAGAAN</a>
-					<div class="nav-item dropdown">
-						<a class="nav-link text-white dropdown-toggle" href="#" role="button" id="kompetensi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							KOMPETENSI KEAHLIAN
-						</a>
-						<div class="dropdown-menu" aria-labelledby="kompetensi">
-							<a class="dropdown-item" href="#">Teknik Komputer dan Jaringan</a>
-							<a class="dropdown-item" href="#">Teknik Kendaraan Ringan</a>
-							<a class="dropdown-item" href="#">Multimedia</a>
-						</div>
-					</div>
-					<a class="nav-item nav-link" href="#">BERITA</a>
-					<a class="nav-item nav-link" href="#">MEDIA</a>
-					<a class="nav-item nav-link" href="#">HUBUNGI KAMI</a>
+					<?php foreach($menus as $menu): ?>
+						<?php if(is_null($menu['sub_menu'])): ?>
+							<a class="nav-item nav-link" href="<?= base_url($menu['link']); ?>"><?= $menu['label']; ?></a>
+						<?php else: ?>
+							<div class="nav-item dropdown">
+								<a class="nav-link text-white dropdown-toggle" href="#" role="button" id="menu<?= $menu['id']; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<?= $menu['label']; ?>
+								</a>
+								<div class="dropdown-menu" aria-labelledby="menu<?= $menu['id']; ?>"">
+									<?php foreach($menu['sub_menu'] as $subMenu): ?>
+										<a class="dropdown-item" href="<?= base_url($subMenu['link']); ?>"><?= $subMenu['label']; ?></a>
+									<?php endforeach; ?>
+								</div>
+							</div>
+						<?php endif; ?>
+					<?php endforeach; ?>
 				</div>
 			</div>
 		</div>
