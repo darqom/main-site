@@ -16,6 +16,15 @@ class Menu extends MY_Controller{
 		}
 	}
 
+	public function get_sub_menu(){
+		if($this->input->is_ajax_request()){
+			$id = $this->input->post('id', true);
+			$subMenu = $this->menu->get_sub_menu($id);
+
+			echo json_encode($subMenu);
+		}
+	}
+
 	public function add_menu(){
 		if($this->form_validation->run('add_menu') == false){
 			echo json_encode([
@@ -53,6 +62,18 @@ class Menu extends MY_Controller{
 					'msg' => $res['msg']
 				]);
 			}
+		}
+	}
+
+	public function delete_menu(){
+		if($this->input->is_ajax_request()){
+			$id = intval($this->input->post('id', true));
+			$res = $this->menu->delete($id);
+
+			echo json_encode([
+				'status' => ($res['status'] == false) ? 'error' : 'success',
+				'msg' => $res['msg']
+			]);
 		}
 	}
 }

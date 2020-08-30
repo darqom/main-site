@@ -8,6 +8,7 @@ class Home extends CI_Controller {
 		$this->load->model('Admin/Post_m', 'post');
 		$this->load->model('Admin/Event_m', 'event');
 		$this->load->model('Admin/Institute_m', 'institute');
+		$this->load->model('Menu_m', 'menu');
 	}
 
 	public function index(){
@@ -18,6 +19,7 @@ class Home extends CI_Controller {
 		$data['events'] = $this->event->get_events(3);
 		$data['extrasGroup'] = array_chunk($this->institute->get_extra(), 4);
 		$data['facilities'] = $this->institute->get_facilities();
+		$data['menus'] = $this->menu->get();
 		
 		$this->template->load('templates/template', 'home/index', $data);
 	}

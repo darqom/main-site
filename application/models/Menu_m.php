@@ -29,6 +29,12 @@ class Menu_m extends CI_Model{
 		return $subMenu;
 	}
 
+	public function get_sub_menu($id = null){
+		$subMenu = $this->db->get_where('nav_menu', ['id' => $id])->row_array();
+		if(count($subMenu) < 1) return null;
+		return $subMenu;
+	}
+
 	public function add(){
 		$label = htmlspecialchars($this->input->post('label', true));
 		$link = htmlspecialchars($this->input->post('link', true));
@@ -65,6 +71,17 @@ class Menu_m extends CI_Model{
 			return ['status' => true, 'msg' => 'Menu berhasil diubah'];
 		}else{
 			return ['status' => false, 'msg' => 'Menu gagal diubah'];
+		}
+	}
+
+	public function delete($id){
+		$this->db->delete('nav_menu', ['is_main_menu' => $id]);
+		$this->db->delete('nav_menu', ['id' => $id]);
+
+		if($this->db->affected_rows() > 0){
+			return ['status' => true, 'msg' => 'Menu berhasil dihapus'];
+		}else{
+			return ['status' => false, 'msg' => 'Menu gagal dihapus'];
 		}
 	}
 }

@@ -37,7 +37,7 @@ function displayMenuStructure(){
 					$.each(menu.sub_menu, (i, subMenu) => {
 						subEl += `
 						<h6 class="ml-2 mb-3">${subMenu.label}
-						<button class="btn btn-sm btn-outline-primary float-right mr-4 btn-edit-menu" data-id="${subMenu.id}"><i class="fas fa-pencil-alt"></i></button>
+						<button class="btn btn-sm btn-outline-primary float-right mr-4 btn-edit-sub-menu" data-id="${subMenu.id}"><i class="fas fa-pencil-alt"></i></button>
 						</h6>
 						`;
 					});
@@ -52,6 +52,7 @@ function displayMenuStructure(){
 					</div>
 					</div>
 					`;
+					subEl = '';
 				}else{
 					el += `
 					<div class="border rounded mt-1 p-2">
@@ -80,7 +81,47 @@ function fillEditMenuForm(id){
 			$('#edit-id').val(data[0].id);
 			$('#edit-label').val(data[0].label);
 			$('#edit-link').val(data[0].link);
+			$('#delete-id').data('id', data[0].id);
 			delAlert('.edit-message');
+		}
+	});
+}
+
+function fillEditSubMenuForm(id){
+	delValidate(['edit-label', 'edit-link']);
+	$('#edit-menu-form').trigger('reset');
+	$.ajax({
+		url: baseUrl + 'admin/menu/get_sub_menu',
+		method: 'post',
+		data: {id: id},
+		dataType: 'json',
+		success: function(data){
+			$('#edit-id').val(data.id);
+			$('#edit-label').val(data.label);
+			$('#edit-link').val(data.link);
+			$('#delete-id').data('id', data.id);
+			delAlert('.edit-message');
+		}
+	});
+}
+
+function deleteMenu(id){
+	showFixLoader();
+	$.ajax({
+		url: baseUrl + 'admin/menu/delete_menu',
+		method: 'post',
+		data: {id: id},
+		dataType: 'json',
+		success: function(data){
+			Swal.fire({
+				icon: data.status,
+				title: data.msg,
+				showConfirmButton: false,
+				timer: 2000
+			});
+
+			if(data.status == 'success') $('#modalEditMenu').modal('toggle');
+			displayMenuStructure();
 		}
 	});
 }
@@ -135,6 +176,19 @@ $('#list-menu-container').on('click', '.btn-edit-menu', function(){
 	fillEditMenuForm(id);
 });
 
+$('#list-menu-container').on('click', '.btn-edit-sub-menu', function(){
+	const id = $(this).data('id');
+	$('#modalEditMenu').modal('show');
+	showAlert({
+		el: '.edit-message',
+		type: 'info',
+		icon: 'spinner',
+		text: 'Sedang mengambil data...'
+	});
+
+	fillEditSubMenuForm(id);
+});
+
 $('#edit-menu-form').submit(function(e){
 	e.preventDefault();
 	const form = $(this);
@@ -150,14 +204,21 @@ $('#edit-menu-form').submit(function(e){
 			if(data.status == 'validate'){
 				validate(data);
 			}else{
+				displayMenuStructure();
 				Swal.fire({
 					icon: data.status,
 					title: data.msg,
 					showConfirmButton: false,
 					timer: 2000
 				});
+				$('#modalEditMenu').modal('toggle');
 			}
 			delAlert('.edit-message');
 		}
 	});
+});
+
+$('.btn-del-menu').click(function(e){
+	const id = $(this).data('id');
+	deleteMenu(id);
 });

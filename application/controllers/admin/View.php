@@ -18,8 +18,4 @@ class View extends MY_Controller{
 		$data['menus'] = $this->menu->get();
 		$middleware->generate_view('view/menu', $data);
 	}
-
-	public function coba(){
-
-	}
 }

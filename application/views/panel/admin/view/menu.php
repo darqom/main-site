@@ -14,7 +14,7 @@
 							<div class="in collapse p-2 mt-2 bg-light rounded" id="menu-item<?= $menu['id']; ?>">
 								<?php foreach($menu['sub_menu'] as $subMenu): ?>
 									<h6 class="ml-2 mb-3"><?= $subMenu['label']; ?>
-									<button class="btn btn-sm btn-outline-primary float-right mr-4 btn-edit-menu" data-id="<?= $menu['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
+									<button class="btn btn-sm btn-outline-primary float-right mr-4 btn-edit-sub-menu" data-id="<?= $subMenu['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
 								</h6>
 							<?php endforeach; ?>
 						</div>
@@ -86,8 +86,9 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-					<button type="submit" class="btn btn-primary">Edit</button>	
+					<button type="button" class="btn btn-secondary float-left mr-4" data-dismiss="modal"><i class="far fa-times-circle"></i> Batal</button>
+					<button type="button" class="btn btn-danger btn-del-menu" id="delete-id"><i class="fas fa-trash-alt"></i> Hapus</button>
+					<button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</button>	
 				</div>
 			</form>
 		</div>
