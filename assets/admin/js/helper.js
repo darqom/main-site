@@ -217,3 +217,11 @@ function addCategory(form, callback){
 		}
 	});
 }
+
+function convertSlug(text){
+	return text
+		.toLowerCase()
+		.replace(/[^\w ]+/g,'')
+		.replace(/ +/g,'-')
+	;
+}

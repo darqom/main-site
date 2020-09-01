@@ -76,5 +76,29 @@ $config = [
 			'label' => 'Link',
 			'rules' => 'required'
 		]
+	],
+	'save_page' => [
+		[
+			'field' => 'title',
+			'label' => 'Judul',
+			'rules' => 'required|is_unique[pages.page_title]'
+		],
+		[
+			'field' => 'content',
+			'label' => 'Konten',
+			'rules' => 'required'
+		]
+	],
+	'edit_page' => [
+		[
+			'field' => 'title',
+			'label' => 'Judul',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'content',
+			'label' => 'Konten',
+			'rules' => 'required'
+		]
 	]
 ];

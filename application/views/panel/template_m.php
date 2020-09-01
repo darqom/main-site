@@ -121,6 +121,15 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item dropdown <?= ($aURL == 'pages') ? 'active' : ''; ?>">
+              <a href="" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Halaman</span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="<?= base_url('admin/pages'); ?>" class="nav-link">Semua Halaman</a>
+                  <a href="<?= base_url('admin/pages/add'); ?>" class="nav-link">Tambah Halaman</a>
+                </li>
+              </ul>
+            </li>
           </ul>
 
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
