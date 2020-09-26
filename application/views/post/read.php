@@ -4,7 +4,7 @@ $categories = explode('+', $post['post_categories']);
 <div class="row justify-content-center">
 	<div class="col-md-7">
 		<main id="main-article" class="pt-4">
-			<h1 id="article-title" class="mb-4">Negara Kesatuan Republik Indonesia (NKRI)</h1>
+			<h1 id="article-title" class="mb-4"><?= $post['post_title']; ?></h1>
 			<div class="row mb-4">	
 				<div class="col-6">
 					<p class="text-muted post-date">
