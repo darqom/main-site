@@ -17,7 +17,7 @@ class Home extends CI_Controller {
 		$data['posts'] = $this->post->get_posts(3);
 		$data['announces'] = $this->event->get_announces(3);
 		$data['events'] = $this->event->get_events(3);
-		$data['extrasGroup'] = array_chunk($this->institute->get_extra(), 4);
+		$data['extras'] = $this->institute->get_extra();
 		$data['facilities'] = $this->institute->get_facilities();
 		$data['menus'] = $this->menu->get();
 		

@@ -54,42 +54,26 @@
 
 <div class="container-fluid bg-light">
 	<div class="row justify-content-center">
-		<div class="col-md-11">
+		<div class="col-md-12">
 			<h6>Mari Bergabung Bersama Kami!!</h6>
 			<h4 class="mt-3 head-with-border font-weight-bold">EKSTRAKULIKULER</h4>
 		</div>
-		<div class="col-md-1 pt-2 text-right">
-			<button class="btn btn-sm btn-outline-dark" href="#carouselExampleControls" data-slide="prev">
-				<i class="fas fa-chevron-left"></i>
-			</button>
-			<button class="btn btn-sm btn-outline-dark" href="#carouselExampleControls" data-slide="next">
-				<i class="fas fa-chevron-right"></i>
-			</button>
-		</div>
 	</div>
 
-	<div class="row justify-content-center mt-2">
-		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-			<div class="carousel-inner">
-				<?php $c = 0; ?>
-				<?php foreach($extrasGroup as $extras): ?>
-					<div class="carousel-item <?= ($c==0) ? 'active' : ''; ?>">
-						<div class="row justify-content-center p-1">
-							<?php foreach($extras as $extra): ?>
-								<div class="col-md-3">
-									<div class="card">
-										<div class="card-body descript-item">
-											<img src="<?= base_url('assets/img/extra/'.$extra['extra_image']); ?>" alt="class" width="100%">
-											<h6 class="font-weight-bold mt-2 text-center"><?= $extra['extra_name']; ?></h6>
-										</div>
-									</div>
-								</div>
-							<?php endforeach; ?>
+	<div class="container carousel">
+		<div class="owl-carousel owl-theme">
+			<?php foreach($extras as $extra): ?>
+				<div class="row">
+					<div class="col-12">
+						<div class="card m-2">
+							<div class="card-body descript-item">
+								<img src="<?= base_url('assets/img/extra/'.$extra['extra_image']); ?>" alt="class" width="100%">
+								<h6 class="font-weight-bold mt-2 text-center"><?= $extra['extra_name']; ?></h6>
+							</div>
 						</div>
 					</div>
-					<?php $c++; ?>
-				<?php endforeach; ?>
-			</div>
+				</div>
+			<?php endforeach; ?>
 		</div>
 	</div>
 	<hr class="mt-70">
