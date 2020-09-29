@@ -5,6 +5,7 @@ class Facility extends CI_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Facility_m', 'facility');
+		$this->load->model('Menu_m', 'menu');
 	}
 
 	public function read($slug = ''){
@@ -13,6 +14,7 @@ class Facility extends CI_Controller{
 
 		$data['facility'] = $facility;
 		$data['title'] = $facility['facility_name'];
+		$data['menus'] = $this->menu->get();
 		$this->template->load('templates/template_article', 'facility/read', $data);
 	}
 }
