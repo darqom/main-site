@@ -10,6 +10,10 @@ class Pages_m extends CI_Model{
 		}
 	}
 
+	public function get_page($key, $value){
+		return $this->db->get_where('pages', [$key => $value])->row_array();
+	}
+
 	public function add(){
 		$title = htmlspecialchars($this->input->post('title', true));
 		$content = $this->input->post('content');
