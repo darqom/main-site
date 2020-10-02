@@ -1,5 +1,13 @@
 <?php
 
+function encrypt($str){
+	return openssl_encrypt($str, 'AES-128-ECB', 'darqom2020');
+}
+
+function decrypt($str){
+	return openssl_decrypt($str, 'AES-128-ECB', 'darqom2020');
+}
+
 function greet(){
 	$time = intval(date('H'));
 	
