@@ -1,6 +1,18 @@
 <?php
 
 $config = [
+	'reset_pass' => [
+		[
+			'field' => 'password',
+			'label' => 'Password',
+			'rules' => 'required|min_length[8]'
+		],
+		[
+			'field' => 'password2',
+			'label' => 'Konfirmasi Password',
+			'rules' => 'required|matches[password]'
+		]
+	],
 	'save_insitute' => [
 		[
 			'field' => 'description',

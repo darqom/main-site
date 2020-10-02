@@ -12,8 +12,10 @@ use PHPMailer\PHPMailer\Exception;
 class Mail_m extends CI_Model{
 	public function __construct(){
 		parent::__construct();
-		$this->mailer = new PHPMailer;
 		$this->load->model('Options_m', 'options');
+		$this->load->helper('mail_helper');
+		$this->mailer = new PHPMailer;
+		$this->mail = new Mail_helper;
 	}
 
 	private function init(){
@@ -21,7 +23,7 @@ class Mail_m extends CI_Model{
 		$password = get_option('mail_password');
 		$name = get_option('mail_name');
 
-		$this->mailer->SMTPDebug = 4;
+		$this->mailer->SMTPDebug = false;
 		$this->mailer->IsHTML(true);
 		$this->mailer->IsSMTP();
 		$this->mailer->SMTPAuth = true;
@@ -31,5 +33,18 @@ class Mail_m extends CI_Model{
 		$this->mailer->Username = $username;
 		$this->mailer->Password = decrypt($password);
 		$this->mailer->SetFrom($username, $name);
+	}
+
+	public function send_reset($email, $code){
+		$this->init();
+		$this->mailer->Subject = 'Konfirmasi Reset Akun';
+		$this->mailer->Body = $this->mail->reset_mail($email, $code);
+		$this->mailer->AddAddress($email);
+		
+		if($this->mailer->send()){
+			return ['status' => true, 'msg' => 'Email verifikasi telah dikirimkan'];
+		}else{
+			return ['status' => false, 'msg' => 'Email verifikasi gagal dikirimkan'];
+		}
 	}
 }

@@ -8,7 +8,9 @@
           <p class="text-muted">Sebelum anda memulai, anda harus login terlebih dahulu.</p>
           <form method="POST" id="login-form">
             <div class="form-group message">
-
+              <?php if($sess = $this->session->flashdata('msg')): ?>
+                <div class="alert alert-<?= $sess['class']; ?>"><?= $sess['msg']; ?></div>
+              <?php endif; ?>
             </div>
             <div class="form-group">
               <label for="username">Username</label>
@@ -25,7 +27,7 @@
             </div>
 
             <div class="form-group text-right">
-              <a href="auth-forgot-password.html" class="float-left mt-3">
+              <a href="<?= base_url('admin/auth/forgot'); ?>" class="float-left mt-3">
                 Lupa Sandi?
               </a>
               <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
