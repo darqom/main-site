@@ -1,6 +1,28 @@
 <?php
 
 $config = [
+	'save_smtp' => [
+		[
+			'field' => 'smtp-host',
+			'label' => 'Host',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'smtp-port',
+			'label' => 'Port',
+			'rules' => 'required|is_numeric'
+		],
+		[
+			'field' => 'smtp-username',
+			'label' => 'Username',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'smtp-name',
+			'label' => 'Nama Pengirim',
+			'rules' => 'required'
+		]
+	],
 	'reset_pass' => [
 		[
 			'field' => 'password',

@@ -130,6 +130,10 @@
                 </li>
               </ul>
             </li>
+            <li class="menu-header">Aplikasi</li>
+            <li class="nav-item dropdown <?= ($aURL == 'app') ? 'active' : ''; ?>">
+              <a href="<?= base_url('admin/app/settings'); ?>" class="nav-link"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
+            </li>
           </ul>
 
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

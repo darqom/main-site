@@ -18,18 +18,18 @@ class Mail_m extends CI_Model{
 		$this->mail = new Mail_helper;
 	}
 
-	private function init(){
-		$username = get_option('mail_username');
-		$password = get_option('mail_password');
-		$name = get_option('mail_name');
+	private function init($debug = false){
+		$username = get_option('smtp_username');
+		$password = get_option('smtp_password');
+		$name = get_option('smtp_name');
 
-		$this->mailer->SMTPDebug = false;
+		$this->mailer->SMTPDebug = $debug;
 		$this->mailer->IsHTML(true);
 		$this->mailer->IsSMTP();
 		$this->mailer->SMTPAuth = true;
 		$this->mailer->SMTPSecure = "tls";
-		$this->mailer->Host = 'smtp.gmail.com';
-		$this->mailer->Port = 587;
+		$this->mailer->Host = get_option('smtp_host');
+		$this->mailer->Port = get_option('smtp_port');
 		$this->mailer->Username = $username;
 		$this->mailer->Password = decrypt($password);
 		$this->mailer->SetFrom($username, $name);
@@ -42,7 +42,7 @@ class Mail_m extends CI_Model{
 		$this->mailer->AddAddress($email);
 		
 		if($this->mailer->send()){
-			return ['status' => true, 'msg' => 'Email verifikasi telah dikirimkan'];
+			return ['status' => true, 'msg' => 'Email verifikasi telah dikirimkan ke '.obfuscate_email($email)];
 		}else{
 			return ['status' => false, 'msg' => 'Email verifikasi gagal dikirimkan'];
 		}

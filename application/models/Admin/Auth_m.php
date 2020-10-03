@@ -33,18 +33,7 @@ class Auth_m extends CI_Model{
 				'msg' => 'Username tidak ditemukan'
 			];
 		}else{
-			if($this->do_forgot($user['email'])){
-				$email = $user['email'];
-				return [
-					'status' => true,
-					'msg' => 'Tautan konfirmasi berhasil dikirimkan ke '. obfuscate_email($email)
-				];
-			}else{
-				return [
-					'status' => false,
-					'msg' => 'Tauan konfirmasi gagal dikirimkan'
-				];
-			}
+			return $this->do_forgot($user['email']);
 		}
 	}
 
@@ -83,10 +72,13 @@ class Auth_m extends CI_Model{
 
 		$code = generate_code();
 		$expired = time() + 3600;
-		if($this->mail_m->send_reset($email, $code)){
+		$forgot = $this->mail_m->send_reset($email, $code);
+
+		if($forgot['status']){
 			$this->db->delete('reset_mail', ['email' => $email]);
 			$this->db->insert('reset_mail', ['email' => $email, 'code' => $code, 'expired' => $expired]);
-			return true;
 		};
+
+		return $forgot;
 	}
 }
