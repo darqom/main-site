@@ -139,12 +139,14 @@
 				<div class="card-body">
 					<h6 class="head-with-border font-weight-bold">Berita Terbaru</h6>
 					<?php foreach($posts as $post): ?>
-						<div class="row no-gutters mt-4	border-bottom	pb-3">
+						<div class="row no-gutters mt-4	border-bottom	pb-3 latest-post-card">
 							<div class="col-md-4 pr-1">
-								<img src="<?= base_url('assets/img/post/'.$post['post_cover']); ?>" alt="" width="100%">
+								<div class="latest-post-img" style="background-image: url('<?= base_url('/assets/img/post/'.$post['post_cover']); ?>');"></div>
 							</div>
 							<div class="col-md-8 pt-2 pl-1">
-								<h6 class="event-title"><a href="<?= base_url('post/'.$post['post_slug']); ?>" class="link"><?= $post['post_title']; ?></a></h6>
+								<h6 class="event-title"><a href="<?= base_url('post/'.$post['post_slug']); ?>" class="link"><?= substr($post['post_title'], 0, 45); ?><?php if(strlen($post['post_title']) > 45): ?>...
+									<?php endif; ?></a>
+								</h6>
 								<p class="event-time"><i class="far fa-clock green-primary-text"></i> <?= indo_date($post['created_at']); ?></p>
 							</div>
 						</div>
