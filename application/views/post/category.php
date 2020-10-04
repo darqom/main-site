@@ -1,6 +1,6 @@
 <div class="jumbotron jumbotron-fluid text-center category-header">
 	<h1><?= $category['category_name']; ?></h1>
-	<h6><?= count($posts); ?> postingan dengan kategori ini</h6>
+	<h6><?= $total_post; ?> postingan dengan kategori ini</h6>
 </div>
 
 <div class="row justify-content-center mt-4">
@@ -23,4 +23,10 @@
 			</a>
 		</div>
 	<?php endforeach; ?>
+</div>
+
+<div class="row justify-content-center mt-4">
+	<div class="col-12">
+		<?= $this->pagination->create_links() ?>
+	</div>
 </div>

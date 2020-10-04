@@ -21,4 +21,9 @@ class Post_m extends CI_Model{
 		$this->db->limit($limit, $start);
 		return $this->db->get('posts')->result_array();
 	}
+
+	public function total_by_category($category){
+		$this->db->like('post_categories', $category);
+		return $this->db->get('posts')->num_rows();
+	}
 }
