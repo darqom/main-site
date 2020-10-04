@@ -45,7 +45,10 @@
 		</nav>
 
 		<?= $contents; ?>
-		<?php $socmeds = json_decode(get_option('school_socmeds'), true); ?>
+		<?php
+		$socmeds = json_decode(get_option('school_socmeds'), true);
+		$statistics = get_statistics();
+		?>
 		<footer class="pt-55 container-fluid">
 			<div class="text-white copyright-content">
 				<div class="row pl-50 pr-50">

@@ -17,4 +17,16 @@ class Post extends CI_Controller{
 		$data['title'] = $post['post_title'];
 		$this->template->load('templates/template_article', 'post/read', $data);
 	}
+
+	public function category($slug = ''){
+		$category = $this->post->get_category('category_slug', $slug);
+		if(is_null($category)) show_404();
+
+		$posts = $this->post->get_by_category($category['id']);
+		$data['menus'] = $this->menu->get();
+		$data['category'] = $category;
+		$data['posts'] = $posts;
+		$data['title'] = 'Kategori ' . $category['category_name'];
+		$this->template->load('templates/template_article', 'post/category', $data);
+	}
 }
