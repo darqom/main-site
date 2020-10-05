@@ -94,7 +94,7 @@
 <div class="container-fluid bg-white">
 	<div class="row justify-content-center">
 		<div class="col-md-4">
-			<div class="card shadow">
+			<div class="card shadow mb-4">
 				<div class="card-body">
 					<h6 class="head-with-border font-weight-bold">Kegiatan</h6>
 					<?php foreach($events as $event): ?>
@@ -120,7 +120,7 @@
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="card shadow">
+			<div class="card shadow mb-4">
 				<div class="card-body">
 					<h6 class="head-with-border font-weight-bold">Pengumuman</h6>
 					<?php foreach($announces as $announce): ?>
@@ -135,7 +135,7 @@
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="card shadow">
+			<div class="card shadow mb-4">
 				<div class="card-body">
 					<h6 class="head-with-border font-weight-bold">Berita Terbaru</h6>
 					<?php foreach($posts as $post): ?>
