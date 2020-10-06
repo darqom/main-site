@@ -10,6 +10,12 @@ class Post_m extends CI_Model{
 		return $this->db->get_where('posts', [$key => $value])->row_array();
 	}
 
+	public function get_latest($limit = 5, $start = 0){
+		$this->db->limit($limit, $start);
+		$this->db->order_by('id', 'DESC');
+		return $this->db->get('posts')->result_array();
+	}
+
 	public function get_category($key, $value){
 		$this->db->where($key, $value);
 		$this->db->where('is_deleted', '0');
@@ -19,7 +25,12 @@ class Post_m extends CI_Model{
 	public function get_by_category($category, $limit = 5, $start = 0){
 		$this->db->like('post_categories', $category);
 		$this->db->limit($limit, $start);
+		$this->db->order_by('id', 'DESC');
 		return $this->db->get('posts')->result_array();
+	}
+
+	public function total(){
+		return $this->db->get('posts')->num_rows();
 	}
 
 	public function total_by_category($category){

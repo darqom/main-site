@@ -8,6 +8,18 @@ class Post extends CI_Controller{
 		$this->load->model('Menu_m', 'menu');
 	}
 
+	public function index($start = 0){
+		$this->load->model('Paginate_m', 'paginate');
+
+		$limit = 9;
+		$total = $this->post->total();
+		$this->paginate->basic('post/', $total, $limit);
+		$data['posts'] = $this->post->get_latest($limit, $start);
+		$data['menus'] = $this->menu->get();
+		$data['title'] = 'Postingan Terbaru';
+		$this->template->load('templates/template_article', 'post/latest', $data);
+	}
+
 	public function read($slug = ''){
 		$post = $this->post->get_post('post_slug', $slug);
 		if(is_null($post)) show_404();
