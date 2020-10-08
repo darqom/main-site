@@ -74,7 +74,9 @@ function indo_date($date, $sub = false){
 	$exploded = explode('-', $date);
 	$month = $months[(int)$exploded[1]];
 	if($sub) $month = substr($month, 0, $sub);
-	return $exploded[2].' '.$month.' '.$exploded[0];
+
+	$day = isset($exploded[2]) ? $exploded[2] : '';
+	return trim($day.' '.$month.' '.$exploded[0]);
 }
 
 function get_option($name){

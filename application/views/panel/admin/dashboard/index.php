@@ -1,3 +1,21 @@
+<?php
+$vLabels = [];
+$vHits = [];
+$vTotals = [];
+
+foreach ($hStatistics as $statistic) {
+  $vLabels[] = indo_date($statistic['date'], 3);
+}
+
+foreach ($hStatistics as $statistic) {
+  $vHits[] = $statistic['hits'];
+}
+
+foreach($vStatistics as $statistic){
+  $vTotals[] = $statistic['visitors'];
+}
+
+?>
 <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
@@ -60,3 +78,22 @@
     </div>
   </div>
 </div>
+
+<div class="row mt-4">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h4>Statistik Pengunjung</h4>
+      </div>
+      <div class="card-body">
+        <canvas id="visitor-chart" width="100%" height="60%"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const vLabels = <?= json_encode($vLabels); ?>;
+  const vHits = <?= json_encode($vHits); ?>;
+  const vTotals = <?= json_encode($vTotals); ?>;
+</script>

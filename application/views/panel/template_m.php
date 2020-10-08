@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
 
   <!-- Plugin CSS -->
-  <link rel="stylesheet" href="<?= base_url('assets/summernote/summernote-bs4.min.css'); ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/vendor/chartjs/Chart.min.css'); ?>">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
   <!-- Template CSS -->
@@ -176,7 +176,8 @@
   <script src="<?= base_url('assets/stisla-assets/js/stisla.js'); ?>"></script>
 
   <!-- Plugin JS -->
-  <script src="<?= base_url('assets/summernote/summernote-bs4.min.js'); ?>"></script>
+  <script src="<?= base_url('assets/vendor/summernote/summernote-bs4.min.js'); ?>"></script>
+  <script src="<?= base_url('assets/vendor/chartjs/Chart.min.js'); ?>"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 

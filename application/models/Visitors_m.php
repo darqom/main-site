@@ -58,4 +58,20 @@ class Visitors_m extends CI_Model{
 
 		$this->db->insert('visitors', $data);
 	}
+
+	public function hits_per_month($limit = 4){
+		$this->db->select("DATE_FORMAT(visitor_date, '%Y-%m') AS date, SUM(visitor_hits) AS hits");
+		$this->db->group_by('MONTH(visitor_date), YEAR(visitor_date)');
+		$this->db->limit($limit);
+		$this->db->order_by('MONTH(visitor_date), YEAR(visitor_date)', 'DESC');
+		return $this->db->get('visitors')->result_array();
+	}
+
+	public function visitors_per_month($limit = 4){
+		$this->db->select("DATE_FORMAT(visitor_date, '%Y-%m') AS date, COUNT(visitor_hits) AS visitors");
+		$this->db->group_by('MONTH(visitor_date), YEAR(visitor_date)');
+		$this->db->limit($limit);
+		$this->db->order_by('MONTH(visitor_date), YEAR(visitor_date)', 'DESC');
+		return $this->db->get('visitors')->result_array();
+	}
 }

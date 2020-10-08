@@ -15,7 +15,7 @@ class Home extends CI_Controller {
 		$data['title'] = 'Selamat Datang';
 		$data['statistics'] = $this->visitors->get_statistics();
 		$data['posts'] = $this->post->get_latest(3);
-		$data['announces'] = $this->event->get_announces(3);
+		$data['announces'] = $this->event->get_announces(4);
 		$data['events'] = $this->event->get_events(3);
 		$data['extras'] = $this->institute->get_extra();
 		$data['facilities'] = $this->institute->get_facilities();
