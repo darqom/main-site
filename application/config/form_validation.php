@@ -134,5 +134,39 @@ $config = [
 			'label' => 'Konten',
 			'rules' => 'required'
 		]
+	],
+	'save_profile' => [
+		[
+			'field' => 'fullname',
+			'label' => 'Nama Lengkap',
+			'rules' => 'required|min_length[3]'
+		],
+		[
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'required|valid_email'
+		],
+		[
+			'field' => 'gender',
+			'label' => 'Jenis Kelamin',
+			'rules' => 'required'
+		]
+	],
+	'save_profile_pass' => [
+		[
+			'field' => 'old-pass',
+			'label' => 'Password lama',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'new-pass',
+			'label' => 'Password baru',
+			'rules' => 'required|min_length[8]'
+		],
+		[
+			'field' => 'confirm-pass',
+			'label' => 'Konfirmasi',
+			'rules' => 'required|matches[new-pass]'
+		]
 	]
 ];

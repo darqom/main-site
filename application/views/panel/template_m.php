@@ -13,6 +13,7 @@
   <!-- Plugin CSS -->
   <link rel="stylesheet" href="<?= base_url('assets/vendor/chartjs/Chart.min.css'); ?>">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/vendor/summernote/summernote-bs4.min.css'); ?>">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url('assets/stisla-assets/css/style.css'); ?>">
@@ -36,10 +37,13 @@
             <img alt="image" src="<?= base_url('assets/admin/img/profile/'.$user['image']); ?>" class="rounded-circle mr-1">
             <div class="d-sm-none d-lg-inline-block">Hi, <?= $user['username']; ?></div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <a href="<?= base_url('admin/profile'); ?>" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profil
               </a>
-              <a href="features-settings.html" class="dropdown-item has-icon">
+              <a href="<?= base_url('admin/profile?show=password'); ?>" class="dropdown-item has-icon">
+                <i class="fas fa-lock"></i> Ubah Sandi
+              </a>
+              <a href="<?= base_url('app/settings'); ?>" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Pengaturan
               </a>
               <div class="dropdown-divider"></div>
