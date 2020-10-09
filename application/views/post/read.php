@@ -8,13 +8,12 @@ $categories = explode('+', $post['post_categories']);
 			<div class="row mb-4">	
 				<div class="col-6">
 					<p class="text-muted post-date">
-						<span style="font-size: .9rem;"><i class="fas fa-user"></i></span> Administrator, 23 Agustus 2020
+						<span style="font-size: .9rem;"><i class="fas fa-user"></i></span> @<?= $post['post_author'] .', '. indo_date($post['created_at']); ?>
 					</p>
 				</div>
 				<div class="col-6 text-right">
-					<a href="" class="share-button"><i class="fab fa-facebook"></i></a>
-					<a href="" class="share-button"><i class="fab fa-twitter"></i></a>
-					<a href="" class="share-button"><i class="fas fa-link"></i></a>
+					<a href="https://facebook.com/sharer/sharer.php?u=<?= current_url(); ?>" class="share-button"><i class="fab fa-facebook"></i></a>
+					<a href="https://twitter.com/intent/tweet?text=<?= $post['post_title']; ?>&url=<?= current_url(); ?>" class="share-button"><i class="fab fa-twitter"></i></a>
 				</div>
 			</div>
 			<?php if($post['post_cover'] != null): ?>
