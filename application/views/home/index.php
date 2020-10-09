@@ -41,8 +41,8 @@
 	<hr class="ml-4 mr-4 mt-85">
 </div>
 
-<div class="container p-4">
-	<div class="row justify-content-center border border-white border-lg p-2">
+<div class="container p-4 with-background rounded">
+	<div class="row justify-content-center border border-white border-lg p-3">
 		<div class="col-md-10">
 			<h4 class="text-white reg-with-us">Raih Impianmu Bersama Kami</h4>
 		</div>

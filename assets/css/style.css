@@ -1,9 +1,4 @@
-html body.has-background{
-	background: url(../img/background.jpg) no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+html body{
 	font-family: 'Noto Sans JP' sans-serif;
 }
 
@@ -35,6 +30,14 @@ a.link:hover{
 
 .container-fluid{
 	padding: 5%	 7% 2%;
+}
+
+.with-background{
+	background: url(../img/background.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .reg-with-us{
