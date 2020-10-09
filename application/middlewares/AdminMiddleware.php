@@ -25,6 +25,7 @@ class AdminMiddleware {
 
   public function generate_view($view, $data = [], $allow = false){
     $data['user'] = $this->get_user();
+    $data['role'] = $this->user['role'];
     $data['aURL'] = $this->get_active_url();
     if($allow != false){
       $this->ci->template->load('panel/template_m', "$view", $data);

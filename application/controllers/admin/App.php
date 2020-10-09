@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class App extends MY_Controller{
 	public function __construct(){
 		parent::__construct();
+		$this->middlewares['admin']->allowed_role('1');
 		$this->load->model('Admin/App_m', 'app');
 	}
 

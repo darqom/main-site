@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Users extends MY_Controller{
 	public function __construct(){
 		parent::__construct();
+		$this->middlewares['admin']->allowed_role('1');
 		$this->load->model('Admin/Users_m', 'users');
 		$this->load->library('Datatables', 'datatables');
 	}

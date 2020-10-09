@@ -43,9 +43,11 @@
               <a href="<?= base_url('admin/profile?show=password'); ?>" class="dropdown-item has-icon">
                 <i class="fas fa-lock"></i> Ubah Sandi
               </a>
-              <a href="<?= base_url('app/settings'); ?>" class="dropdown-item has-icon">
-                <i class="fas fa-cog"></i> Pengaturan
-              </a>
+              <?php if($role == 1): ?>
+                <a href="<?= base_url('admin/app/settings'); ?>" class="dropdown-item has-icon">
+                  <i class="fas fa-cog"></i> Pengaturan
+                </a>
+              <?php endif; ?>
               <div class="dropdown-divider"></div>
               <a href="<?= base_url('admin/auth/logout'); ?>" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Keluar
@@ -93,29 +95,31 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item dropdown <?= ($aURL == 'users') ? 'active' : ''; ?>">
-              <a href="" class="nav-link has-dropdown"><i class="fas fa-users"></i> <span>Pengguna</span></a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="<?= base_url('admin/users'); ?>" class="nav-link">Pengelola</a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-header">Kelembagaan</li>
-            <li class="nav-item dropdown <?= ($aURL == 'institute') ? 'active' : ''; ?>">
-              <a href="" class="nav-link has-dropdown"><i class="fas fa-school"></i> <span>Tentang Sekolah</span></a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="<?= base_url('admin/institute'); ?>" class="nav-link">Info Sekolah</a>
-                </li>
-                <li>
-                  <a href="<?= base_url('admin/institute/extra'); ?>" class="nav-link">Ekstrakulikuler</a>
-                </li>
-                <li>
-                  <a href="<?= base_url('admin/institute/facility'); ?>" class="nav-link">Fasilitas</a>
-                </li>
-              </ul>
-            </li>
+            <?php if($role == 1): ?>
+              <li class="nav-item dropdown <?= ($aURL == 'users') ? 'active' : ''; ?>">
+                <a href="" class="nav-link has-dropdown"><i class="fas fa-users"></i> <span>Pengguna</span></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="<?= base_url('admin/users'); ?>" class="nav-link">Pengelola</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-header">Kelembagaan</li>
+              <li class="nav-item dropdown <?= ($aURL == 'institute') ? 'active' : ''; ?>">
+                <a href="" class="nav-link has-dropdown"><i class="fas fa-school"></i> <span>Tentang Sekolah</span></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="<?= base_url('admin/institute'); ?>" class="nav-link">Info Sekolah</a>
+                  </li>
+                  <li>
+                    <a href="<?= base_url('admin/institute/extra'); ?>" class="nav-link">Ekstrakulikuler</a>
+                  </li>
+                  <li>
+                    <a href="<?= base_url('admin/institute/facility'); ?>" class="nav-link">Fasilitas</a>
+                  </li>
+                </ul>
+              </li>
+            <?php endif; ?>
             <li class="menu-header">Website</li>
             <li class="nav-item dropdown <?= ($aURL == 'view') ? 'active' : ''; ?>">
               <a href="" class="nav-link has-dropdown"><i class="fas fa-paint-brush"></i> <span>Tampilan</span></a>
@@ -134,10 +138,12 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-header">Aplikasi</li>
-            <li class="nav-item dropdown <?= ($aURL == 'app') ? 'active' : ''; ?>">
-              <a href="<?= base_url('admin/app/settings'); ?>" class="nav-link"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
-            </li>
+            <?php if($role == 1): ?>
+              <li class="menu-header">Aplikasi</li>
+              <li class="nav-item dropdown <?= ($aURL == 'app') ? 'active' : ''; ?>">
+                <a href="<?= base_url('admin/app/settings'); ?>" class="nav-link"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
+              </li>
+            <?php endif; ?>
           </ul>
 
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
