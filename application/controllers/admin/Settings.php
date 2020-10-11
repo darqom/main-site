@@ -1,25 +1,25 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class App extends MY_Controller{
+class Settings extends MY_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->middlewares['admin']->allowed_role('1');
-		$this->load->model('Admin/App_m', 'app');
+		$this->load->model('Admin/Settings_m', 'settings');
 	}
 
 	protected function middleware(){
 		return ['admin'];
 	}
 
-	public function settings(){
+	public function index(){
 		$middleware = $this->middlewares['admin'];
 
 		$data['title'] = 'Pengaturan';
-		$middleware->generate_view('app/settings', $data);
+		$middleware->generate_view('settings/index', $data);
 	}
 
-	public function save_smtp(){
+	public function smtp(){
 		if($this->input->is_ajax_request()){
 			if($this->form_validation->run('save_smtp') == false){
 				echo json_encode([
@@ -44,7 +44,7 @@ class App extends MY_Controller{
 					]
 				]);
 			}else{
-				$res = $this->app->save_smtp();
+				$res = $this->settings->save_smtp();
 
 				echo json_encode([
 					'status' => $res['status'] ? 'success' : 'error',
@@ -52,7 +52,9 @@ class App extends MY_Controller{
 				]);
 			}
 		}else{
-			redirect('admin/app/settings');
+			$middleware = $this->middlewares['admin'];
+			$data['title'] = 'Pengaturan SMTP';
+			$middleware->generate_view('settings/smtp', $data);
 		}
 	}
 }

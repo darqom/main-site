@@ -44,7 +44,7 @@
                 <i class="fas fa-lock"></i> Ubah Sandi
               </a>
               <?php if($role == 1): ?>
-                <a href="<?= base_url('admin/app/settings'); ?>" class="dropdown-item has-icon">
+                <a href="<?= base_url('admin/settings'); ?>" class="dropdown-item has-icon">
                   <i class="fas fa-cog"></i> Pengaturan
                 </a>
               <?php endif; ?>
@@ -140,8 +140,8 @@
             </li>
             <?php if($role == 1): ?>
               <li class="menu-header">Aplikasi</li>
-              <li class="nav-item dropdown <?= ($aURL == 'app') ? 'active' : ''; ?>">
-                <a href="<?= base_url('admin/app/settings'); ?>" class="nav-link"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
+              <li class="nav-item dropdown <?= ($aURL == 'settings') ? 'active' : ''; ?>">
+                <a href="<?= base_url('admin/settings'); ?>" class="nav-link"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
               </li>
             <?php endif; ?>
           </ul>

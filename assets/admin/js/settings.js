@@ -5,7 +5,7 @@ $('#save-smtp-form').on('submit', function(e){
 	showFixLoader();
 
 	$.ajax({
-		url: baseUrl + 'admin/app/save_smtp',
+		url: baseUrl + 'admin/settings/smtp',
 		data: form.serialize(),
 		method: 'post',
 		dataType: 'json',
