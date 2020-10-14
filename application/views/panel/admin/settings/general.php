@@ -1,7 +1,7 @@
 <?php 
-$imgBanner = base_url('assets/img/'.get_option('site_banner'));
-$imgLogo = base_url('assets/img/'. get_option('site_logo'));
-$imgFooter = base_url('assets/img/'. get_option('site_footer_logo'));
+$imgBanner = base_url('assets/img/site/'.get_option('site_banner'));
+$imgLogo = base_url('assets/img/site/'. get_option('site_logo'));
+$imgFooter = base_url('assets/img/site/'. get_option('site_footer_logo'));
 ?>
 <div class="section-body">
 	<div id="output-status"></div>
@@ -40,14 +40,14 @@ $imgFooter = base_url('assets/img/'. get_option('site_footer_logo'));
 								<label>Foto Banner (best ratio 16:9)</label>
 								<div id="banner-preview" class="image-preview" style="height: 175px; background-image: url(<?= $imgBanner; ?>); background-size: cover; background-position: center center;">
 									<label id="banner-label" for="banner-upload" class="image-label">Pilih File</label>
-									<input type="file" name="site_banner" id="banner-upload" class="image-upload" />
+									<input type="file" name="site_banner" id="banner-upload" class="image-upload" accept="image/*" />
 								</div>
 							</div>
 							<div class="col-md-6 pt-2">
 								<label>Logo Situs (best ratio 1:1)</label>
 								<div id="logo-preview" class="image-preview" style="height: 175px; width: 175px; background-image: url(<?= $imgLogo; ?>); background-size: cover; background-position: center center;">
 									<label id="logo-label" for="logo-upload" class="image-label">Pilih File</label>
-									<input type="file" name="site_logo" id="logo-upload" class="image-upload" />
+									<input type="file" name="site_logo" id="logo-upload" class="image-upload" accept="image/*" />
 								</div>
 							</div>
 						</div>
@@ -56,7 +56,7 @@ $imgFooter = base_url('assets/img/'. get_option('site_footer_logo'));
 								<label>Logo Footer (best ratio 16:9)</label>
 								<div id="footer-logo-preview" class="image-preview" style="height: 150px; margin: auto; background-image: url(<?= $imgFooter; ?>); background-size: cover; background-position: center center;">
 									<label id="footer-logo-label" for="footer-logo-upload" class="image-label">Pilih File</label>
-									<input type="file" name="site_footer_logo" id="footer-logo-upload" class="image-upload" />
+									<input type="file" name="site_footer_logo" id="footer-logo-upload" class="image-upload" accept="image/*" />
 								</div>
 							</div>
 						</div>

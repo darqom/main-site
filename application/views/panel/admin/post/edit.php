@@ -69,14 +69,12 @@ $pCategories = explode('+', $post['post_categories']);
 							<option value="deny" <?= ($post['comment_status'] == 'deny') ? 'selected' : ''; ?>>Tidak Diizinkan</option>
 						</select>
 					</div>
-					<div class="custom-file">
-						<input type="file" name="cover" class="custom-file-input" id="image-cover" accept="image/*">
-						<label for="image-cover" class="custom-file-label">Gambar Unggulan</label>
-					</div>
-					<div class="prev-img">
-						<?php if($post['post_cover'] != null): ?>
-							<img src="<?= base_url('assets/img/post/'.$post['post_cover']); ?>" alt="Cover" width="100%">
-						<?php endif; ?>
+					<div class="form-group">
+						<label>Thumbnail (opsional)</label>
+						<div id="cover-preview" class="image-preview" style="height: 175px; background-image: url(<?= base_url('assets/img/post/'.$post['post_cover']); ?>); background-size: cover; background-position: center center;">
+							<label id="cover-label" for="cover-upload" class="image-label">Pilih File</label>
+							<input type="file" name="cover" id="cover-upload" class="image-upload" accept="image/*" />
+						</div>
 					</div>
 				</div>
 				<div class="card-footer">

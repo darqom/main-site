@@ -15,7 +15,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark green-primary">
 		<div class="container">
 			<a class="navbar-brand" href="#">
-				<img src="<?= base_url('assets/img/logo-sekolah.png'); ?>" alt="" width="50">
+				<img src="<?= base_url('assets/img/site/'.get_option('site_logo')); ?>" alt="" width="50">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 				<i class="fas fa-align-right"></i>
@@ -55,7 +55,7 @@
 			<div class="text-white copyright-content">
 				<div class="row pl-50 pr-50">
 					<div class="col-md-4 brand">
-						<img src="<?= base_url('assets/img/logo-full.png'); ?>" alt="Logo Capt" width="175">
+						<img src="<?= base_url('assets/img/site/'.get_option('site_footer_logo')); ?>" alt="Logo Capt" width="175">
 						<ul class="list-unstyled mt-3">
 							<li>
 								<p><i class="fas fa-phone green-primary-text"></i> <?= get_option('school_phone'); ?></p>

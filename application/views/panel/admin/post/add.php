@@ -64,11 +64,13 @@
 							<option value="deny">Tidak Diizinkan</option>
 						</select>
 					</div>
-					<div class="custom-file">
-						<input type="file" name="cover" class="custom-file-input" id="image-cover" accept="image/*">
-						<label for="image-cover" class="custom-file-label">Gambar Unggulan</label>
+					<div class="form-group">
+						<label>Thumbnail (opsional)</label>
+						<div id="cover-preview" class="image-preview" style="height: 175px;">
+							<label id="cover-label" for="cover-upload" class="image-label">Pilih File</label>
+							<input type="file" name="cover" id="cover-upload" class="image-upload" accept="image/*" />
+						</div>
 					</div>
-					<div class="prev-img"></div>
 				</div>
 				<div class="card-footer">
 					<button class="btn btn-primary float-right" type="submit"><i class="far fa-save"></i> Simpan</button>

@@ -1,4 +1,4 @@
-<div class="jumbotron hero-element mb-0">
+<div class="jumbotron hero-element mb-0" style="background: url(<?= base_url('assets/img/site/'.get_option('site_banner')); ?>) center bottom / cover no-repeat;">
 	<div class="hero-content">
 		<h5>DAFTARKAN SEGERA DIRIMU DI</h5>
 		<h1 class="font-weight-bold">SMK DARUL MUQOMAH</h1>

@@ -1,3 +1,4 @@
+previewImg('#cover-upload', '#cover-preview', '#cover-label');
 $('#post-content').summernote({
 	height: '40vh',
 	callbacks: {
@@ -9,8 +10,6 @@ $('#post-content').summernote({
 		}
 	}
 });
-
-previewImg('#image-cover', '.prev-img');
 
 /* Add Category */
 function updateCatUI(data){
@@ -58,7 +57,6 @@ $('#save-post-form').submit(function(e){
 			}else if(data.status == 'success'){
 				$('#post-content').summernote('code', '');
 				$('#save-post-form').trigger('reset');
-				resetPreviewImg('.prev-img');
 				Swal.fire({
 					icon: 'success',
 					title: data.msg,

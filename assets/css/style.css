@@ -62,7 +62,6 @@ a.link:hover{
 
 .hero-element{
 	min-height: 500px !important;
-	background: url(../img/hero.png) center bottom / cover no-repeat;
 	color: white !important;
 	text-shadow: 2px 2px black !important;
 	position: relative;
