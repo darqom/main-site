@@ -7,6 +7,31 @@ class Settings_m extends CI_Model{
 		$this->load->model('Options_m', 'options');
 	}
 
+	public function save_general(){
+		$this->load->model('Admin/Image_m', 'image');
+		$upload = [];
+
+		$title = htmlspecialchars($this->input->post('site-title', true));
+		if($_FILES['site_banner']['name'] != '') $upload[] = 'site_banner';
+		if($_FILES['site_logo']['name'] != '') $upload[] = 'site_logo';
+		if($_FILES['site_footer_logo']['name'] != '') $upload[] = 'site_footer_logo';
+
+		if(!empty($upload)){
+			$res = $this->image->upload_multiple($upload, 'site', 80);
+			if(!$res['status']) return ['status' => false, 'msg' => $res['msg']];
+			$data = $res['images'];
+
+			foreach($res['images'] as $name => $value){
+				@unlink("./assets/img/site/".get_option($name));
+			}
+		}
+
+		$data['site_title'] = $title;
+		$this->options->save($data);
+
+		return ['status' => true, 'msg' => 'Pengaturan berhasil disimpan'];
+	}
+
 	public function save_smtp(){
 		$host = $this->input->post('smtp-host', true);
 		$port = $this->input->post('smtp-port', true);

@@ -8,7 +8,7 @@
         <div class="card-body">
           <h4>Umum</h4>
           <p>Mengatur tampilan, foto latar belakang, dan lain - lain</p>
-          <a href="features-setting-detail.html" class="card-cta">Ubah Setelan <i class="fas fa-chevron-right"></i></a>
+          <a href="<?= base_url('admin/settings/general'); ?>" class="card-cta">Ubah Setelan <i class="fas fa-chevron-right"></i></a>
         </div>
       </div>
     </div>

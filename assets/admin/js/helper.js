@@ -73,17 +73,15 @@ function swalConfirm(callback, params = null){
 	});
 }
 
-function previewImg(el, prevEl){
-	$(el).on('change', function(){
-		if(this.files && this.files[0]){
-			const reader = new FileReader();
-
-			reader.onload = function(e){
-				$(prevEl).html(`<img src="${e.target.result}" width="100%">`);
-			}
-
-			reader.readAsDataURL(this.files[0]);
-		}
+function previewImg(el, prevEl, label){
+	$.uploadPreview({
+		input_field: el,
+		preview_box: prevEl,
+		label_field: label,
+		label_default: "Pilih File",
+		label_selected: "Ubah File",
+		no_label: false,
+		success_callback: null
 	});
 }
 
@@ -220,8 +218,8 @@ function addCategory(form, callback){
 
 function convertSlug(text){
 	return text
-		.toLowerCase()
-		.replace(/[^\w ]+/g,'')
-		.replace(/ +/g,'-')
+	.toLowerCase()
+	.replace(/[^\w ]+/g,'')
+	.replace(/ +/g,'-')
 	;
 }

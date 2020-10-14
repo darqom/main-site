@@ -190,6 +190,7 @@
   <script src="<?= base_url('assets/vendor/chartjs/Chart.min.js'); ?>"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="<?= base_url('assets/vendor/jquery-upload-preview/jquery.uploadPreview.min.js'); ?>"></script>
 
   <!-- Template JS File -->
   <script src="<?= base_url('assets/stisla-assets/js/scripts.js'); ?>"></script>

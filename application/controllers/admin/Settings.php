@@ -19,28 +19,42 @@ class Settings extends MY_Controller{
 		$middleware->generate_view('settings/index', $data);
 	}
 
+	public function general(){
+		$middleware = $this->middlewares['admin'];
+		if($this->input->is_ajax_request()){
+			$this->form_validation->set_rules('site-title', 'Judul Situs', 'required');
+
+			if($this->form_validation->run() == false){
+				echo json_encode([
+					'status' => 'validate',
+					'errors' => [
+						['name' => 'site-title', 'msg' => form_error('site-title')]
+					]
+				]);
+			}else{
+				$res = $this->settings->save_general();
+				
+				echo json_encode([
+					'status' => $res['status'] ? 'success' : 'error',
+					'msg' => $res['msg']
+				]);
+			}
+		}else{
+			$data['title'] = 'Pengaturan Umum';
+			$middleware->generate_view('settings/general', $data);
+		}
+	}
+
 	public function smtp(){
 		if($this->input->is_ajax_request()){
 			if($this->form_validation->run('save_smtp') == false){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [
-						[
-							'name' => 'smtp-host',
-							'msg' => form_error('smtp-host')
-						],
-						[
-							'name' => 'smtp-port',
-							'msg' => form_error('smtp-port')
-						],
-						[
-							'name' => 'smtp-username',
-							'msg' => form_error('smtp-username')
-						],
-						[
-							'name' => 'smtp-name',
-							'msg' => form_error('smtp-name')
-						]
+						['name' => 'smtp-host', 'msg' => form_error('smtp-host')],
+						['name' => 'smtp-port', 'msg' => form_error('smtp-port')],
+						['name' => 'smtp-username', 'msg' => form_error('smtp-username')],
+						['name' => 'smtp-name', 'msg' => form_error('smtp-name')]
 					]
 				]);
 			}else{
