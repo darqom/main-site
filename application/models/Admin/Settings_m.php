@@ -55,4 +55,28 @@ class Settings_m extends CI_Model{
 			'msg' => $res ? 'Konfigurasi SMTP berhasil disimpan' : 'Konfigurasi SMTP gagal disimpan'
 		];
 	}
+
+	public function save_facebook(){
+		$appID = $this->input->post('fb-app-id', true);
+		$appSecret = $this->input->post('fb-app-secret', true);
+		$token = $this->input->post('fb-page-token', true);
+		$status = $this->input->post('status', true);
+
+		$data = [
+			'app_id' => encrypt($appID),
+			'app_secret' => encrypt($appSecret),
+			'bot_status' => is_null($status) ? 'off' : 'on'
+		];
+
+		if(strlen($token) > 0){
+			$data['page_token'] = encrypt($token);
+		}
+
+		$res = $this->options->save($data, 'fb');
+
+		return [
+			'status' => $res,
+			'msg' => $res ? 'Konfigurasi berhasil disimpan' : 'Konfigurasi gagal disimpan'
+		];
+	}
 }

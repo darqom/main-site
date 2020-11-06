@@ -57,3 +57,30 @@ $('#save-general-form').on('submit', function(e){
 		}
 	});
 });
+
+$('#save-facebook-form').on('submit', function(e){
+	e.preventDefault();
+	const form = $(this);
+	delValidate(['fb-app-id', 'fb-app-secret']);
+	showFixLoader();
+
+	$.ajax({
+		url: baseUrl + 'admin/settings/facebook',
+		method: 'post',
+		data: form.serialize(),
+		dataType: 'json',
+		success: function(data){
+			if(data.status == 'validate'){
+				Swal.close();
+				validate(data);
+			}else{
+				Swal.fire({
+					icon: data.status,
+					title: data.msg,
+					showConfirmButton: false,
+					timer: 1500
+				});
+			}
+		}
+	});
+});

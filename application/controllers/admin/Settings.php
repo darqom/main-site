@@ -24,7 +24,7 @@ class Settings extends MY_Controller{
 		if($this->input->is_ajax_request()){
 			$this->form_validation->set_rules('site-title', 'Judul Situs', 'required');
 
-			if($this->form_validation->run() == false){
+			if(!$this->form_validation->run()){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [
@@ -47,7 +47,7 @@ class Settings extends MY_Controller{
 
 	public function smtp(){
 		if($this->input->is_ajax_request()){
-			if($this->form_validation->run('save_smtp') == false){
+			if(!$this->form_validation->run('save_smtp')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [
@@ -69,6 +69,36 @@ class Settings extends MY_Controller{
 			$middleware = $this->middlewares['admin'];
 			$data['title'] = 'Pengaturan SMTP';
 			$middleware->generate_view('settings/smtp', $data);
+		}
+	}
+
+	public function facebook(){
+		$middleware = $this->middlewares['admin'];
+
+		if($this->input->is_ajax_request()){
+			if(!$this->form_validation->run('save_facebook')){
+				echo json_encode([
+					'status' => 'validate',
+					'errors' => [
+						['name' => 'fb-app-id', 'msg' => form_error('fb-app-id')],
+						['name' => 'fb-app-secret', 'msg' => form_error('fb-app-secret')]
+					]
+				]);
+			}else{
+				$res = $this->settings->save_facebook();
+				
+				echo json_encode([
+					'status' => $res['status'] ? 'success' : 'error',
+					'msg' => $res['msg']
+				]);
+			}
+
+		}else{
+			$data = [
+				'title' => 'Pengaturan Bot Facebook'
+			];
+
+			$middleware->generate_view('settings/facebook', $data);
 		}
 	}
 }

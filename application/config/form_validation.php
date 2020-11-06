@@ -23,6 +23,20 @@ $config = [
 			'rules' => 'required'
 		]
 	],
+
+	'save_facebook' => [
+		[
+			'field' => 'fb-app-id',
+			'label' => 'App ID',
+			'rules' => 'required|is_numeric'
+		],
+		[
+			'field' => 'fb-app-secret',
+			'label' => 'App Secret',
+			'rules' => 'required'
+		]
+	],
+
 	'reset_pass' => [
 		[
 			'field' => 'password',
@@ -35,6 +49,7 @@ $config = [
 			'rules' => 'required|matches[password]'
 		]
 	],
+
 	'save_insitute' => [
 		[
 			'field' => 'description',
@@ -92,6 +107,7 @@ $config = [
 			'rules' => 'required'
 		]
 	],
+
 	'facility_article' => [
 		[
 			'field' => 'article',
@@ -99,6 +115,7 @@ $config = [
 			'rules' => 'required'
 		]
 	],
+
 	'add_menu' => [
 		[
 			'field' => 'label',
@@ -111,6 +128,7 @@ $config = [
 			'rules' => 'required'
 		]
 	],
+
 	'save_page' => [
 		[
 			'field' => 'title',
@@ -123,6 +141,7 @@ $config = [
 			'rules' => 'required'
 		]
 	],
+
 	'edit_page' => [
 		[
 			'field' => 'title',
@@ -135,6 +154,7 @@ $config = [
 			'rules' => 'required'
 		]
 	],
+
 	'save_profile' => [
 		[
 			'field' => 'fullname',
@@ -152,6 +172,7 @@ $config = [
 			'rules' => 'required'
 		]
 	],
+
 	'save_profile_pass' => [
 		[
 			'field' => 'old-pass',
