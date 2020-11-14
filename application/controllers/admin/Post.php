@@ -95,7 +95,7 @@ class Post extends MY_Controller{
 			$user = $middleware->get_user();
 
 			$res = $this->post->del_post($id, $user);
-
+ 
 			echo json_encode([
 				'status' => (!$res['status']) ? 'error' : 'success',
 				'msg' => $res['msg']

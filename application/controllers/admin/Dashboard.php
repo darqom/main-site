@@ -21,16 +21,4 @@ class Dashboard extends MY_Controller{
 		$data['vStatistics'] = array_reverse($this->visitor->visitors_per_month(6));
 		$middleware->generate_view('dashboard/index', $data);
 	}
-
-	public function test(){
-		$this->load->helper('facebook');
-		$facebook = new Facebook_helper;
-		$data = [
-			'link' => 'facebook.com',
-			'message' => 'Test post'
-		];
-
-		$res = $facebook->post_fanspage($data);
-		var_dump($res);
-	}
 }
