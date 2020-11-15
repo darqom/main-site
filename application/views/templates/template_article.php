@@ -1,10 +1,25 @@
+<?php
+$cover = '';
+if(isset($post)) $cover = 'post/'.$post['post_cover'];
+
+if(isset($facility)){
+	$img = $facility['facility_image'];
+
+	$cover = (strlen($img)) ? 'facility/'.$img : 'site/'.get_option('site_banner');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Indonesia, disebut juga RI">
-	<title><?= $title; ?> | Darul Muqomah Article</title>
+	<meta name="description" content="SMK Darul Muqomah Gumukmas Jember">
+	<meta name="keywords" content="SMK Darul Muqomah, Darul Muqomah, Darqom">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="<?= $title; ?> | <?= get_option('site_title'); ?>">
+	<meta property="og:url" content="<?= base_url(); ?>">
+	<meta property="og:image" content="<?= base_url('assets/img/'.$cover); ?>">
+	<title><?= $title; ?> | <?= get_option('site_title'); ?></title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|EB+Garamond|Lato|Source+Sans+Pro&display=swap">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">

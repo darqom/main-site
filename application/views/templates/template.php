@@ -3,7 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title><?= $title; ?> | SMK Darul Muqomah</title>
+	<meta name="description" content="SMK Darul Muqomah Gumukmas Jember">
+	<meta name="keywords" content="SMK Darul Muqomah, Darul Muqomah, Darqom">
+	<title><?= $title . ' | '. get_option('site_title'); ?></title>
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="<?= get_option('site_title'); ?>">
+	<meta property="og:url" content="<?= base_url(); ?>">
+	<meta property="og:image" content="<?= base_url('assets/img/site/'.get_option('site_banner')); ?>">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
