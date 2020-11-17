@@ -29,14 +29,9 @@ class Users extends MY_Controller{
 	}
 
 	public function add(){
-		if(isset($_POST['username'])){
-			$this->form_validation->set_rules('username', 'Username', 'required|min_length[4]|is_unique[users.username]');
-			$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
-			$this->form_validation->set_rules('fullname', 'Nama Lengkap', 'required|min_length[4]');
-			$this->form_validation->set_rules('gender', 'Jenis Kelamin', 'required');
-			$this->form_validation->set_rules('role', 'Role', 'required');
-
-			if($this->form_validation->run() == false){
+		if($this->input->is_ajax_request()){
+			
+			if(!$this->form_validation->run('user_add')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [
@@ -58,7 +53,7 @@ class Users extends MY_Controller{
 	}
 
 	public function delete(){
-		if(isset($_POST['username'])){
+		if($this->input->is_ajax_request()){
 			$username = htmlspecialchars($this->input->post('username', true));
 			$res = $this->users->delete($username);
 			echo json_encode([

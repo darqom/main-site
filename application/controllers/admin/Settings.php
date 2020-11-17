@@ -28,7 +28,10 @@ class Settings extends MY_Controller{
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [
-						['name' => 'site-title', 'msg' => form_error('site-title')]
+						[
+							'name' => 'site-title',
+							'msg' => form_error('site-title')
+						]
 					]
 				]);
 			}else{

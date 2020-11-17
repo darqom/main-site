@@ -20,9 +20,11 @@ class Event extends MY_Controller{
 	}
 
 	public function event_json(){
-		if(count($_POST) > 0){
+
+		if($this->input->is_ajax_request()){
 			echo $this->datatables->table('events')->draw();
 		}
+
 	}
 
 	public function get_event(){
@@ -46,13 +48,8 @@ class Event extends MY_Controller{
 
 	public function add_event(){
 		if($this->input->is_ajax_request()){
-			$this->form_validation->set_rules('title', 'Judul', 'required');
-			$this->form_validation->set_rules('description', 'Deskripsi', 'required');
-			$this->form_validation->set_rules('date', 'Tanggal', 'required');
-			$this->form_validation->set_rules('time', 'Waktu Mulai', 'required');
-			$this->form_validation->set_rules('time2', 'Waktu Selesai', 'required');
-
-			if($this->form_validation->run() == false){
+			
+			if(!$this->form_validation->run('add_event')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [
@@ -75,14 +72,8 @@ class Event extends MY_Controller{
 
 	public function edit_event(){
 		if($this->input->is_ajax_request()){
-			$this->form_validation->set_rules('id', 'ID', 'required|numeric');
-			$this->form_validation->set_rules('title', 'Judul', 'required');
-			$this->form_validation->set_rules('description', 'Deskripsi', 'required');
-			$this->form_validation->set_rules('date', 'Tanggal', 'required');
-			$this->form_validation->set_rules('time', 'Waktu Mulai', 'required');
-			$this->form_validation->set_rules('time2', 'Waktu Selesai', 'required');
-
-			if($this->form_validation->run() == false){
+			
+			if(!$this->form_validation->run('edit_event')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [
@@ -142,18 +133,15 @@ class Event extends MY_Controller{
 	}
 
 	public function announces_json(){
-		if(count($_POST) > 0){
+		if($this->input->is_ajax_request()){
 			echo $this->datatables->table('announces')->draw();
 		}
 	}
 
 	public function add_announce(){
 		if($this->input->is_ajax_request()){
-			$this->form_validation->set_rules('title', 'Judul', 'required');
-			$this->form_validation->set_rules('content', 'Keterangan', 'required');
-			$this->form_validation->set_rules('date', 'Tanggal', 'required');
 
-			if($this->form_validation->run() == false){
+			if(!$this->form_validation->run('add_announce')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [
@@ -174,12 +162,8 @@ class Event extends MY_Controller{
 
 	public function edit_announce(){
 		if($this->input->is_ajax_request()){
-			$this->form_validation->set_rules('id', 'ID', 'required|numeric');
-			$this->form_validation->set_rules('title', 'Judul', 'required');
-			$this->form_validation->set_rules('content', 'Keterangan', 'required');
-			$this->form_validation->set_rules('date', 'Tanggal', 'required');
-
-			if($this->form_validation->run() == false){
+			
+			if(!$this->form_validation->run('edit_announce')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [

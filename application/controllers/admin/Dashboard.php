@@ -15,10 +15,13 @@ class Dashboard extends MY_Controller{
 	public function index(){
 		$middleware = $this->middlewares['admin'];
 
-		$data['title'] = 'Dashboard';
-		$data['statistics'] = $this->dashboard->get_statistics();
-		$data['hStatistics'] = array_reverse($this->visitor->hits_per_month(6));
-		$data['vStatistics'] = array_reverse($this->visitor->visitors_per_month(6));
+		$data = [
+			'title' => 'Dashboard',
+			'statistics' => $this->dashboard->get_statistics(),
+			'hStatistics' => array_reverse($this->visitor->hits_per_month(6)),
+			'vStatistics' => array_reverse($this->visitor->visitors_per_month(6)),
+		];
+		
 		$middleware->generate_view('dashboard/index', $data);
 	}
 }

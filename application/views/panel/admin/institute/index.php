@@ -1,5 +1,5 @@
 <?php
-$socmeds = json_decode($options['school_socmeds'], true);
+$socmeds = json_decode(get_option('school_socmeds'), true);
 ?>
 <form action="" id="form-save-profile" method="post">
 	<div class="row">
@@ -10,7 +10,7 @@ $socmeds = json_decode($options['school_socmeds'], true);
 				</div>
 				<div class="card-body">
 					<div class="form-group">
-						<textarea name="description" id="" class="form-control" style="min-height: 200px;"><?= $options['school_description']; ?></textarea>
+						<textarea name="description" id="" class="form-control" style="min-height: 200px;"><?= get_option('school_description') ?></textarea>
 						<small class="text-danger description-error"></small>
 					</div>
 				</div>
@@ -27,7 +27,7 @@ $socmeds = json_decode($options['school_socmeds'], true);
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="tel-wrapping"><i class="fas fa-phone"></i></span>
 							</div>
-							<input type="number" class="form-control" id="phone" name="phone" aria-describedby="tel-wrapping" value="<?= $options['school_phone']; ?>">
+							<input type="number" class="form-control" id="phone" name="phone" aria-describedby="tel-wrapping" value="<?= get_option('school_phone') ?>">
 						</div>
 						<small class="text-danger phone-error"></small>
 					</div>
@@ -37,7 +37,7 @@ $socmeds = json_decode($options['school_socmeds'], true);
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="mail-wrapping"><i class="fas fa-envelope"></i></span>
 							</div>
-							<input type="email" class="form-control" id="email" name="email" aria-describedby="mail-wrapping" value="<?= $options['school_mail']; ?>">
+							<input type="email" class="form-control" id="email" name="email" aria-describedby="mail-wrapping" value="<?= get_option('school_mail') ?>">
 						</div>
 						<small class="text-danger email-error"></small>
 					</div>
@@ -47,7 +47,7 @@ $socmeds = json_decode($options['school_socmeds'], true);
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="addr-wrapping"><i class="fas fa-map-marker-alt"></i></span>
 							</div>
-							<input type="text" class="form-control" id="address" name="address" aria-describedby="addr-wrapping" value="<?= $options['school_address']; ?>">
+							<input type="text" class="form-control" id="address" name="address" aria-describedby="addr-wrapping" value="<?= get_option('school_address') ?>">
 						</div>
 						<small class="text-danger address-error"></small>
 					</div>
@@ -66,7 +66,7 @@ $socmeds = json_decode($options['school_socmeds'], true);
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="youtube-input">https://youtube.com/embed/</span>
 							</div>
-							<input type="text" class="form-control" id="youtube-embed" name="youtube-embed" aria-describedby="youtube-input" value="<?= $options['school_youtube_embed']; ?>">
+							<input type="text" class="form-control" id="youtube-embed" name="youtube-embed" aria-describedby="youtube-input" value="<?= get_option('school_youtube_embed') ?>">
 						</div>
 						<small class="text-danger youtube-embed-error"></small>
 					</div>

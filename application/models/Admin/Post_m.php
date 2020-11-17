@@ -95,14 +95,20 @@ class Post_m extends CI_Model{
 		$this->db->insert('posts', $data);
 		if($this->db->affected_rows() > 0){
 			$this->send_to_facebook($data, $this->db->insert_id());
-			return ['status' => true, 'msg' => 'Post berhasil disimpan'];
+			return [
+				'status' => true,
+				'msg' => 'Post berhasil disimpan'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Post gagal disimpan'];
+			return [
+				'status' => false,
+				'msg' => 'Post gagal disimpan'
+			];
 		}
 	}
 
 	public function edit($username){
-		$id = htmlspecialchars($this->input->post('id', true));
+		$id = intval($this->input->post('id', true));
 		$post = $this->db->get_where('posts', ['id' => $id])->row_array();
 
 		if(is_null($post) || $post['post_author'] != $username){
@@ -110,7 +116,6 @@ class Post_m extends CI_Model{
 		}
 
 		$title = htmlspecialchars($this->input->post('title', true));
-		$slug = url_title($title, 'dash', true);
 		$content = $this->input->post('content');
 		$status = htmlspecialchars($this->input->post('status', true));
 		$access = htmlspecialchars($this->input->post('access', true));
@@ -137,7 +142,6 @@ class Post_m extends CI_Model{
 
 		$data = [
 			'post_title' => $title,
-			'post_slug' => $slug,
 			'post_cover' => $cover,
 			'post_content' => $content,
 			'post_status' => $status,
@@ -149,9 +153,15 @@ class Post_m extends CI_Model{
 
 		$this->db->update('posts', $data, ['id' => $id]);
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Perubahan berhasil disimpan'];
+			return [
+				'status' => true,
+				'msg' => 'Perubahan berhasil disimpan'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Perubahan gagal disimpan'];
+			return [
+				'status' => false,
+				'msg' => 'Perubahan gagal disimpan'
+			];
 		}
 	}
 
@@ -164,12 +174,21 @@ class Post_m extends CI_Model{
 			
 			$this->db->delete('posts', ['id' => $id]);
 			if($this->db->affected_rows() > 0){
-				return ['status' => true, 'msg' => 'Post berhasil dihapus'];
+				return [
+					'status' => true,
+					'msg' => 'Post berhasil dihapus'
+				];
 			}else{
-				return ['status' => false, 'msg' => 'Post gagal dihapus'];
+				return [
+					'status' => false,
+					'msg' => 'Post gagal dihapus'
+				];
 			}
 		}else{
-			return ['status' => false, 'msg' => 'Post gagal dihapus'];
+			return [
+				'status' => false,
+				'msg' => 'Post gagal dihapus'
+			];
 		}
 	}
 

@@ -59,7 +59,7 @@ class Pages extends MY_Controller{
 
 	public function save(){
 		if($this->input->is_ajax_request()){
-			if($this->form_validation->run('save_page') == false){
+			if(!$this->form_validation->run('save_page')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [

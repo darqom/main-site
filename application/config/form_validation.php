@@ -1,6 +1,210 @@
 <?php
 
 $config = [
+	'auth_login' => [
+		[
+			'field' => 'username',
+			'label' => 'Username',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'password',
+			'label' => 'Password',
+			'rules' => 'required'
+		]
+	],
+
+	'add_event' => [
+		[
+			'field' => 'title',
+			'label' => 'Judul',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'description',
+			'label' => 'Deskripsi',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'date',
+			'label' => 'Tanggal',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'time',
+			'label' => 'Waktu Mulai',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'time2',
+			'label' => 'Waktu Selesai',
+			'rules' => 'required'
+		]
+	],
+
+	'save_post' => [
+		[
+			'field' => 'title',
+			'label' => 'Judul',
+			'rules' => 'required|is_unique[posts.post_title]'
+		],
+		[
+			'field' => 'content',
+			'label' => 'Konten',
+			'rules' => 'required|min_length[10]'
+		],
+		[
+			'field' => 'status',
+			'label' => 'Status',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'access',
+			'label' => 'Akses',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'comment',
+			'label' => 'Komentar',
+			'rules' => 'required'
+		]
+	],
+
+	'edit_post' => [
+		[
+			'field' => 'id',
+			'label' => 'ID',
+			'rules' => 'required|is_numeric'
+		],
+		[
+			'field' => 'title',
+			'label' => 'Judul',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'content',
+			'label' => 'Konten',
+			'rules' => 'required|min_length[10]'
+		],
+		[
+			'field' => 'status',
+			'label' => 'Status',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'access',
+			'label' => 'Akses',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'comment',
+			'label' => 'Komentar',
+			'rules' => 'required'
+		]
+	],
+
+	'edit_event' => [
+		[
+			'field' => 'id',
+			'label' => 'ID',
+			'rules' => 'required|is_numeric'
+		],
+		[
+			'field' => 'title',
+			'label' => 'Judul',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'description',
+			'label' => 'Deskripsi',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'date',
+			'label' => 'Tanggal',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'time',
+			'label' => 'Waktu Mulai',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'time2',
+			'label' => 'Waktu Selesai',
+			'rules' => 'required'
+		]
+	],
+
+	'add_announce' => [
+		[
+			'field' => 'title',
+			'label' => 'Judul',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'content',
+			'label' => 'Keterangan',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'date',
+			'label' => 'Tanggal',
+			'rules' => 'required'
+		]
+	],
+
+	'edit_announce' => [
+		[
+			'field' => 'id',
+			'label' => 'ID',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'title',
+			'label' => 'Judul',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'content',
+			'label' => 'Keterangan',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'date',
+			'label' => 'Tanggal',
+			'rules' => 'required'
+		]
+	],
+
+	'user_add' => [
+		[
+			'field' => 'username',
+			'label' => 'Username',
+			'rules' => 'required|min_length[4]|is_unique[users.username]'
+		],
+		[
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'required|valid_email|is_unique[users.email]'
+		],
+		[
+			'field' => 'fullname',
+			'label' => 'Nama Lengkap',
+			'rules' => 'required|min_length[4]'
+		],
+		[
+			'field' => 'gender',
+			'label' => 'Gender',
+			'rules' => 'required'
+		],
+		[
+			'field' => 'role',
+			'label' => 'Role',
+			'rules' => 'required'
+		]
+	],
+
 	'save_smtp' => [
 		[
 			'field' => 'smtp-host',

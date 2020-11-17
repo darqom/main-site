@@ -18,10 +18,8 @@ class Auth extends CI_Controller{
 	}
 
 	public function check_login(){
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
 
-		if($this->form_validation->run() == false){
+		if($this->form_validation->run('auth_login') == false){
 			$data = [
 				'status' => 'validate',
 				'errors' => [
@@ -54,7 +52,9 @@ class Auth extends CI_Controller{
 
 	public function forgot(){
 		if($this->input->is_ajax_request()){
+
 			$this->form_validation->set_rules('username', 'Username', 'required');
+			
 			if($this->form_validation->run() == false){
 				echo json_encode([
 					'status' => 'error',
@@ -77,6 +77,7 @@ class Auth extends CI_Controller{
 
 	public function reset(){
 		$reset = $this->auth->reset();
+
 		if($reset['status'] == true){
 			if($this->form_validation->run('reset_pass') == false){
 				$data = [
@@ -85,11 +86,20 @@ class Auth extends CI_Controller{
 				$this->template->load('panel/template', 'panel/auth/reset', $data);
 			}else{
 				$this->auth->do_reset($reset['email']);
-				$this->session->set_flashdata('msg', ['class' => 'success', 'msg' => 'Password berhasil direset, silahkan login']);
+
+				$this->session->set_flashdata('msg', [
+					'class' => 'success',
+					'msg' => 'Password berhasil direset, silahkan login'
+				]);
+
 				redirect('admin/auth');
 			}
 		}else{
-			$this->session->set_flashdata('msg', ['class' => 'danger', 'msg' => $reset['msg']]);
+			$this->session->set_flashdata('msg', [
+				'class' => 'danger',
+				'msg' => $reset['msg']
+			]);
+
 			redirect('admin/auth/forgot');
 		}
 	}

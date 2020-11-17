@@ -26,7 +26,7 @@ class Menu extends MY_Controller{
 	}
 
 	public function add_menu(){
-		if($this->form_validation->run('add_menu') == false){
+		if(!$this->form_validation->run('add_menu')){
 			echo json_encode([
 				'status' => 'validate',
 				'errors' => [
@@ -46,7 +46,7 @@ class Menu extends MY_Controller{
 
 	public function edit_menu(){
 		if($this->input->is_ajax_request()){
-			if($this->form_validation->run('add_menu') == false){
+			if(!$this->form_validation->run('add_menu')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [

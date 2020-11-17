@@ -5,7 +5,6 @@ class Post extends CI_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Post_m', 'post');
-		$this->load->model('Menu_m', 'menu');
 	}
 
 	public function index($start = 0){
@@ -14,9 +13,12 @@ class Post extends CI_Controller{
 		$limit = 9;
 		$total = $this->post->total();
 		$this->paginate->basic('post/', $total, $limit);
-		$data['posts'] = $this->post->get_latest($limit, $start);
-		$data['menus'] = $this->menu->get();
-		$data['title'] = 'Postingan Terbaru';
+
+		$data = [
+			'posts' => $this->post->get_latest($limit, $start),
+			'title' => 'Postingan Terbaru'
+		];
+
 		$this->template->load('templates/template_article', 'post/latest', $data);
 	}
 
@@ -24,9 +26,11 @@ class Post extends CI_Controller{
 		$post = $this->post->get_post('post_slug', $slug);
 		if(is_null($post)) show_404();
 
-		$data['menus'] = $this->menu->get();
-		$data['post'] = $post;
-		$data['title'] = $post['post_title'];
+		$data = [
+			'post' => $post,
+			'title' => $post['post_title']
+		];
+
 		$this->template->load('templates/template_article', 'post/read', $data);
 	}
 
@@ -39,11 +43,14 @@ class Post extends CI_Controller{
 		$posts = $this->post->get_by_category($category['id'], $limit, $start);
 		$total = $this->post->total_by_category($category['id']);
 		$this->paginate->basic('post/category/'.$slug, $total, $limit);
-		$data['menus'] = $this->menu->get();
-		$data['category'] = $category;
-		$data['posts'] = $posts;
-		$data['total_post'] = $total;
-		$data['title'] = 'Kategori ' . $category['category_name'];
+
+		$data = [
+			'category' => $category,
+			'posts' => $posts,
+			'total_post' => $total,
+			'title' => 'Kategori ' . $category['category_name']
+		];
+		
 		$this->template->load('templates/template_article', 'post/category', $data);
 	}
 }

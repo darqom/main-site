@@ -17,8 +17,10 @@ class Institute extends MY_Controller{
 		$middleware = $this->middlewares['admin'];
 		$middleware->allowed_role('1');
 
-		$data['title'] = 'Info Sekolah';
-		$data['options'] = $this->options->get();
+		$data = [
+			'title' => 'Info Sekolah',
+		];
+
 		$middleware->generate_view('institute/index', $data);
 	}
 
@@ -72,8 +74,11 @@ class Institute extends MY_Controller{
 
 	public function facility(){
 		$middleware = $this->middlewares['admin'];
-		$data['title'] = 'Fasilitasi Sekolah';
-		$data['facilities'] = $this->institute->get_facilities();
+
+		$data = [
+			'title' => 'Fasilitas Sekolah',
+			'facilities' => $this->institute->get_facilities()
+		];
 
 		$middleware->generate_view('institute/facility', $data);
 	}
@@ -127,9 +132,13 @@ class Institute extends MY_Controller{
 		$facility = $this->institute->get_facilities($id);
 		if(is_null($id) || is_null($facility)) redirect('admin/institute/facility');
 
-		if($this->form_validation->run('facility_article') == false){
-			$data['title'] = 'Artikel Fasilitas';
-			$data['facility'] = $facility;
+		if(!$this->form_validation->run('facility_article')){
+
+			$data = [
+				'title' => 'Artikel Fasilitas',
+				'facility' => $facility
+			];
+
 			$middleware->generate_view('institute/facility_art', $data);
 		}else{
 			$this->institute->save_facility_article($id);
@@ -141,7 +150,7 @@ class Institute extends MY_Controller{
 		$this->middlewares['admin']->allowed_role('1');
 
 		if($this->input->is_ajax_request()){
-			if($this->form_validation->run('save_insitute') == false){
+			if(!$this->form_validation->run('save_insitute')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [
@@ -166,9 +175,5 @@ class Institute extends MY_Controller{
 				]);
 			}
 		}
-	}
-
-	public function test(){
-		var_dump($this->options->get());
 	}
 }

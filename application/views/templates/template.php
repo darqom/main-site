@@ -29,6 +29,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav ml-auto color-white">
+					<?php $menus = get_menu(); ?>
 					<?php foreach($menus as $menu): ?>
 						<?php if(is_null($menu['sub_menu'])): ?>
 							<a class="nav-item nav-link" href="<?= $menu['link']; ?>"><?= $menu['label']; ?></a>

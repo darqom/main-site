@@ -112,3 +112,10 @@ function get_category($id){
 	$ci = &get_instance();
 	return $ci->db->get_where('categories', ['id' => $id])->row_array();
 }
+
+function get_menu(){
+	$ci = &get_instance();
+
+	$ci->load->model('Menu_m', 'menu');
+	return $ci->menu->get();
+}

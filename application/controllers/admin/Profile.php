@@ -22,7 +22,7 @@ class Profile extends MY_Controller{
 		$user = $this->middlewares['admin']->get_user();
 
 		if($this->input->is_ajax_request()){
-			if($this->form_validation->run('save_profile') == false){
+			if(!$this->form_validation->run('save_profile')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [
@@ -50,7 +50,7 @@ class Profile extends MY_Controller{
 	public function save_password(){
 		$user = $this->middlewares['admin']->get_user();
 		if($this->input->is_ajax_request()){
-			if($this->form_validation->run('save_profile_pass') == false){
+			if(!$this->form_validation->run('save_profile_pass')){
 				echo json_encode([
 					'status' => 'validate',
 					'errors' => [

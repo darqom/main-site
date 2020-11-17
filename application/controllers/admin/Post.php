@@ -22,8 +22,11 @@ class Post extends MY_Controller{
 	public function add(){
 		$middleware = $this->middlewares['admin'];
 
-		$data['title'] = 'Tambah Pos';
-		$data['categories'] = $this->post->get_categories();
+		$data = [
+			'title' => 'Tambah Post',
+			'categories' => $this->post->get_categories()
+		];
+
 		$middleware->generate_view('post/add', $data);
 	}
 
@@ -33,9 +36,11 @@ class Post extends MY_Controller{
 
 		$post = $this->post->get_post($id);
 		if(!is_null($post)){
-			$data['title'] = 'Edit Post';
-			$data['post'] = $post;
-			$data['categories'] = $this->post->get_categories();
+			$data = [
+				'title' => 'Edit Post',
+				'post' => $post,
+				'categories' => $this->post->get_categories()
+			];
 
 			$middleware->generate_view('post/edit', $data);
 		}else{
@@ -61,13 +66,7 @@ class Post extends MY_Controller{
 	public function edit_post(){
 		$user = $this->middlewares['admin']->get_user();
 
-		$this->form_validation->set_rules('title', 'Judul', 'required');
-		$this->form_validation->set_rules('content', 'Konten', 'required|min_length[12]');
-		$this->form_validation->set_rules('status', 'Status', 'required');
-		$this->form_validation->set_rules('access', 'Akses', 'required');
-		$this->form_validation->set_rules('comment', 'Komentar', 'required');
-
-		if($this->form_validation->run() == false){
+		if(!$this->form_validation->run('edit_post')){
 			echo json_encode([
 				'status' => 'validate',
 				'errors' => [
@@ -109,13 +108,8 @@ class Post extends MY_Controller{
 	}
 
 	public function save(){
-		$this->form_validation->set_rules('title', 'Judul', 'required|is_unique[posts.post_title]');
-		$this->form_validation->set_rules('content', 'Konten', 'required|min_length[12]');
-		$this->form_validation->set_rules('status', 'Status', 'required');
-		$this->form_validation->set_rules('access', 'Akses', 'required');
-		$this->form_validation->set_rules('comment', 'Komentar', 'required');
-
-		if($this->form_validation->run() == false){
+		
+		if(!$this->form_validation->run('save_post')){
 			echo json_encode([
 				'status' => 'validate',
 				'errors' => [
