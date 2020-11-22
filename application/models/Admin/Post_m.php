@@ -2,6 +2,11 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Post_m extends CI_Model{
+
+	public function __construct(){
+		$this->load->model('Facebook_m', 'facebook');
+	}
+
 	public function get_post($id){
 		return $this->db->get_where('posts', ['id' => $id])->row_array();
 	}
@@ -66,7 +71,8 @@ class Post_m extends CI_Model{
 
 		$this->db->insert('posts', $data);
 		if($this->db->affected_rows() > 0){
-			$this->send_to_facebook($data, $this->db->insert_id());
+			$this->facebook->send($data, $this->db->insert_id());
+
 			return [
 				'status' => true,
 				'msg' => 'Post berhasil disimpan'
@@ -129,6 +135,9 @@ class Post_m extends CI_Model{
 
 		$this->db->update('posts', $data, ['id' => $id]);
 
+		$data['post_slug'] = $post['post_slug'];
+		$this->facebook->edit_act($data, $id);
+
 		if($this->db->affected_rows() > 0){
 			return [
 				'status' => true,
@@ -147,7 +156,7 @@ class Post_m extends CI_Model{
 		if(!is_null($post) || $post['post_author'] == $user['username'] || $user['role'] == '1'){
 			if($post['post_cover'] != 'noimage.png') @unlink('./assets/img/post/'.$post['post_cover']);
 
-			$this->delete_from_facebook($post);
+			$this->facebook->delete($id);
 			
 			$this->db->delete('posts', ['id' => $id]);
 			
@@ -200,47 +209,5 @@ class Post_m extends CI_Model{
 				'name' => $data['file_name']
 			];
 		}
-	}
-
-	private function send_to_facebook($data, $id){
-		$this->load->helper('facebook');
-		$facebook = new Facebook_helper;
-		if($this->check_post_avail($data)){
-
-			$post = [
-				'link' => base_url('post/'.$data['post_slug']),
-				'message' => $data['post_title']
-			];
-
-			$send = $facebook->post_fanspage($post);
-
-			if($send['status']){
-				$this->db->insert('posts_facebook', [
-					'post_id' => $id,
-					'story_id' => $send['data']['id']
-				]);
-			}
-		}
-	}
-
-	private function check_post_avail($data){
-		if($data['post_status'] == 'draft' || $data['post_visibility'] == 'private') return false;
-
-		return true;
-	}
-
-	private function delete_from_facebook($post){
-		$this->load->helper('facebook');
-
-		$facebook = new Facebook_helper;
-		$story = $this->db->get_where('posts_facebook', [
-			'post_id' => $post['id']
-		])->row_array();
-
-		if(!is_null($story)){
-			$facebook->delete_fanspage($story['story_id']);
-		}
-
-		return true;
 	}
 }

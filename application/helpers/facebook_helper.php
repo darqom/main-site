@@ -4,6 +4,7 @@ require APPPATH . 'third_party/Facebook/autoload.php';
 class Facebook_helper{
 	public function __construct(){
 		$this->init();
+		$this->status = get_option('fb_bot_status');
 	}
 
 	private function init(){
@@ -23,11 +24,15 @@ class Facebook_helper{
 	public function post_fanspage($data){
 		$token = decrypt(get_option('fb_page_token'));
 
-		try{
-			$response = $this->facebook->post('/me/feed', $data, $token)->getDecodedBody();
-			return ['status' => true, 'data' => $response]	;
-		}catch(Exception $e){
-			return ['status' => false, 'msg' => $e->getMessage()];
+		if($this->status == 'on'){
+			try{
+				$response = $this->facebook->post('/me/feed', $data, $token)->getDecodedBody();
+				return ['status' => true, 'data' => $response]	;
+			}catch(Exception $e){
+				return ['status' => false, 'msg' => $e->getMessage()];
+			}
+		}else{
+			return ['status' => false, 'msg' => 'Bot tidak diaktifkan'];
 		}
 		
 	}
