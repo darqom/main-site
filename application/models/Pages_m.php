@@ -6,12 +6,16 @@ class Pages_m extends CI_Model{
 		if(is_null($id)){
 			return $this->db->get('pages')->result_array();	
 		}else{
-			return $this->db->get_where('pages', ['id' => $id])->row_array();	
+			return $this->db->get_where('pages', [
+				'id' => $id
+			])->row_array();	
 		}
 	}
 
 	public function get_page($key, $value){
-		return $this->db->get_where('pages', [$key => $value])->row_array();
+		return $this->db->get_where('pages', [
+			$key => $value
+		])->row_array();
 	}
 
 	public function add(){
@@ -26,10 +30,17 @@ class Pages_m extends CI_Model{
 		];
 
 		$this->db->insert('pages', $data);
+
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Berhasil menambahkan halaman'];
+			return [
+				'status' => true,
+				'msg' => 'Berhasil menambahkan halaman'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Gagal menambahkan halaman'];
+			return [
+				'status' => false,
+				'msg' => 'Gagal menambahkan halaman'
+			];
 		}
 	}
 
@@ -45,10 +56,17 @@ class Pages_m extends CI_Model{
 		];
 
 		$this->db->update('pages', $data, ['id' => $id]);
+
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Berhasil mengedit halaman'];
+			return [
+				'status' => true,
+				'msg' => 'Berhasil mengedit halaman'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Gagal mengedit halaman'];
+			return [
+				'status' => false,
+				'msg' => 'Gagal mengedit halaman'
+			];
 		}
 	}
 
@@ -56,9 +74,15 @@ class Pages_m extends CI_Model{
 		$this->db->delete('pages', ['id' => $id]);
 
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Berhasil menghapus halaman'];
+			return [
+				'status' => true,
+				'msg' => 'Berhasil menghapus halaman'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Gagal menghapus halaman'];
+			return [
+				'status' => false,
+				'msg' => 'Gagal menghapus halaman'
+			];
 		}
 	}
 }

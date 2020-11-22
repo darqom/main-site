@@ -2,14 +2,23 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth_m extends CI_Model{
+	public function __construct(){
+		parent::__construct();
+	}
+
 	public function do_login(){
 		$username = htmlspecialchars($this->input->post('username', true));
 		$password = htmlspecialchars($this->input->post('password', true));
 
-		$user = $this->db->get_where('users', ['username' => $username])->row_array();
+		$user = $this->users->get([
+			'username' => $username
+		]);
 
 		if(is_null($user)){
-			return ['status' => false, 'msg' => 'Pengguna tidak ditemukan'];
+			return [
+				'status' => false,
+				'msg' => 'Pengguna tidak ditemukan'
+			];
 		}else{
 			if(password_verify($password, $user['password'])){
 				$this->session->set_userdata('user', [
@@ -17,16 +26,26 @@ class Auth_m extends CI_Model{
 					'role' => $user['role']
 				]);
 				
-				return ['status' => true, 'msg' => 'Berhasil login'];
+				return [
+					'status' => true,
+					'msg' => 'Berhasil login'
+				];
 			}else{
-				return ['status' => false, 'msg' => 'Password salah'];
+				return [
+					'status' => false,
+					'msg' => 'Password salah'
+				];
 			}
 		}
 	}
 
 	public function forgot(){
 		$username = htmlspecialchars($this->input->post('username', true));
-		$user = $this->db->get_where('users', ['username' => $username])->row_array();
+
+		$user = $this->users->get([
+			'username' => $username
+		]);
+
 		if(is_null($user)){
 			return [
 				'status' => false,
@@ -41,42 +60,52 @@ class Auth_m extends CI_Model{
 		$email = htmlspecialchars($this->input->get('email', true));
 		$code = htmlspecialchars($this->input->get('code', true));
 
-		$data = $this->db->get_where('reset_mail', ['email' => $email])->row_array();
+		$data = $this->mail->get_reset($email, $code);
+
 		if(is_null($data)){
-			return ['status' => false, 'msg' => 'Email atau Kode tidak valid'];
+			return [
+				'status' => false,
+				'msg' => 'Email atau Kode tidak valid'
+			];
 		}else{
 			if($code == $data['code']){
 				if(time() <= intval($data['expired'])){
-					return ['status' => true, 'email' => $email];
+					return [
+						'status' => true,
+						'email' => $email
+					];
 				}else{
-					$this->db->delete('reset_mail', ['email' => $email]);
-					return ['status' => false, 'msg' => 'Kode sudah kedaluwarsa'];
+					$this->mail->delete_reset($email);
+					return [
+						'status' => false,
+						'msg' => 'Kode sudah kedaluwarsa'
+					];
 				}
 			}else{
-				return ['status' => false, 'msg' => 'Kode konfirmasi tidak valid'];
+				return [
+					'status' => false,
+					'msg' => 'Kode konfirmasi tidak valid'
+				];
 			}
 		}
 	}
 
 	public function do_reset($email){
 		$password = htmlspecialchars($this->input->post('password', true));
-		$password = password_hash($password, PASSWORD_DEFAULT);
 
-		$this->db->update('users', ['password' => $password], ['email' => $email]);
-		$this->db->delete('reset_mail', ['email' => $email]);
+		$this->users->update_pass($email, $password);
+		$this->mail->delete_reset($email);
 	}
 
 	private function do_forgot($email){
-		$this->load->model('Mail_m', 'mail_m');
 		$this->load->helper('code_helper');
 
 		$code = generate_code();
-		$expired = time() + 3600;
-		$forgot = $this->mail_m->send_reset($email, $code);
+		$forgot = $this->mail->send_reset($email, $code);
 
 		if($forgot['status']){
-			$this->db->delete('reset_mail', ['email' => $email]);
-			$this->db->insert('reset_mail', ['email' => $email, 'code' => $code, 'expired' => $expired]);
+			$this->mail->delete_reset($email);
+			$this->mail->add_reset($email, $code);
 		};
 
 		return $forgot;

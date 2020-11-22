@@ -13,6 +13,7 @@ class Options_m extends CI_Model{
 		}
 		
 		$this->db->update_batch('options', $data, 'name');
+		
 		return ($this->db->affected_rows() > 0) ? true : false;
 	}
 

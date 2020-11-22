@@ -1,19 +1,26 @@
 <?php
 $menus = get_menu();
 $cover = '';
-if(isset($post)){
+if(isset($post))
+{
 	$img = $post['post_cover'];
 	$keyword = $post['post_title'];
 
 	$cover = (strlen($img)) ? 'post/'.$img : 'site/'.get_option('site_banner');
 }
-
-if(isset($facility)){
+else if(isset($page))
+{
+	$keyword = $post['page_title'];
+	$cover = 'site/'.get_option('site_banner');
+}
+else if(isset($facility))
+{
 	$img = $facility['facility_image'];
 	$keyword = $facility['facility_name'];
 
 	$cover = (strlen($img)) ? 'facility/'.$img : 'site/'.get_option('site_banner');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

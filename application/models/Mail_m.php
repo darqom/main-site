@@ -10,12 +10,37 @@ use PHPMailer\PHPMailer\Exception;
 
 
 class Mail_m extends CI_Model{
+	private $tReset = 'reset_mail';
+
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Options_m', 'options');
 		$this->load->helper('mail_helper');
 		$this->mailer = new PHPMailer;
 		$this->mail = new Mail_helper;
+	}
+
+	public function get_reset($email, $code){
+		return $this->db->get_where($this->tReset, [
+				'email' => $email,
+				'code' => $code
+			])->row_array();
+	}
+
+	public function add_reset($email, $code){
+		$this->db->insert($this->tReset, [
+			'email' => $email,
+			'code' => $code,
+			'expired' => time() + 3600
+		]);
+	}
+
+	public function delete_reset($email){
+		$this->db->delete($this->tReset, [
+			'email' => $email
+		]);
+
+		return $this->db->affected_rows();
 	}
 
 	private function init($debug = false){
@@ -42,9 +67,15 @@ class Mail_m extends CI_Model{
 		$this->mailer->AddAddress($email);
 		
 		if($this->mailer->send()){
-			return ['status' => true, 'msg' => 'Email verifikasi telah dikirimkan ke '.obfuscate_email($email)];
+			return [
+				'status' => true,
+				'msg' => 'Email verifikasi telah dikirimkan ke '.obfuscate_email($email)
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Email verifikasi gagal dikirimkan'];
+			return [
+				'status' => false,
+				'msg' => 'Email verifikasi gagal dikirimkan'
+			];
 		}
 	}
 }

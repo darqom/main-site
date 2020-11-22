@@ -4,8 +4,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Event_m extends CI_Model{
 	public function get_event($id){
 		$event = $this->db->get_where('events', ['id' => $id])->row_array();
+
 		if(is_null($event)){
-			return ['status' => false, 'msg' => 'Tidak dapat menemukan event'];
+			return [
+				'status' => false,
+				'msg' => 'Tidak dapat menemukan event'
+			];
 		}else{
 			$time = explode('-', $event['event_time']);
 			$data = [
@@ -43,9 +47,15 @@ class Event_m extends CI_Model{
 
 		$this->db->insert('events', $data);
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Kegiatan berhasil ditambahkan'];
+			return [
+				'status' => true,
+				'msg' => 'Kegiatan berhasil ditambahkan'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Kegiatan gagal ditambahkan'];
+			return [
+				'status' => false,
+				'msg' => 'Kegiatan gagal ditambahkan'
+			];
 		}
 	}
 
@@ -65,19 +75,33 @@ class Event_m extends CI_Model{
 		];
 
 		$this->db->update('events', $data, ['id' => $id]);
+
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Kegiatan berhasil diubah'];
+			return [
+				'status' => true,
+				'msg' => 'Kegiatan berhasil diubah'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Kegiatan gagal diubah'];
+			return [
+				'status' => false,
+				'msg' => 'Kegiatan gagal diubah'
+			];
 		}
 	}
 
 	public function del_event($id){
 		$this->db->delete('events', ['id' => $id]);
+		
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Kegiatan berhasil dihapus'];
+			return [
+				'status' => true,
+				'msg' => 'Kegiatan berhasil dihapus'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Kegiatan gagal dihapus'];
+			return [
+				'status' => false,
+				'msg' => 'Kegiatan gagal dihapus'
+			];
 		}
 	}
 
@@ -89,9 +113,15 @@ class Event_m extends CI_Model{
 	}
 
 	public function get_announce($id){
-		$announce = $this->db->get_where('announces', ['id' => $id])->row_array();
+		$announce = $this->db->get_where('announces', [
+			'id' => $id
+		])->row_array();
+		
 		if(is_null($announce)){
-			return ['status' => false, 'msg' => 'Tidak dapat menemukan event'];
+			return [
+				'status' => false,
+				'msg' => 'Tidak dapat menemukan event'
+			];
 		}else{
 			$data = [
 				'id' => $announce['id'],
@@ -99,7 +129,11 @@ class Event_m extends CI_Model{
 				'content' => $announce['announce_content'],
 				'date' => $announce['announce_date']
 			];
-			return ['status' => true, 'data' => $data];
+			
+			return [
+				'status' => true,
+				'data' => $data
+			];
 		}
 	}
 
@@ -115,10 +149,17 @@ class Event_m extends CI_Model{
 		];
 
 		$this->db->insert('announces', $data);
+
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Pengumuman berhasil ditambahkan'];
+			return [
+				'status' => true,
+				'msg' => 'Pengumuman berhasil ditambahkan'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Pengumuman gagal ditambahkan'];
+			return [
+				'status' => false,
+				'msg' => 'Pengumuman gagal ditambahkan'
+			];
 		}
 	}
 
@@ -135,19 +176,33 @@ class Event_m extends CI_Model{
 		];
 
 		$this->db->update('announces', $data, ['id' => $id]);
+
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Pengumuman berhasil diubah'];
+			return [
+				'status' => true,
+				'msg' => 'Pengumuman berhasil diubah'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Pengumuman gagal diubah'];
+			return [
+				'status' => false,
+				'msg' => 'Pengumuman gagal diubah'
+			];
 		}
 	}
 
 	public function del_announce($id){
 		$this->db->delete('announces', ['id' => $id]);
+
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Pengumuman berhasil dihapus'];
+			return [
+				'status' => true,
+				'msg' => 'Pengumuman berhasil dihapus'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Pengumuman gagal dihapus'];
+			return [
+				'status' => false,
+				'msg' => 'Pengumuman gagal dihapus'
+			];
 		}
 	}
 }

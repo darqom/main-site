@@ -5,6 +5,7 @@ class Post extends CI_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Post_m', 'post');
+		$this->load->model('Admin/Category_m', 'category');
 	}
 
 	public function index($start = 0){
@@ -35,7 +36,8 @@ class Post extends CI_Controller{
 	}
 
 	public function category($slug = '', $start = 0){
-		$category = $this->post->get_category('category_slug', $slug);
+		$category = $this->category->get_cat('category_slug', $slug);
+		
 		if(is_null($category)) show_404();
 		$this->load->model('Paginate_m', 'paginate');
 

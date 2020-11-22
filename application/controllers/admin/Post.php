@@ -5,6 +5,7 @@ class Post extends MY_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Admin/Post_m', 'post');
+		$this->load->model('Admin/Category_m', 'category');
 		$this->load->library('Datatables', 'datatables');
 	}
 
@@ -24,7 +25,7 @@ class Post extends MY_Controller{
 
 		$data = [
 			'title' => 'Tambah Post',
-			'categories' => $this->post->get_categories()
+			'categories' => $this->category->get()
 		];
 
 		$middleware->generate_view('post/add', $data);
@@ -39,7 +40,7 @@ class Post extends MY_Controller{
 			$data = [
 				'title' => 'Edit Post',
 				'post' => $post,
-				'categories' => $this->post->get_categories()
+				'categories' => $this->category->get()
 			];
 
 			$middleware->generate_view('post/edit', $data);
@@ -144,7 +145,7 @@ class Post extends MY_Controller{
 					]
 				]);
 			}else{
-				$res = $this->post->add_category();
+				$res = $this->category->add();
 
 				if(!$res['status']){
 					echo json_encode([
@@ -164,7 +165,7 @@ class Post extends MY_Controller{
 	public function del_category(){
 		if(isset($_POST)){
 			$id = htmlspecialchars($this->input->post('id', true));
-			$res = $this->post->del_category($id);
+			$res = $this->category->delete($id);
 
 			echo json_encode([
 				'status' => (!$res['status']) ? 'error' : 'success',

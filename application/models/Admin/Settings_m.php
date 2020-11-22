@@ -9,6 +9,7 @@ class Settings_m extends CI_Model{
 
 	public function save_general(){
 		$this->load->model('Admin/Image_m', 'image');
+
 		$upload = [];
 
 		$title = htmlspecialchars($this->input->post('site-title', true));
@@ -18,7 +19,12 @@ class Settings_m extends CI_Model{
 
 		if(!empty($upload)){
 			$res = $this->image->upload_multiple($upload, 'site', 80);
-			if(!$res['status']) return ['status' => false, 'msg' => $res['msg']];
+
+			if(!$res['status']) return [
+				'status' => false,
+				'msg' => $res['msg']
+			];
+
 			$data = $res['images'];
 
 			foreach($res['images'] as $name => $value){
@@ -27,9 +33,13 @@ class Settings_m extends CI_Model{
 		}
 
 		$data['site_title'] = $title;
+
 		$this->options->save($data);
 
-		return ['status' => true, 'msg' => 'Pengaturan berhasil disimpan'];
+		return [
+			'status' => true,
+			'msg' => 'Pengaturan berhasil disimpan'
+		];
 	}
 
 	public function save_smtp(){

@@ -7,12 +7,18 @@ class Post_m extends CI_Model{
 	}
 
 	public function get_post($key, $value){
-		return $this->db->get_where('posts', [$key => $value])->row_array();
+		return $this->db->get_where('posts', [
+			$key => $value
+		])->row_array();
 	}
 
 	public function get_latest($limit = 5, $start = 0){
 		$this->db->limit($limit, $start);
 		$this->db->order_by('id', 'DESC');
+		$this->db->where([
+			'post_visibility' => 'public',
+			'post_status' => 'publish'
+		]);
 		return $this->db->get('posts')->result_array();
 	}
 
@@ -30,11 +36,19 @@ class Post_m extends CI_Model{
 	}
 
 	public function total(){
+		$this->db->get_where([
+			'post_visibility' => 'public',
+			'post_status' => 'publish'
+		]);
 		return $this->db->get('posts')->num_rows();
 	}
 
 	public function total_by_category($category){
 		$this->db->like('post_categories', $category);
+		$this->db->get_where([
+			'post_visibility' => 'public',
+			'post_status' => 'publish'
+		]);
 		return $this->db->get('posts')->num_rows();
 	}
 }

@@ -8,9 +8,12 @@ class Menu_m extends CI_Model{
 
 	public function get($id = null){
 		$this->db->from('nav_menu');
+
 		if(!is_null($id)) $this->db->where('id', $id);
 		$this->db->where('is_main_menu', '0');
+
 		$menu = $this->db->get()->result_array();
+
 		if(count($menu) < 1) return null;
 		$arr = [];
 		foreach ($menu as $m) {
@@ -23,14 +26,19 @@ class Menu_m extends CI_Model{
 
 	public function get_sub($id = null){
 		$this->db->from('nav_menu');
+
 		if(!is_null($id)) $this->db->where('is_main_menu', $id);
+
 		$subMenu = $this->db->get()->result_array();
 		if(count($subMenu) < 1) return null;
 		return $subMenu;
 	}
 
 	public function get_sub_menu($id = null){
-		$subMenu = $this->db->get_where('nav_menu', ['id' => $id])->row_array();
+		$subMenu = $this->db->get_where('nav_menu', [
+			'id' => $id
+		])->row_array();
+
 		if(count($subMenu) < 1) return null;
 		return $subMenu;
 	}
@@ -49,9 +57,15 @@ class Menu_m extends CI_Model{
 		$this->db->insert('nav_menu', $data);
 
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Menu berhasil ditambahkan'];
+			return [
+				'status' => true,
+				'msg' => 'Menu berhasil ditambahkan'
+			];
 		}else{
-			return ['status' => false, 'mg' => 'Menu gagal ditambahkan'];
+			return [
+				'status' => false,
+				'msg' => 'Menu gagal ditambahkan'
+			];
 		}
 	}
 
@@ -68,9 +82,15 @@ class Menu_m extends CI_Model{
 		$this->db->update('nav_menu', $data, ['id' => $id]);
 
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Menu berhasil diubah'];
+			return [
+				'status' => true,
+				'msg' => 'Menu berhasil diubah'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Menu gagal diubah'];
+			return [
+				'status' => false,
+				'msg' => 'Menu gagal diubah'
+			];
 		}
 	}
 
@@ -79,9 +99,15 @@ class Menu_m extends CI_Model{
 		$this->db->delete('nav_menu', ['id' => $id]);
 
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Menu berhasil dihapus'];
+			return [
+				'status' => true,
+				'msg' => 'Menu berhasil dihapus'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Menu gagal dihapus'];
+			return [
+				'status' => false,
+				'msg' => 'Menu gagal dihapus'
+			];
 		}
 	}
 }

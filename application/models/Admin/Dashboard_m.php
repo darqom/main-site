@@ -1,12 +1,15 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
+ 
 class Dashboard_m extends CI_Model{
 	public function get_statistics(){
+		$this->load->model('Admin/Users_m', 'user');
+		$this->load->model('Admin/Post_m', 'post');
+
 		return [
-			'admin' => $this->db->get_where('users', ['role' => '1'])->num_rows(),
-			'users' => $this->db->get_where('users', ['role' => '2'])->num_rows(),
-			'posts' => $this->db->get_where('posts')->num_rows()
+			'admin' => count($this->user->get_admin()),
+			'users' => count($this->user->get_user()),
+			'posts' => $this->post->total()
 		];
 	}
 }

@@ -19,7 +19,10 @@ class Profile_m extends CI_Model{
 				if($user['image'] != 'default.png') @unlink('./assets/admin/img/profile/'.$user['image']);
 				$image = $upload['name'];
 			}else{
-				return ['status' => false, 'msg' => $upload['msg']];
+				return [
+					'status' => false,
+					'msg' => $upload['msg']
+				];
 			}
 		}else{
 			$image = $user['image'];
@@ -33,7 +36,10 @@ class Profile_m extends CI_Model{
 			'gender' => $gender
 		];
 
-		$this->db->update('users', $data, ['username' => $user['username']]);
+		$this->db->update('users', $data, [
+			'username' => $user['username']
+		]);
+
 		return true;
 	}
 
@@ -42,19 +48,30 @@ class Profile_m extends CI_Model{
 		$new = htmlspecialchars($this->input->post('new-pass', true));
 
 		if(!password_verify($old, $user['password'])){
-			return ['status' => false, 'msg' => 'Password yang anda masukkan salah'];
+			return [
+				'status' => false,
+				'msg' => 'Password yang anda masukkan salah'
+			];
 		}
 
 		$data = [
 			'password' => password_hash($new, PASSWORD_DEFAULT)
 		];
 
-		$this->db->update('users', $data, ['username' => $user['username']]);
+		$this->db->update('users', $data, [
+			'username' => $user['username']
+		]);
 		
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Password berhasil dirubah'];
+			return [
+				'status' => true,
+				'msg' => 'Password berhasil dirubah'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Password gagal dirubah'];
+			return [
+				'status' => false,
+				'msg' => 'Password gagal dirubah'
+			];
 		}
 	}
 }

@@ -6,50 +6,19 @@ class Post_m extends CI_Model{
 		return $this->db->get_where('posts', ['id' => $id])->row_array();
 	}
 
+	public function total(){
+		return $this->db->get('posts')->num_rows();
+	}
+
 	public function get_posts($limit = null){
 		$this->db->from('posts');
 		if(!is_null($limit)) $this->db->limit($limit);
 		$this->db->order_by('id', 'DESC');
-		$this->db->where(['post_status' => 'publish', 'post_visibility' => 'public']);
+		$this->db->where([
+			'post_status' => 'publish',
+			'post_visibility' => 'public']
+		);
 		return $this->db->get()->result_array();
-	}
-
-	public function get_categories(){
-		return $this->db->get_where('categories', ['is_deleted' => '0'])->result_array();
-	}
-
-	public function add_category(){
-		$category = htmlspecialchars($this->input->post('category', true));
-		$slug = url_title($category, 'dash', true);
-
-		$data = [
-			'category_name' => $category,
-			'category_slug' => $slug
-		];
-		$this->db->insert('categories', $data);
-
-		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'data' => [
-				'id' => $this->db->insert_id(),
-				'name' => $category
-			]];
-		}else{
-			return ['status' => true, 'msg' => 'Kategori berhasil ditambahkan'];
-		}
-	}
-
-	public function del_category($id){
-		if(is_null($id) || $id == '1'){
-			return ['status' => false, 'msg' => 'Gagal menghapus kategori'];
-		}
-
-		$data = ['is_deleted' => 1];
-		$this->db->update('categories', $data, ['id' => $id]);
-		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Berhasil menghapus kategori'];
-		}else{
-			return ['status' => false, 'msg' => 'Gagal menghapus kategori'];
-		}
 	}
 
 	public function save(){
@@ -66,7 +35,10 @@ class Post_m extends CI_Model{
 			if($upload['status'] == true){
 				$cover = $upload['name'];
 			}else{
-				return ['status' => false, 'msg' => $upload['msg']];
+				return [
+					'status' => false,
+					'msg' => $upload['msg']
+				];
 			}
 		}else{
 			$cover = null;
@@ -126,9 +98,13 @@ class Post_m extends CI_Model{
 			$upload = $this->upload_image('cover', 90);
 			if($upload['status'] == true){
 				if($post['post_cover'] != 'noimage.png') @unlink('./assets/img/post/'.$post['post_cover']);
+
 				$cover = $upload['name'];
 			}else{
-				return ['status' => false, 'msg' => $upload['msg']];
+				return [
+					'status' => false,
+					'msg' => $upload['msg']
+				];
 			}
 		}else{
 			$cover = $post['post_cover'];
@@ -152,6 +128,7 @@ class Post_m extends CI_Model{
 		];
 
 		$this->db->update('posts', $data, ['id' => $id]);
+
 		if($this->db->affected_rows() > 0){
 			return [
 				'status' => true,
@@ -173,6 +150,7 @@ class Post_m extends CI_Model{
 			$this->delete_from_facebook($post);
 			
 			$this->db->delete('posts', ['id' => $id]);
+			
 			if($this->db->affected_rows() > 0){
 				return [
 					'status' => true,

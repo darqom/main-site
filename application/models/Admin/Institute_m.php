@@ -52,6 +52,7 @@ class Institute_m extends CI_Model{
 
 	public function get_extra($id = null){
 		$this->db->from('extras');
+
 		if(is_null($id)){
 			return $this->db->get()->result_array();
 		}else{
@@ -65,10 +66,14 @@ class Institute_m extends CI_Model{
 
 		if($_FILES['image']['name'] != ''){
 			$upload = $this->image->upload('image', 'extra', 90);
+
 			if($upload['status'] == true){
 				$image = $upload['name'];
 			}else{
-				return ['status' => false, 'msg' => $upload['msg']];
+				return [
+					'status' => false,
+					'msg' => $upload['msg']
+				];
 			}
 		}else{
 			$image = 'noimage.png';
@@ -81,20 +86,37 @@ class Institute_m extends CI_Model{
 
 		$this->db->insert('extras', $data);
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Data berhasil ditambahkan'];
+			return [
+				'status' => true,
+				'msg' => 'Data berhasil ditambahkan'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Data gagal ditambahkan'];
+			return [
+				'status' => false,
+				'msg' => 'Data gagal ditambahkan'
+			];
 		}
 	}
 
 	public function del_extra($id){
-		$image = $this->db->get_where('extras', ['id' => $id])->row_array()['extra_image'];
+		$image = $this->db->get_where('extras', [
+			'id' => $id
+		])->row_array()['extra_image'];
+
 		if($image != 'noimage.png') @unlink('assets/img/extra/'.$image);
+
 		$this->db->delete('extras', ['id' => $id]);
+
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Data berhasil dihapus'];
+			return [
+				'status' => true,
+				'msg' => 'Data berhasil dihapus'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Data gagal dihapus'];
+			return [
+				'status' => false,
+				'msg' => 'Data gagal dihapus'
+			];
 		}
 	}
 
@@ -120,8 +142,14 @@ class Institute_m extends CI_Model{
 		}else{
 			if($_FILES['image']['name'] != ''){
 				$up = $this->image->upload('image', 'facility', 80);
-				if($up['status'] == false) return ['status' => false, 'msg' => $up['msg']];
+
+				if($up['status'] == false) return [
+					'status' => false,
+					'msg' => $up['msg']
+				];
+
 				if($facility['facility_image'] != 'noimage.png') @unlink('./assets/img/facility/'.$facility['facility_image']);
+
 				$data['facility_image'] = $up['name'];
 			}else{
 				$data['facility_image'] = $facility['facility_image'];
@@ -129,17 +157,29 @@ class Institute_m extends CI_Model{
 		}
 
 		$this->db->update('facilities', $data, ['id' => $id]);
+
 		if($this->db->affected_rows() > 0){
-			return ['status' => true, 'msg' => 'Data berhasil diubah'];
+			return [
+				'status' => true,
+				'msg' => 'Data berhasil diubah'
+			];
 		}else{
-			return ['status' => false, 'msg' => 'Data gagal diubah'];
+			return [
+				'status' => false,
+				'msg' => 'Data gagal diubah'
+			];
 		}
 	}
 
 	public function save_facility_article($id){
 		$article = $this->input->post('article');
 
-		$this->db->update('facilities', ['facility_article' => $article], ['id' => $id]);
+		$this->db->update('facilities', [
+			'facility_article' => $article
+		], [
+			'id' => $id
+		]);
+		
 		return $this->db->affected_rows();
 	}
 }
