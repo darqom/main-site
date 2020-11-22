@@ -99,7 +99,7 @@ class Mail_helper{
 		<tr>
 		<td align=\"center\" valign=\"top\" style=\"padding: 36px 24px;\">
 		<a href=\"https://sendgrid.com\" target=\"_blank\" style=\"display: inline-block;\">
-		<img src=\"https://v2.smkdarulmuqomah.id/assets/img/logo-sekolah.png\" alt=\"Logo\" border=\"0\" width=\"25%\" style=\"display: block; width: 25%; max-width: 25%; min-width: 25%;\">
+		<img src=\"".base_url('/assets/img/site/'.get_option('site_logo'))."\" alt=\"Logo\" border=\"0\" width=\"25%\" style=\"display: block; width: 25%; max-width: 25%; min-width: 25%;\">
 		</a>
 		</td>
 		</tr>
