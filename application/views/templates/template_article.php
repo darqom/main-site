@@ -10,7 +10,7 @@ if(isset($post))
 }
 else if(isset($page))
 {
-	$keyword = $post['page_title'];
+	$keyword = $page['page_title'];
 	$cover = 'site/'.get_option('site_banner');
 }
 else if(isset($facility))
@@ -19,8 +19,10 @@ else if(isset($facility))
 	$keyword = $facility['facility_name'];
 
 	$cover = (strlen($img)) ? 'facility/'.$img : 'site/'.get_option('site_banner');
+}else{
+	$keyword = '';
+	$cover = 'site/'.get_option('site_banner');
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

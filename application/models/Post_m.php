@@ -36,7 +36,7 @@ class Post_m extends CI_Model{
 	}
 
 	public function total(){
-		$this->db->get_where([
+		$this->db->where([
 			'post_visibility' => 'public',
 			'post_status' => 'publish'
 		]);
@@ -45,7 +45,7 @@ class Post_m extends CI_Model{
 
 	public function total_by_category($category){
 		$this->db->like('post_categories', $category);
-		$this->db->get_where([
+		$this->db->where([
 			'post_visibility' => 'public',
 			'post_status' => 'publish'
 		]);
