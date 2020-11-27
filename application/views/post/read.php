@@ -1,7 +1,16 @@
 <?php 
 $categories = explode('+', $post['post_categories']);
 ?>
-<div class="row justify-content-center">
+<style>
+	@media (min-width: 768px){
+		.latest-post{
+			padding-top: 10%;
+		}
+	}
+</style>
+
+<div class="row">
+	<div class="col-md-1"></div>
 	<div class="col-md-7">
 		<main id="main-article" class="pt-4">
 			<h1 id="article-title" class="mb-4"><?= $post['post_title']; ?></h1>
@@ -48,5 +57,25 @@ $categories = explode('+', $post['post_categories']);
 			</script>
 			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 		<?php endif; ?>
+	</div>
+	<div class="col-md-4 latest-post">
+		<div class="card my-4">
+			<div class="card-body">
+				<h6 class="head-with-border font-weight-bold">Berita Terbaru</h6>
+				<?php foreach($posts as $post): ?>
+					<div class="row no-gutters mt-4	border-bottom	pb-3 latest-post-card">
+						<div class="col-md-4 pr-1">
+							<div class="latest-post-img" style="background-image: url('<?= base_url('/assets/img/post/'.$post['post_cover']); ?>');"></div>
+						</div>
+						<div class="col-md-8 pt-2 pl-1">
+							<h6 class="event-title"><a href="<?= base_url('post/'.$post['post_slug']); ?>" class="link"><?= substr($post['post_title'], 0, 45); ?><?php if(strlen($post['post_title']) > 45): ?>...
+								<?php endif; ?></a>
+							</h6>
+							<p class="event-time"><i class="far fa-clock green-primary-text"></i> <?= indo_date($post['created_at']); ?></p>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
 	</div>
 </div>

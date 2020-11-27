@@ -24,10 +24,12 @@ class Post extends CI_Controller{
 	}
 
 	public function read($slug = ''){
+		$posts = $this->post->get_latest(4);
 		$post = $this->post->get_post('post_slug', $slug);
 		if(is_null($post)) show_404();
 
 		$data = [
+			'posts' => $posts,
 			'post' => $post,
 			'title' => $post['post_title']
 		];
