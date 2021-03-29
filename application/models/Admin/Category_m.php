@@ -5,8 +5,8 @@ class Category_m extends CI_Model{
 	private $table = 'categories';
 
 	public function get(){
-		return $this->db->get($this->table, [
-			'is_deleted' => 0
+		return $this->db->get_where($this->table, [
+			'is_deleted' => '0'
 		])->result_array();
 	}
 
