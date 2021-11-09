@@ -9,6 +9,10 @@
                 <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Admin Page</span></h4>
                 <p class="text-muted">Login terlebih dahulu sebeleum anda memulai.</p>
                 
+                @if (Session::get('status'))
+                <div class="alert alert-info">{{ Session::get('status') }}</div>
+                @endif
+
                 <form action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="form-group">
@@ -30,7 +34,7 @@
                     </div>
                     
                     <div class="form-group text-right">
-                        <a href="auth-forgot-password.html" class="float-left mt-3">
+                        <a href="{{ route('password.request') }}" class="float-left mt-3">
                             Lupa password?
                         </a>
                         <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
