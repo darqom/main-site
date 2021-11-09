@@ -49,8 +49,10 @@
     
     <!-- Template JS File -->
     <script src="/assets/stisla/scripts.js"></script>
+    @include('components.utils.sweetalert')
 
     <!-- Specific Page JS -->
     @stack('script')
+
 </body>
 </html>
