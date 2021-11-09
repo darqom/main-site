@@ -2,12 +2,15 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 
 class BladeHelper
 {
     public static function boot(): void
     {
-        (new self)->greet();
+        (new self)
+            ->greet()
+            ->active();
     }
 
     private function greet(): BladeHelper
@@ -27,5 +30,13 @@ class BladeHelper
         });
 
         return $this;
+    }
+
+    private function active()
+    {
+        Blade::directive('active', function($route) {
+            $name = Route::current()->getName();
+            return preg_match("/$name/", $route) ? 'active' : '';
+        });
     }
 }
