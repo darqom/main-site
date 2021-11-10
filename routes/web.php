@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Livewire\Panel\Dashboard;
+use App\Http\Livewire\Panel\User\UserCreate;
+use App\Http\Livewire\Panel\User\UserIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,13 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group([
-    'prefix' => 'panel',
-    'as' => 'panel.',
-    'middleware' => 'auth'
-] ,function() {
-    Route::get('dashboard', DashboardController::class)->name('dashboard');
-    Route::resource('user', UserController::class);
+Route::prefix('panel')->name('panel.')->middleware('auth')->group(function() {
+    Route::get('dashboard', Dashboard::class)->name('dashboard');
+    
+    Route::prefix('user')->name('user.')->group(function() {
+        Route::get('/', UserIndex::class)->name('index');
+        Route::get('/create', UserCreate::class)->name('create');
+    });
 });
 
 require __DIR__.'/auth.php';
