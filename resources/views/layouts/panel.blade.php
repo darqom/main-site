@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="/assets/stisla/style.css">
     <link rel="stylesheet" href="/assets/stisla/components.css">
 
-    <!-- Livewire CSS -->
-    @livewireStyles
-    
     <!-- Specific Page CSS -->
     @stack('style')
+
+    <!-- Livewire CSS -->
+    @livewireStyles
 </head>
 
 <body>
@@ -58,8 +58,10 @@
     <!-- Livewire JS -->
     @livewireScripts
 
+    <!-- Mix script -->
+    <script src="{{ mix('js/app.js') }}"></script>
+
     <!-- Specific Page JS -->
     @stack('script')
-
 </body>
 </html>
