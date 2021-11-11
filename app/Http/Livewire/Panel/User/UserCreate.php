@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Panel\User;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class UserCreate extends Component
@@ -52,7 +51,7 @@ class UserCreate extends Component
     public function userCreated()
     {
         $this->reset(['user', 'role']);
-        Session::flash('alert-success', 'Berhasil menambahkan user');
+        $this->emit('swals', 'Berhasil menambahkan user');
     }
 
     private function manageProps()

@@ -54,6 +54,7 @@
     
     <!-- Template JS File -->
     <script src="/assets/stisla/scripts.js"></script>
+    <livewire:utils.sweetalert/>
 
     <!-- Livewire JS -->
     @livewireScripts

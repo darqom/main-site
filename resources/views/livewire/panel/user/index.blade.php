@@ -35,7 +35,7 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->getRole() }}</td>
                                 <td class="d-flex">
-                                    <a href="" class="btn btn-sm btn-success mr-1">
+                                    <a href="{{ route('panel.user.edit', $user->id) }}" class="btn btn-sm btn-success mr-1">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
                                 </td>
@@ -47,7 +47,6 @@
             </div>
         </div>
     </div>
-    <x-utils.sweetalert/>
 </div>
 
 @push('script')

@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Panel\Dashboard;
 use App\Http\Livewire\Panel\User\UserCreate;
+use App\Http\Livewire\Panel\User\UserEdit;
 use App\Http\Livewire\Panel\User\UserIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,7 @@ Route::prefix('panel')->name('panel.')->middleware('auth')->group(function() {
     Route::prefix('user')->name('user.')->group(function() {
         Route::get('/', UserIndex::class)->name('index');
         Route::get('/create', UserCreate::class)->name('create');
+        Route::get('/edit/{id}', UserEdit::class)->name('edit');
     });
 });
 
