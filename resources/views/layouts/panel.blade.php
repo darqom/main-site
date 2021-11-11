@@ -12,17 +12,20 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/stisla/style.css">
     <link rel="stylesheet" href="/assets/stisla/components.css">
-    
+
     <!-- Specific Page CSS -->
     @stack('style')
+
+    <!-- Livewire CSS -->
+    @livewireStyles
 </head>
 
 <body>
     <div id="app">
         <div class="main-wrapper">
             <div class="navbar-bg"></div>
-            @include('components.admin.navbar')
-            @include('components.admin.sidebar')
+            <x-panel.navbar/>
+            <x-panel.sidebar/>
 
             <div class="main-content">
                 <section class="section">
@@ -31,13 +34,17 @@
                         @yield('header-breadcrumb')
                     </div>
                     <div class="section-body">
-                        @yield('content')
+                        @yield('content-header')
+                        
+                        {{ $slot }}
                     </div>
                 </section>
             </div>
-            @include('components.admin.footer')
+            <x-panel.footer/>
         </div>
     </div>
+    
+    <x-sweetalert/>
     
     <!-- General JS Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -50,7 +57,14 @@
     <!-- Template JS File -->
     <script src="/assets/stisla/scripts.js"></script>
 
+    <!-- Livewire JS -->
+    @livewireScripts
+    
+    <!-- Mix script -->
+    <script src="{{ mix('js/app.js') }}"></script>
+
     <!-- Specific Page JS -->
     @stack('script')
+
 </body>
 </html>

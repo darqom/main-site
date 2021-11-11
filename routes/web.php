@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Livewire\Panel\Dashboard;
+use App\Http\Livewire\Panel\User\UserCreate;
+use App\Http\Livewire\Panel\User\UserEdit;
+use App\Http\Livewire\Panel\User\UserIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,8 +21,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('admin')->middleware('auth')->group(function() {
-    Route::get('dashboard', DashboardController::class)->name('dashboard');
+Route::prefix('panel')->name('panel.')->middleware('auth')->group(function() {
+    Route::get('dashboard', Dashboard::class)->name('dashboard');
+    
+    Route::prefix('user')->name('user.')->group(function() {
+        Route::get('/', UserIndex::class)->name('index');
+        Route::get('/create', UserCreate::class)->name('create');
+        Route::get('/edit/{id}', UserEdit::class)->name('edit');
+    });
 });
 
 require __DIR__.'/auth.php';

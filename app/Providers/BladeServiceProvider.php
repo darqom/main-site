@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,15 +25,19 @@ class BladeServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('role', function ($roles) {
-            $roles = explode(',', trim($roles, "'"));
-            $role = Auth::user()->getRole();
-            $cond = (in_array($role, $roles)) ? 'true' : 'false';
-
-            return "<?php if($cond): ?>";
+            return "<?php if(App\Helpers\BladeHelper::role($roles)): ?>";
         });
 
         Blade::directive('endrole', function () {
             return "<?php endif; ?>";
+        });
+
+        Blade::directive('active', function($route) {
+            return "<?= App\Helpers\BladeHelper::active($route) ?>";
+        });
+
+        Blade::directive('greet', function() {
+            return "<?= App\Helpers\BladeHelper::greet() ?>";
         });
     }
 }
