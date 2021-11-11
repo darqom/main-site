@@ -44,6 +44,8 @@
         </div>
     </div>
     
+    <x-sweetalert/>
+    
     <!-- General JS Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -54,15 +56,15 @@
     
     <!-- Template JS File -->
     <script src="/assets/stisla/scripts.js"></script>
-    <livewire:utils.sweetalert/>
 
     <!-- Livewire JS -->
     @livewireScripts
-
+    
     <!-- Mix script -->
     <script src="{{ mix('js/app.js') }}"></script>
 
     <!-- Specific Page JS -->
     @stack('script')
+
 </body>
 </html>
