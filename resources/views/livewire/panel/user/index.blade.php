@@ -14,7 +14,7 @@
                         <i class="fa fa-plus"></i> Tambah
                     </a>
                 </div>
-                <div class="table-responsive">
+                <x-datatable :data="$users" :dynamic="true">
                     <table class="table table-striped table-bordered table-hover" id="users-table">
                         <thead>
                             <tr>
@@ -27,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @forelse ($users as $user)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $user->name }}</td>
@@ -43,11 +43,14 @@
                                     </button>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="6" class="text-center">Data kosong</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
-                    {{ $users->onEachSide(2)->links('components.paginate') }}
-                </div>
+                </x-datatable>
             </div>
         </div>
     </div>

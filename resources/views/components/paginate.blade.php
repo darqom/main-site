@@ -3,16 +3,11 @@
     <nav>
         <ul class="pagination">
             <li class="page-item">
-                @if($paginator->onFirstPage())
-                <a class="page-link disabled" href="#" aria-label="Previous">
+                @if(!$paginator->onFirstPage())
+                <button class="page-link" wire:click="previousPage" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
-                </a>
-                @else
-                <a class="page-link" href="{{ $paginator->previousPageUrl() }}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
+                </button>
                 @endif
             </li>
 
@@ -31,7 +26,7 @@
                         </li>
                         @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                            <button class="page-link" wire:click="gotoPage({{ $page }})">{{ $page }}</button>
                         </li>
                         @endif
                     @endforeach
@@ -40,15 +35,10 @@
 
             <li class="page-item">
                 @if ($paginator->hasMorePages())
-                <a class="page-link" href="{{ $paginator->nextPageUrl() }}" aria-label="Next">
+                <button class="page-link" wire:click="nextPage" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
-                </a>
-                @else
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
+                </button>
                 @endif
             </li>
                 
