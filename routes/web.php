@@ -1,9 +1,8 @@
 <?php
 
 use App\Http\Livewire\Panel\Dashboard;
-use App\Http\Livewire\Panel\User\UserCreate;
-use App\Http\Livewire\Panel\User\UserEdit;
-use App\Http\Livewire\Panel\User\UserIndex;
+use App\Http\Livewire\Panel\Post\{PostIndex, PostCreate, PostEdit};
+use App\Http\Livewire\Panel\User\{UserIndex, UserCreate, UserEdit};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +27,12 @@ Route::prefix('panel')->name('panel.')->middleware('auth')->group(function() {
         Route::get('/', UserIndex::class)->name('index');
         Route::get('/create', UserCreate::class)->name('create');
         Route::get('/edit/{id}', UserEdit::class)->name('edit');
+    });
+
+    Route::prefix('post')->name('post.')->group(function() {
+        Route::get('/', PostIndex::class)->name('index');
+        Route::get('/create', PostCreate::class)->name('create');
+        Route::get('/edit/{id}', PostEdit::class)->name('edit');
     });
 });
 
