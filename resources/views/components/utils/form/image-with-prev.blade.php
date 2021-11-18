@@ -8,7 +8,11 @@
         position: relative;
 
         @if(!$errors->has($model) && !is_null($img))
-        background-image: url('{!! $img->temporaryUrl() !!}');
+            @if(is_string($img))
+            background-image: url('/assets/img/post/cover/{{ $img }}');
+            @else
+            background-image: url('{!! $img->temporaryUrl() !!}');
+            @endif
         @endif
     }
 </style>

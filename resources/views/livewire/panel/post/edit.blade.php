@@ -1,3 +1,10 @@
+@section('content-header')
+<h2 class="section-title">Edit Post</h2>
+<p class="section-lead">
+    Anda dapat mengubah judul, cover, maupun konten
+</p>
+@endsection
+
 <div>
-    {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
+    <x-panel.post.form action="update" :post="$post" />
 </div>

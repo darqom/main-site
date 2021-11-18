@@ -36,7 +36,7 @@
                                 <td>{{ $post->status }}</td>
                                 <td>{{ $post->created_at->format('d/m/Y [H:i]') }}</td>
                                 <td>
-                                    <a href="{{ route('panel.user.edit', $post->id) }}" class="btn btn-sm btn-success mr-1">
+                                    <a href="{{ route('panel.post.edit', $post->id) }}" class="btn btn-sm btn-success mr-1">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
                                     <button class="btn btn-sm btn-danger" wire:click="delete({{ $post->id }})">
