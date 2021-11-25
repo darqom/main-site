@@ -67,6 +67,7 @@ class ExculIndex extends Component
         Image::delete($excul->image);
         $excul->delete();
 
+        $this->resetForm();
         $this->emit('swals', 'Berhasil menghapus data');
     }
 
