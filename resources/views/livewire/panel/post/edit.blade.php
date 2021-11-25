@@ -6,5 +6,5 @@
 @endsection
 
 <div>
-    <x-panel.post.form action="update" :post="$post" />
+    <x-panel.post.form action="update" :post="$post" :categories="$categories" />
 </div>

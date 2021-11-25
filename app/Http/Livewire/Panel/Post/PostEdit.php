@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Panel\Post;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Services\Post\Image;
 use Livewire\Component;
@@ -12,6 +13,7 @@ class PostEdit extends Component
     use WithFileUploads;
 
     public $post;
+    public $categories;
 
     protected $rules = [
         'post.title' => 'required|string|min:3',
@@ -24,6 +26,7 @@ class PostEdit extends Component
     {
         $this->model = Post::findOrFail($id);
         $this->post = $this->model->toArray();
+        $this->categories = Category::all();
     }
 
     public function updated()

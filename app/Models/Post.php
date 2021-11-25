@@ -28,4 +28,9 @@ class Post extends Model
             $post->user_id = Auth::user()->id;
         });
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

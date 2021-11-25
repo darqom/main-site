@@ -23,19 +23,9 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body pb-4">
-                <h6 id="cat-button" data-toggle="collapse" data-target="#categoryCollapse" class="has-arrow collapsed">
+                <h6 id="cat-button" data-toggle="modal" data-target="#categoryModal" class="">
                     <i class="fas fa-list"></i> Kategori
                 </h6>
-                <div class="collapse in pt-4" id="categoryCollapse">
-                    <div class="selectgroup selectgroup-pills">
-                        <label class="selectgroup-item m-1">
-                            <input type="radio" name="category" class="selectgroup-input" value="berita">
-                            <span class="selectgroup-button">
-                                <strong>Berita</strong>
-                            </span>
-                        </label>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -89,6 +79,31 @@
 </div>
 </form>
 
+<div wire:ignore.self class="modal fade" tabindex="-1" id="categoryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kategori</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="selectgroup selectgroup-pills">
+                    @foreach ($categories as $category)
+                    <label class="selectgroup-item m-1">
+                        <input type="radio" name="category" class="selectgroup-input" value="{{ $category->id }}" wire:model="post.category_id">
+                        <span class="selectgroup-button">
+                            <strong>{{ $category->name }}</strong>
+                        </span>
+                    </label>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{-- For stack style and script --}}
 
 @push('style')
@@ -99,18 +114,8 @@
         cursor: pointer;
     }
 
-    .has-arrow::before
-    {
-        font-family: "Font Awesome 5 Free";
-        content: "\f078";
-        float: right;
-        transition: all 0.5s;
-    }
-
-    .has-arrow.active::before {
-        -webkit-transform: rotate(180deg);
-        -moz-transform: rotate(180deg);
-        transform: rotate(180deg);
+    .modal-backdrop {
+        display: none;
     }
 </style>
 @endpush
@@ -118,10 +123,6 @@
 @push('script')
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script>
-    $('.has-arrow').click(function() {
-        $(this).toggleClass('active');
-    });
-
     $('#content').summernote({
         height: '40vh',
         tabsize: 2,

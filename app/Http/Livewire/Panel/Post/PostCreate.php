@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Panel\Post;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Services\Post\Image;
 use Livewire\Component;
@@ -12,6 +13,7 @@ class PostCreate extends Component
     use WithFileUploads;
 
     public $post;
+    public $categories;
 
     protected $rules = [
         'post.title' => 'required|string|min:3',
@@ -20,9 +22,10 @@ class PostCreate extends Component
         'post.comment' => 'required|in:deny,allow',
     ];
 
-    protected $listeners = [
-        'postCreated' => '$refresh'
-    ];
+    public function mount()
+    {
+        $this->categories = Category::all();
+    }
 
     public function updated()
     {
@@ -48,7 +51,6 @@ class PostCreate extends Component
 
         $this->reset('post');
         $this->emit('swals', 'Post berhasil disimpan');
-        $this->emit('postCreated');
     }
 
     private function manageProps(): void

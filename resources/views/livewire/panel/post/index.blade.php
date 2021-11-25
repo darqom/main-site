@@ -32,7 +32,7 @@
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $post->title }}</td>
-                                <td>{{ $post->category }}</td>
+                                <td>{{ $post->category->name }}</td>
                                 <td>{{ $post->status }}</td>
                                 <td>{{ $post->created_at->format('d/m/Y [H:i]') }}</td>
                                 <td>
