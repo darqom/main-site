@@ -3,6 +3,7 @@
 use App\Http\Controllers\Panel\PostController;
 use App\Http\Livewire\Panel\Category\CategoryIndex;
 use App\Http\Livewire\Panel\Dashboard;
+use App\Http\Livewire\Panel\Excul\ExculIndex;
 use App\Http\Livewire\Panel\Post\{PostIndex, PostCreate, PostEdit};
 use App\Http\Livewire\Panel\User\{UserIndex, UserCreate, UserEdit};
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,8 @@ Route::prefix('panel')->name('panel.')->middleware('auth')->group(function() {
     Route::prefix('category')->name('category.')->group(function() {
         Route::get('/', CategoryIndex::class)->name('index');
     });
+
+    Route::get('excul', ExculIndex::class)->name('excul.index');
 
     Route::prefix('upload')->name('upload.')->group(function() {
         Route::post('/post', [PostController::class, 'uploadImage'])->name('post');

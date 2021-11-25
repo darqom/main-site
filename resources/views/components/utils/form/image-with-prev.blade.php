@@ -9,7 +9,7 @@
 
         @if(!$errors->has($model) && !is_null($img))
             @if(is_string($img))
-            background-image: url('/assets/img/post/cover/{{ $img }}');
+            background-image: url('/assets/img/{{ ($path ?? '') . $img }}');
             @else
             background-image: url('{!! $img->temporaryUrl() !!}');
             @endif
