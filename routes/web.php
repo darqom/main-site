@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Panel\Category\CategoryIndex;
 use App\Http\Livewire\Panel\Dashboard;
 use App\Http\Livewire\Panel\Post\{PostIndex, PostCreate, PostEdit};
 use App\Http\Livewire\Panel\User\{UserIndex, UserCreate, UserEdit};
@@ -33,6 +34,10 @@ Route::prefix('panel')->name('panel.')->middleware('auth')->group(function() {
         Route::get('/', PostIndex::class)->name('index');
         Route::get('/create', PostCreate::class)->name('create');
         Route::get('/edit/{id}', PostEdit::class)->name('edit');
+    });
+
+    Route::prefix('category')->name('category.')->group(function() {
+        Route::get('/', CategoryIndex::class)->name('index');
     });
 });
 

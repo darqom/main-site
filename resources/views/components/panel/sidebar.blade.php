@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="menu-header">DATA</li>
-            <li class="nav-item dropdown @active('panel.post')">
+            <li class="nav-item dropdown @active('panel.post,panel.category')">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-thumbtack"></i> <span>Post</span></a>
                 <ul class="dropdown-menu">
                     <li class="@active('panel.post.index')">
@@ -21,6 +21,9 @@
                     </li>
                     <li class="@active('panel.post.create')">
                         <a class="nav-link" href="{{ route('panel.post.create') }}">Tambah Post</a>
+                    </li>
+                    <li class="@active('panel.category.index')">
+                        <a class="nav-link" href="{{ route('panel.category.index') }}">Kategori</a>
                     </li>
                 </ul>
             </li>
