@@ -18,12 +18,17 @@ class BladeHelper
      * ---------------------->
      * Return true if the route is matched
      */
-    public static function active($route): string
+    public static function active($routes): string
     {
         $name = Route::current()->getName();
-        $route = str_replace("'", '', $route);
+        $routes = str_replace("'", '', $routes);
+        $routes = explode(',', $routes);
 
-        return preg_match("/$route/", $name) ? 'active' : '';
+        $match = array_filter($routes, function($route) use($name) {
+            return preg_match("/$route/", $name);
+        });
+
+        return (count($match) > 0) ? 'active' : '';
     }
 
     /**
