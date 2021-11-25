@@ -68,7 +68,10 @@
                     <div class="form-group">
                         <x-utils.form.image-with-prev model="excul.image" :img="$excul['image'] ?? null" path="excul/" />
                     </div>
-                    <div class="form-group text-center">
+                    <div class="form-group d-flex justify-content-between">
+                        <button wire:click="resetForm()" type="button" class="btn btn-secondary">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Simpan
                         </button>

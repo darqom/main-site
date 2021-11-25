@@ -48,10 +48,9 @@ class ExculIndex extends Component
             Excul::create($this->excul);
         } else {
             $this->model->update($this->excul);
-            $this->editMode = false;
         }
-
-        $this->reset('excul', 'model');
+        
+        $this->resetForm();
         $this->emit('swals', 'Berhasil menyimpan data');
     }
 
@@ -78,6 +77,12 @@ class ExculIndex extends Component
             Excul::latest();
 
         return $exculs->paginate($this->paginate);
+    }
+
+    public function resetForm()
+    {
+        $this->editMode = false;
+        $this->reset('excul', 'model');
     }
     
     private function manageProps()
