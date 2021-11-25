@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Panel\PostController;
 use App\Http\Livewire\Panel\Category\CategoryIndex;
 use App\Http\Livewire\Panel\Dashboard;
 use App\Http\Livewire\Panel\Post\{PostIndex, PostCreate, PostEdit};
@@ -38,6 +39,11 @@ Route::prefix('panel')->name('panel.')->middleware('auth')->group(function() {
 
     Route::prefix('category')->name('category.')->group(function() {
         Route::get('/', CategoryIndex::class)->name('index');
+    });
+
+    Route::prefix('upload')->name('upload.')->group(function() {
+        Route::post('/post', [PostController::class, 'uploadImage'])->name('post');
+        Route::delete('/post', [PostController::class, 'deleteImage']);
     });
 });
 

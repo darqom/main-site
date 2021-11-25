@@ -2,6 +2,7 @@
 
 namespace App\Services\Post;
 
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Livewire\TemporaryUploadedFile;
 
@@ -24,5 +25,20 @@ class Image
             Storage::disk('assets')->delete("img/post/cover/$old");
 
         return static::uploadCover($cover);
+    }
+
+    public static function upload(UploadedFile $image): string
+    {
+        $ext = $image->getClientOriginalExtension();
+        $name = 'postimage_' . time() . random_int(1, 9999) . '.' . $ext;
+
+        $image->storeAs('img/post', $name, ['disk' => 'assets']);
+        return $name;
+    }
+
+    public static function delete(string $image): string
+    {
+        Storage::disk('assets')->delete("img/post/$image");
+        return $image;
     }
 }

@@ -123,6 +123,39 @@
 @push('script')
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script>
+    const uploadImageSummer = (el, image) => {
+        let data = new FormData();
+        data.append('image', image);
+
+        $.ajax({
+            url: '{{ route('panel.upload.post') }}',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: data,
+            method: 'post',
+            dataType: 'json',
+            success: function(data){
+                if(data.status == 'success'){
+                    $(el).summernote('insertImage', data.url);
+                }else{
+                    console.warn(data.msg);
+                }
+            },
+            error: function(data){
+                console.warn(data.responseText);
+            }
+        });
+    }
+
+    const deleteImageSummer = image => {
+        $.ajax({
+            url: '{{ route('panel.upload.post') }}',
+            data: {image: image},
+            method: 'delete'
+        });
+    }
+
     $('#content').summernote({
         height: '40vh',
         tabsize: 2,
@@ -131,6 +164,12 @@
             onBlur: function(e) {
                 const content = $(e.target).html();
                 @this.set('post.content', content);
+            },
+            onImageUpload: image => {
+                uploadImageSummer('#content', image[0]);
+            },
+            onMediaDelete: target => {
+                deleteImageSummer(target[0].src);
             }
         }
     });
