@@ -31,7 +31,7 @@
                                     <div class="img-cover" style="background-image: url('/assets/img/excul/{{ $item->image }}')"></div>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-success mr-1">
+                                    <button wire:click="edit({{ $item->id }})" class="btn btn-sm btn-success mr-1">
                                         <i class="fas fa-pencil-alt"></i>
                                     </button>
                                     <button wire:click="delete({{ $item->id }})" class="btn btn-sm btn-danger">
@@ -50,7 +50,11 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
+                @if($editMode)
+                <h4>Edit Ekskul</h4>
+                @else
                 <h4>Tambah Ekskul</h4>
+                @endif
             </div>
             <div class="card-body">
                 <form wire:submit.prevent="store">

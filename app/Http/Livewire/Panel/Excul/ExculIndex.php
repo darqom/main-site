@@ -12,12 +12,13 @@ class ExculIndex extends Component
 {
     use WithPagination, WithFileUploads;
 
+    public $editMode = false;
     public $paginate = 5;
     public $keyword;
-    public $excul;
+    public $excul, $model;
 
     protected $rules = [
-        'excul.name' => 'required|string|min:3'
+        'excul.name' => 'required|string|min:3',
     ];
 
     public function updated()
@@ -43,10 +44,22 @@ class ExculIndex extends Component
         $this->validate();
         $this->manageProps();
 
-        Excul::create($this->excul);
+        if(!$this->editMode) {
+            Excul::create($this->excul);
+        } else {
+            $this->model->update($this->excul);
+            $this->editMode = false;
+        }
 
-        $this->reset('excul');
+        $this->reset('excul', 'model');
         $this->emit('swals', 'Berhasil menyimpan data');
+    }
+
+    public function edit($id)
+    {
+        $this->editMode = true;
+        $this->model = Excul::find($id);
+        $this->excul = $this->model->toArray();
     }
 
     public function delete($id)
@@ -54,7 +67,7 @@ class ExculIndex extends Component
         $excul = Excul::find($id);
         Image::delete($excul->image);
         $excul->delete();
-        
+
         $this->emit('swals', 'Berhasil menghapus data');
     }
 
@@ -70,7 +83,10 @@ class ExculIndex extends Component
     private function manageProps()
     {
         if($image = $this->excul['image'] ?? null) {
-            $this->excul['image'] = Image::upload($image, $image);
+            if(!is_string($image)) {
+                $old = $this->model->image ?? null;
+                $this->excul['image'] = Image::upload($image, $old);
+            }
         }
     }
 }
