@@ -9,14 +9,17 @@ class OptionHelper
     /**
      * Return option value from database
      * 
-     * @param string $key
+     * @param string|array $key
      * @param bool $string
      * @return \App\Models\Option|string|null
      */
-    public function get(string $key, bool $string = true)
+    public function get($key, bool $string = true)
     {
-        $option = Option::where('key', $key)->first();
+        if(is_array($key)) {
+            return $this->getBatch($key);
+        }
 
+        $option = Option::where('key', $key)->first();
         return ($string) ? ($option->value ?? null) : $option;
     }
 
@@ -30,7 +33,7 @@ class OptionHelper
     public function put($key, $value = null)
     {
         if(is_array($key) && is_null($value)) {
-            return $this->put_batch($key, $value);
+            return $this->putBatch($key, $value);
         }
 
         if(is_array($value)) {
@@ -64,7 +67,7 @@ class OptionHelper
         return false;
     }
 
-    private function put_batch(array $keys)
+    private function putBatch(array $keys)
     {
         array_walk($keys, function($value, $key) {
             if(is_int($key)) return 0;
@@ -72,6 +75,18 @@ class OptionHelper
         });
 
         return $keys;
+    }
+
+    private function getBatch(array $keys)
+    {
+        $options = Option::whereIn('key', $keys)->pluck('value', 'key')->toArray();
+        
+        foreach($keys as $key) {
+            if(!array_key_exists($key, $options))
+                $options[$key] = null;
+        }
+
+        return $options;
     }
 
     private function create(string $key, $value)

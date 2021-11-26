@@ -6,7 +6,7 @@ if(!function_exists('option')) {
     /**
      * Get an option value from database
      * 
-     * @param string|null $key
+     * @param string|array|null $key
      * @param string|null $value
      * @param bool $putMode
      * @return \App\Helpers\OptionHelper|null|string
