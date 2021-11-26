@@ -20,10 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    option()->put([
-        'school-site',
-        // 'school-instagram' => 'amann'
-    ]);
+    return view('welcome');
 });
 
 Route::prefix('panel')->name('panel.')->middleware('auth')->group(function() {

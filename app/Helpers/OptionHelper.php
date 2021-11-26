@@ -24,13 +24,17 @@ class OptionHelper
      * Set option value to database
      * 
      * @param string|array $key
-     * @param mixed $value
+     * @param string|array $value
      * @return string $value
      */
     public function put($key, $value = null)
     {
         if(is_array($key) && is_null($value)) {
             return $this->put_batch($key, $value);
+        }
+
+        if(is_array($value)) {
+            $value = json_encode($value);
         }
 
         if($option = $this->get($key, false)) {
