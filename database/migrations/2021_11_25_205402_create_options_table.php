@@ -15,7 +15,7 @@ class CreateOptionsTable extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->string('key', 15);
+            $table->string('key', 50);
             $table->text('value');
         });
     }

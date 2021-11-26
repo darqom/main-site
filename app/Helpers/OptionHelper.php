@@ -23,12 +23,20 @@ class OptionHelper
     /**
      * Set option value to database
      * 
-     * @param string $key
-     * @param mixed $value
+     * @param string|array $key
+     * @param string|array $value
      * @return string $value
      */
-    public function put(string $key, $value)
+    public function put($key, $value = null)
     {
+        if(is_array($key) && is_null($value)) {
+            return $this->put_batch($key, $value);
+        }
+
+        if(is_array($value)) {
+            $value = json_encode($value);
+        }
+
         if($option = $this->get($key, false)) {
             $this->update($option, $value);
             $option = $this->get($key, false);
@@ -54,6 +62,16 @@ class OptionHelper
         }
 
         return false;
+    }
+
+    private function put_batch(array $keys)
+    {
+        array_walk($keys, function($value, $key) {
+            if(is_int($key)) return 0;
+            $this->put($key, $value);
+        });
+
+        return $keys;
     }
 
     private function create(string $key, $value)
