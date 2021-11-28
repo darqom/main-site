@@ -12,6 +12,7 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/stisla/style.css">
     <link rel="stylesheet" href="/assets/stisla/components.css">
+    <link rel="stylesheet" href="/assets/css/vanillatoasts.min.css">
 
     <!-- Specific Page CSS -->
     @stack('style')
@@ -52,6 +53,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="/assets/js/vanillatoasts.min.js"></script>
     <script src="/assets/stisla/stisla.js"></script>
     
     <!-- Template JS File -->

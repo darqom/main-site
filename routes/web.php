@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Panel\PostController;
+use App\Http\Livewire\Panel\About\AboutIndex;
 use App\Http\Livewire\Panel\Category\CategoryIndex;
 use App\Http\Livewire\Panel\Dashboard;
 use App\Http\Livewire\Panel\Excul\ExculIndex;
@@ -43,6 +44,8 @@ Route::prefix('panel')->name('panel.')->middleware('auth')->group(function() {
     });
 
     Route::get('excul', ExculIndex::class)->name('excul.index');
+    
+    Route::get('about', AboutIndex::class)->name('about.index');
 
     Route::prefix('upload')->name('upload.')->group(function() {
         Route::post('/post', [PostController::class, 'uploadImage'])->name('post');

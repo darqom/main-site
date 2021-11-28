@@ -32,6 +32,11 @@
                 <a class="nav-link" href="{{ route('panel.excul.index') }}"><i class="fas fa-chalkboard-teacher"></i> <span>Ekstrakulikuler</span></a>
             </li>
 
+            <li class="menu-header">LEMBAGA</li>
+            <li class="@active('panel.about')">
+                <a class="nav-link" href="{{ route('panel.about.index') }}"><i class="fas fa-school"></i> <span>Tentang Sekolah</span></a>
+            </li>
+
             <li class="menu-header">WEBSITE</li>
             <li class="nav-item dropdown @active('panel.user')">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i> <span>Users</span></a>

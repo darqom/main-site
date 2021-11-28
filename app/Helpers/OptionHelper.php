@@ -28,7 +28,7 @@ class OptionHelper
      * 
      * @param string|array $key
      * @param string|array $value
-     * @return string $value
+     * @return string|null $value
      */
     public function put($key, $value = null)
     {
@@ -39,6 +39,8 @@ class OptionHelper
         if(is_array($value)) {
             $value = json_encode($value);
         }
+
+        if($value == null) return null;
 
         if($option = $this->get($key, false)) {
             $this->update($option, $value);
