@@ -7,6 +7,9 @@
             <li class="nav-item">
                 <a href="{{ route('panel.settings.general') }}" class="nav-link @active('panel.settings.general')">Umum</a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('panel.settings.smtp') }}" class="nav-link @active('panel.settings.smtp')">SMTP</a>
+            </li>
         </ul>
     </div>
 </div>
