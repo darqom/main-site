@@ -49,6 +49,9 @@
                     </li>
                 </ul>
             </li>
+            <li class="@active('panel.settings')">
+                <a class="nav-link" href="{{ route('panel.settings.index') }}"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
+            </li>
             @endrole
             <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
         </ul>
