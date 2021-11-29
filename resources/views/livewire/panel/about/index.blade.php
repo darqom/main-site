@@ -71,6 +71,9 @@
                         <input type="text" id="school-video" class="form-control" wire:model.lazy="about.school-video">
                     </div>
                 </div>
+                <div class="form-group">
+                    <x-utils.form.image-with-prev model="about.school-video-cover" :img="$about['school-video-cover']" />
+                </div>
             </div>
         </div>
         
