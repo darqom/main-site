@@ -61,7 +61,7 @@
                 <div class="form-group text-center mt-2">
                     <label>Foto Cover (opsional)</label>
 
-                    <x-utils.form.image-with-prev model="post.cover" path="post/cover/" :img="$post['cover'] ?? null" />
+                    <x-utils.form.image-with-prev model="post.cover" path="post/cover/" :img="$post['cover'] ?? null" center="true" />
                 </div>
             </div>
         </div>

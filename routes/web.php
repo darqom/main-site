@@ -6,6 +6,7 @@ use App\Http\Livewire\Panel\Category\CategoryIndex;
 use App\Http\Livewire\Panel\Dashboard;
 use App\Http\Livewire\Panel\Excul\ExculIndex;
 use App\Http\Livewire\Panel\Post\{PostIndex, PostCreate, PostEdit};
+use App\Http\Livewire\Panel\Settings\{SettingsGeneral, SettingsIndex};
 use App\Http\Livewire\Panel\User\{UserIndex, UserCreate, UserEdit};
 use Illuminate\Support\Facades\Route;
 
@@ -39,12 +40,13 @@ Route::prefix('panel')->name('panel.')->middleware('auth')->group(function() {
         Route::get('/edit/{id}', PostEdit::class)->name('edit');
     });
 
-    Route::prefix('category')->name('category.')->group(function() {
-        Route::get('/', CategoryIndex::class)->name('index');
+    Route::prefix('settings')->name('settings.')->group(function() {
+        Route::get('/', SettingsIndex::class)->name('index');
+        Route::get('/general', SettingsGeneral::class)->name('general');
     });
-
-    Route::get('excul', ExculIndex::class)->name('excul.index');
     
+    Route::get('category', CategoryIndex::class)->name('category.index');
+    Route::get('excul', ExculIndex::class)->name('excul.index');
     Route::get('about', AboutIndex::class)->name('about.index');
 
     Route::prefix('upload')->name('upload.')->group(function() {

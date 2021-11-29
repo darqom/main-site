@@ -66,7 +66,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <x-utils.form.image-with-prev model="excul.image" :img="$excul['image'] ?? null" path="excul/" />
+                        <x-utils.form.image-with-prev model="excul.image" :img="$excul['image'] ?? null" path="excul/" center="true" />
                     </div>
                     <div class="form-group d-flex justify-content-between">
                         <button wire:click="resetForm()" type="button" class="btn btn-secondary">
